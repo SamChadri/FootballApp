@@ -1,0 +1,227 @@
+﻿<Page
+    x:Class="FootballApp.Season"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FootballApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:telerikCore="using:Telerik.Core"
+    xmlns:telerikPrim="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:telerikData="using:Telerik.UI.Xaml.Controls.Data"
+
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!-- VisualState to be triggered when the
+                             window width is >=640 effective pixels. -->
+                        <AdaptiveTrigger MinWindowWidth="1100" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="radChart.Width" Value="800"/>
+                        <Setter Target="Charts.Orientation" Value="Horizontal"/>
+                        <Setter Target="BarTitle.Margin" Value="450,-150,10,0"/>
+                        <Setter Target="PieTitle.Margin" Value="50,-150,0,0"/>
+                        <Setter Target="BarChart.Margin" Value="0,-100,0,0"/>
+                        <Setter Target="PieStack.Margin" Value="0,-50,0,0"/>
+                        <Setter Target="Charts.Margin" Value="0,300,0,0"/>
+                        <Setter Target="BottomBorder.Margin" Value="0,300,0,0"/>
+                        <Setter Target="HomeTiles.Margin" Value="0,0,0,75"/>
+                        <Setter Target="BarLabel.FontSize" Value="11"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid>
+
+            <NavigationView  x:Name="NavView"
+            IsSettingsVisible="True"
+            IsBackEnabled="True"
+            IsBackButtonVisible="Auto"
+            BackRequested="NavView_BackRequested"
+            PaneOpening="NavigationViewControl_PaneOpening"
+            PaneClosing="NavigationViewControl_PaneClosing"
+            IsTapEnabled="True"
+            Canvas.ZIndex="1"
+            ItemInvoked="NavView_ItemInvoked"                                                
+            AlwaysShowHeader="True"
+            CompactModeThresholdWidth="0"
+            PaneDisplayMode="LeftCompact">
+
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Icon="Home"  Content="Home" Tag="Home" />
+                    <NavigationViewItem Icon="PreviewLink" Content="Season" Tag="Season" />
+                    <NavigationViewItem Icon="Add"  Content="Add" Tag="Create" />
+                    <NavigationViewItem Icon="Contact" Content="Profile" Tag="Profile" />
+                </NavigationView.MenuItems>
+                <Frame x:Name="contentFrame"/>
+            </NavigationView>
+            <TextBlock FontWeight="Light" FontSize="40" Margin="60,40,0,0" Text="Season Stats"/>
+            <Border Height="3" VerticalAlignment="Top" Margin="0,100,0,0" Background="OrangeRed" Canvas.ZIndex="0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Image Margin="0,60,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="50" Source="Assets/illinois_athletics_logo_new_i.png"/>
+                <TextBlock FontSize="20" Margin="0,70,10,0" FontWeight="ExtraBold" Text="ILLINI FOOTBALL"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Margin="0,150,0,0"  HorizontalAlignment="Center" x:Name="Charts" Orientation="Vertical">
+
+                <RelativePanel Margin="0,00,0,0"  HorizontalAlignment="Center">
+
+                    <TextBlock x:Name="BarTitle"  FontWeight="Light" FontSize="20" Margin="300,0,10,0" Text="Game Overview" />
+
+                    <StackPanel x:Name="BarChart" HorizontalAlignment="Center"  RelativePanel.Below="BarTitle" Orientation="Horizontal">
+
+                        <telerik:RadCartesianChart  Margin="100,25,100,0" x:Name="radChart" 
+                                       Width="600" Height="300" PaletteName="DefaultLight">
+                            <telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:DateTimeCategoricalAxis x:Name="BarLabel"  FontStretch="ExtraCondensed" LabelInterval="1" FontSize="9"  />
+                            </telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:LinearAxis/>
+                            </telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:RadCartesianChart.Grid>
+                                <telerik:CartesianChartGrid MajorLinesVisibility="Y" StripLinesVisibility="Y"/>
+                            </telerik:RadCartesianChart.Grid>
+                            <telerik:BarSeries  Background="OrangeRed"  LegendTitle="Points Scored" CombineMode="Cluster" >
+                                <telerik:BarSeries.ValueBinding>
+                                    <telerik:PropertyNameDataPointBinding PropertyName="points"/>
+                                </telerik:BarSeries.ValueBinding>
+                                <telerik:BarSeries.CategoryBinding>
+                                    <telerik:PropertyNameDataPointBinding PropertyName="opponent"/>
+                                </telerik:BarSeries.CategoryBinding>
+                                <telerik:BarSeries.PointTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Fill="OrangeRed"/>
+                                    </DataTemplate>
+                                </telerik:BarSeries.PointTemplate>
+                            </telerik:BarSeries>
+                            <telerik:BarSeries LegendTitle="Opponent Points Scored" CombineMode="Cluster" >
+                                <telerik:BarSeries.ValueBinding>
+                                    <telerik:PropertyNameDataPointBinding PropertyName="opPoints"/>
+                                </telerik:BarSeries.ValueBinding>
+                                <telerik:BarSeries.CategoryBinding>
+                                    <telerik:PropertyNameDataPointBinding PropertyName="opponent"/>
+                                </telerik:BarSeries.CategoryBinding>
+                                <telerik:BarSeries.PointTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Fill="#0A1E45"/>
+                                    </DataTemplate>
+                                </telerik:BarSeries.PointTemplate>
+                            </telerik:BarSeries>
+
+                        </telerik:RadCartesianChart>
+
+                        <StackPanel Margin="-100,00,0,0" Orientation="Vertical">
+                            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,100,0,0">
+                                <Rectangle Fill="OrangeRed" Stroke="OrangeRed"
+                         StrokeThickness="1" Width="10" Height="10" />
+                                <TextBlock FontStyle="Italic" Foreground="OrangeRed" HorizontalAlignment="Center" Margin="10" Text="Illinois"/>
+                            </StackPanel>
+
+                            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="30,0,10,0">
+                                <Rectangle Fill="#0A1E45" Stroke="#0A1E45"
+                         StrokeThickness="1" Width="10" Height="10" />
+                                <TextBlock FontStyle="Italic" Foreground="#0A1E45" HorizontalAlignment="Center" Margin="10" Text="Opponent"/>
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+
+                </RelativePanel>
+
+
+                <RelativePanel HorizontalAlignment="Center">
+
+                    <TextBlock x:Name="PieTitle" FontWeight="Light" FontSize="20" Margin="50,50,0,0" HorizontalAlignment="Center" Text="Loaf By Position" />
+
+                    <StackPanel x:Name="PieStack" RelativePanel.Below="PieTitle" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <telerik:RadPieChart HorizontalAlignment="Center" Margin="0,25,0,0" Width="200" Height="200" x:Name="pieChart" PaletteName="DefaultDark">
+                            <telerik:PieSeries  ShowLabels="True" RadiusFactor="0.7">
+                                <telerik:PieSeries.ValueBinding>
+                                    <telerik:PropertyNameDataPointBinding PropertyName="loaf"/>
+                                </telerik:PieSeries.ValueBinding>
+                                <telerik:PieSeries.LabelDefinitions>
+                                    <telerik:ChartSeriesLabelDefinition  Margin="0"/>
+                                </telerik:PieSeries.LabelDefinitions>
+                                <telerik:PieSeries.LegendTitleBinding >
+                                    <telerik:PropertyNameDataPointBinding PropertyName="label"/>
+                                </telerik:PieSeries.LegendTitleBinding>
+
+                            </telerik:PieSeries>
+                        </telerik:RadPieChart>
+
+
+                        <telerikPrim:RadLegendControl HorizontalAlignment="Center" Padding="0,25,10,10" Margin="0,0,0,0" LegendProvider="{Binding ElementName=pieChart}">
+                            <telerikPrim:RadLegendControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </telerikPrim:RadLegendControl.ItemsPanel>
+                            <telerikPrim:RadLegendControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Fill="{Binding Fill}" Stroke="{Binding Stroke}"
+                         StrokeThickness="1" Width="10" Height="10"/>
+                                        <TextBlock Text="{Binding Title}" Foreground="{Binding Fill}"
+                           Margin="10" FontStyle="Italic"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </telerikPrim:RadLegendControl.ItemTemplate>
+                        </telerikPrim:RadLegendControl>
+
+                    </StackPanel>
+
+                </RelativePanel>
+                
+            </StackPanel>
+
+
+            <StackPanel Margin="0,300,0,0" Orientation="Vertical">
+
+                <Border x:Name="BottomBorder" Height="3"  Padding="0,0,0,0" Margin="00,500,0,0" Background="OrangeRed" Canvas.ZIndex="0"/>
+
+                <GridView  Canvas.ZIndex="1" IsItemClickEnabled="True" ItemClick="HomeTiles_ItemClick" SelectionMode="Single"
+                           HorizontalAlignment="Center" Padding="0,50,0,0" Margin="0,00,0,0" x:Name="HomeTiles" >
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="Margin" Value="20"/>
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:Name="TransitionTiles" x:DataType="x:String">
+                            <StackPanel Width="200" Height="100" Padding="12" Orientation="Vertical" Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                                <StackPanel HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" >
+                                    <TextBlock HorizontalTextAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"  FontWeight="Thin" Width="176" Margin="0,0,0,2" TextWrapping="WrapWholeWords" TextTrimming="Clip" Text="{Binding}"/>
+                                </StackPanel>
+                                <Border Height="1" Margin="0,10,0,0" Background="OrangeRed" Width="100" />
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <x:String>Offensive Line</x:String>
+                    <x:String>Defensive Line</x:String>
+                    <x:String>Receivers</x:String>
+                    <x:String>Safeties</x:String>
+                </GridView>
+
+            </StackPanel>
+
+
+        </Grid>
+
+
+    </ScrollViewer>
+    
+
+</Page>

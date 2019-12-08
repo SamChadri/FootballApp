@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="FootballApp.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FootballApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer>
+        <Grid Background="MidnightBlue">
+
+
+  
+
+
+
+
+            <NavigationView x:Name="NavView" Loaded="NavView_Loaded" BackRequested="NavView_BackRequested" PaneDisplayMode="LeftCompact" IsBackEnabled="True" IsBackButtonVisible="Visible" Grid.ColumnSpan="2">
+            </NavigationView>
+
+
+            <!--    
+            <Rectangle Fill="#496CB3" Height="300" Width="1180" HorizontalAlignment="Right" PointerPressed="Home_Navigation"/>
+            <Rectangle Fill="#1f3d7a" Height="300" Width="1180" HorizontalAlignment="Right" PointerPressed="Home_Navigation"/>
+            <Rectangle Fill="#152951" Height="300" Width="1180" HorizontalAlignment="Right" PointerPressed="Home_Navigation"/>
+            <Rectangle Fill="#1f3d7a" Height="300" Width="1180" HorizontalAlignment="Right" PointerPressed="Home_Navigation"/>
+            -->
+
+            <StackPanel>
+                <TextBlock FontWeight="ExtraBold" HorizontalAlignment="Right" Margin="0,10,10,0" FontSize="40"  Foreground="White" Text="ILLINI FOOTBALL"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                    <TextBlock Margin="0,40,0,0" HorizontalAlignment="Center" Foreground="White" FontSize="20" FontFamily="Segoe UI Symbol" Text="&#xE12A;" Width="60" Height="60"/>
+                    <TextBlock x:Name="SeasonText" HorizontalAlignment="Center" FontWeight="Thin" PointerPressed="Home_Navigation"
+                       FontSize="30" Margin="20,40,0,30" Foreground="White" Text="Season"/>
+                </StackPanel>
+                <Border Height="1" Background="White" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Margin="0,100,0,0" HorizontalAlignment="Center" Foreground="White" FontSize="20" FontFamily="Segoe UI Symbol" Text="&#xE109;" Width="60" Height="60"/>
+                    <TextBlock x:Name="CreateText" HorizontalAlignment="Center" FontWeight="Thin" PointerPressed="Home_Navigation"
+                       Margin="20,100,0,30" FontSize="30" Text="Create" Foreground="White"/>
+                </StackPanel>
+                <Border Height="1" Background="White" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Margin="0,100,0,0" HorizontalAlignment="Center" Foreground="White" FontSize="20" FontFamily="Segoe UI Symbol" Text="&#xE136;" Width="60" Height="60"/>
+                    <TextBlock x:Name="ProfileText" HorizontalAlignment="Center" FontWeight="Thin" PointerPressed="Home_Navigation"
+                       Margin="20,100,0,30" FontSize="30" Text="Profile" Foreground="White"/>
+                </StackPanel>
+                <Border Height="1" Background="White" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Margin="0,100,0,0" HorizontalAlignment="Center" Foreground="White" FontSize="20" FontFamily="Segoe UI Symbol" Text="&#xE115;" Width="60" Height="60"/>
+                    <TextBlock x:Name="SettingsText" HorizontalAlignment="Center" FontWeight="Thin" PointerPressed="Home_Navigation"
+                       Margin="20,100,0,30" FontSize="30" Text="Settings" Foreground="White"/>
+                </StackPanel>
+                <Border Height="1" Background="White" />
+            </StackPanel>
+
+
+        </Grid>
+    </ScrollViewer>
+</Page>

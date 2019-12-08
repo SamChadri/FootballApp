@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="FootballApp.Roster"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FootballApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:telerikCore="using:Telerik.Core"
+    xmlns:telerikPrim="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:telerikData="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:local1="using:FootballDataLibrary"
+    xmlns:local2="using:FootballApp.Utils"
+    xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <local2:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Page.Resources>
+    
+
+    <ScrollViewer>
+
+        <Grid>
+
+            <NavigationView  x:Name="NavView"
+            IsSettingsVisible="True"
+            IsBackEnabled="True"
+            IsBackButtonVisible="Auto"
+            IsTapEnabled="True"
+            BackRequested="NavView_BackRequested"
+            Canvas.ZIndex="1"
+            CompactModeThresholdWidth="1007"
+            AlwaysShowHeader="True"
+            ItemInvoked="NavView_ItemInvoked"
+            PaneDisplayMode="LeftCompact">
+
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Icon="Home"  Content="Home" Tag="Home" />
+                    <NavigationViewItem Icon="PreviewLink" Content="Season" Tag="Season" />
+                    <NavigationViewItem Icon="Add"  Content="Add" Tag="Create" />
+                    <NavigationViewItem Icon="Contact" Content="Profile" Tag="Profile" />
+
+                </NavigationView.MenuItems>
+
+            </NavigationView>
+            <Border VerticalAlignment="Top" Height="2" Margin="0,70,0,0" Background="OrangeRed"/>
+
+            <StackPanel HorizontalAlignment="Left" Margin="70,20,0,0">
+                <TextBlock FontWeight="Thin" FontSize="40" Text="Roster"/>
+                <ListView x:Name="RosterList" Margin="0,24,0,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:Name="DoubleLineDataTemplate" x:DataType="local1:Player">
+                            <StackPanel Orientation="Horizontal" Height="84">
+                                <Ellipse Height="68" Width="68" VerticalAlignment="Center">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="Assets/placeholder-person.jpg"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,0,0,0">
+                                    <TextBlock  Style="{ThemeResource BaseTextBlockStyle}" >
+                                        <Run Text="{x:Bind name}"/>
+                                        <Run Foreground="OrangeRed" Text="   #"/>
+                                        <Run Foreground="OrangeRed" Text="{x:Bind number}"/>
+                                    </TextBlock>
+                                    <TextBlock  Style="{ThemeResource BodyTextBlockStyle}" >
+                                        <Run Text="{x:Bind position}"/>
+                                        <Run Text="     "/>
+                                        <Run Foreground="OrangeRed" Text="{x:Bind year}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</Page>

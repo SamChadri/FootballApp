@@ -1,0 +1,644 @@
+[
+  {
+    "number": 1,
+    "name": "Isaiah Williams",
+    "position": "QB",
+    "year": "Fr."
+  },
+  {
+    "number": 2,
+    "name": "Reggie Corbin",
+    "position": "RB",
+    "year": "Sr."
+  },
+  {
+    "number": 2,
+    "name": "Derrick Smith",
+    "position": "LB",
+    "year": "Jr."
+  },
+  {
+    "number": 3,
+    "name": "Marquez Beason",
+    "position": "DB",
+    "year": "Fr."
+  },
+  {
+    "number": 3,
+    "name": "Jakari Norwood",
+    "position": "RB",
+    "year": "R-Fr."
+  },
+  {
+    "number": 4,
+    "name": "Ricky Smalling",
+    "position": "WR",
+    "year": "Jr."
+  },
+  {
+    "number": 5,
+    "name": "Milo Eifler",
+    "position": "LB",
+    "year": "Jr."
+  },
+  {
+    "number": 5,
+    "name": "Trevon Sidney",
+    "position": "WR",
+    "year": "Jr."
+  },
+  {
+    "number": 6,
+    "name": "Tony Adams",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 6,
+    "name": "Dominic Stampley",
+    "position": "WR",
+    "year": "Jr."
+  },
+  {
+    "number": 7,
+    "name": "Stanley Green",
+    "position": "DB",
+    "year": "Sr."
+  },
+  {
+    "number": 7,
+    "name": "Coran Taylor",
+    "position": "QB",
+    "year": "R-Fr."
+  },
+  {
+    "number": 8,
+    "name": "Nate Hobbs",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 8,
+    "name": "Casey Washington",
+    "position": "WR",
+    "year": "Fr."
+  },
+  {
+    "number": 9,
+    "name": "Dele Harding",
+    "position": "LB",
+    "year": "Sr."
+  },
+  {
+    "number": 9,
+    "name": "Josh Imatorbhebhe",
+    "position": "WR",
+    "year": "Jr."
+  },
+  {
+    "number": 10,
+    "name": "James Knight",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 10,
+    "name": "Justice Williams",
+    "position": "TE",
+    "year": "Sr."
+  },
+  {
+    "number": 11,
+    "name": "Caleb Griffin",
+    "position": "PK",
+    "year": "R-Fr."
+  },
+  {
+    "number": 11,
+    "name": "Carlos Sandy",
+    "position": "WR",
+    "year": "So."
+  },
+  {
+    "number": 12,
+    "name": "Matt Robinson",
+    "position": "QB",
+    "year": "R-Fr."
+  },
+  {
+    "number": 13,
+    "name": "Caleb Reams",
+    "position": "WR",
+    "year": "Sr."
+  },
+  {
+    "number": 14,
+    "name": "Blake Hayes",
+    "position": "P",
+    "year": "Jr."
+  },
+  {
+    "number": 15,
+    "name": "Trenard Davis",
+    "position": "WR",
+    "year": "Sr."
+  },
+  {
+    "number": 15,
+    "name": "Delano Ware",
+    "position": "DB",
+    "year": "So."
+  },
+  {
+    "number": 16,
+    "name": "Cam Miller",
+    "position": "QB",
+    "year": "Jr."
+  },
+  {
+    "number": 17,
+    "name": "James McCourt",
+    "position": "PK/P",
+    "year": "Jr."
+  },
+  {
+    "number": 17,
+    "name": "Kendall Smith",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 18,
+    "name": "Brandon Peters",
+    "position": "QB",
+    "year": "Jr."
+  },
+  {
+    "number": 19,
+    "name": "Dalevon Campbell",
+    "position": "WR",
+    "year": "Fr."
+  },
+  {
+    "number": 20,
+    "name": "Kyron Cumby",
+    "position": "WR",
+    "year": "Fr."
+  },
+  {
+    "number": 20,
+    "name": "Nick Walker",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 21,
+    "name": "Ra'Von Bonner",
+    "position": "RB",
+    "year": "Jr."
+  },
+  {
+    "number": 21,
+    "name": "Jartavius Martin",
+    "position": "DB",
+    "year": "So."
+  },
+  {
+    "number": 22,
+    "name": "Kenyon Sims",
+    "position": "RB",
+    "year": "R-Fr."
+  },
+  {
+    "number": 22,
+    "name": "Dylan Wyatt",
+    "position": "DB",
+    "year": "So."
+  },
+  {
+    "number": 23,
+    "name": "Conner Lillig",
+    "position": "RB",
+    "year": "So."
+  },
+  {
+    "number": 23,
+    "name": "Joseph Thompson",
+    "position": "DB",
+    "year": "Fr."
+  },
+  {
+    "number": 24,
+    "name": "Dawson DeGroot",
+    "position": "LB",
+    "year": "Jr."
+  },
+  {
+    "number": 25,
+    "name": "Dre Brown",
+    "position": "RB",
+    "year": "Sr."
+  },
+  {
+    "number": 25,
+    "name": "Kerby Joseph",
+    "position": "DB",
+    "year": "So."
+  },
+  {
+    "number": 26,
+    "name": "Mike Epstein",
+    "position": "RB",
+    "year": "Jr."
+  },
+  {
+    "number": 26,
+    "name": "Nick Fedanzo",
+    "position": "RB",
+    "year": "Fr."
+  },
+  {
+    "number": 27,
+    "name": "Matthew Judd",
+    "position": "DB",
+    "year": "Fr."
+  },
+  {
+    "number": 28,
+    "name": "Nolan Bernat",
+    "position": "DB",
+    "year": "Sr."
+  },
+  {
+    "number": 29,
+    "name": "Christian Bobak",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 30,
+    "name": "Sydney Brown",
+    "position": "DB",
+    "year": "So."
+  },
+  {
+    "number": 31,
+    "name": "Devon Witherspoon",
+    "position": "DB",
+    "year": "Fr."
+  },
+  {
+    "number": 32,
+    "name": "Chase Brown",
+    "position": "RB",
+    "year": "So."
+  },
+  {
+    "number": 32,
+    "name": "Tailon Leitzsey",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 33,
+    "name": "Ezekiel Holmes",
+    "position": "DL",
+    "year": "R-Fr."
+  },
+  {
+    "number": 34,
+    "name": "Ryan Meed",
+    "position": "LB",
+    "year": "Fr."
+  },
+  {
+    "number": 35,
+    "name": "Jake Hansen",
+    "position": "LB",
+    "year": "Jr."
+  },
+  {
+    "number": 36,
+    "name": "Ben Schultz",
+    "position": "DB",
+    "year": "Fr."
+  },
+  {
+    "number": 37,
+    "name": "Mark Di Iorio",
+    "position": "LB",
+    "year": "Fr."
+  },
+  {
+    "number": 39,
+    "name": "Aidan Hall",
+    "position": "LS",
+    "year": "Fr."
+  },
+  {
+    "number": 40,
+    "name": "Shammond Cooper",
+    "position": "LB",
+    "year": "Fr."
+  },
+  {
+    "number": 41,
+    "name": "Nolan Rossback",
+    "position": "LS",
+    "year": "Fr."
+  },
+  {
+    "number": 42,
+    "name": "Michael Marchese",
+    "position": "DB",
+    "year": "Jr."
+  },
+  {
+    "number": 43,
+    "name": "Griffin Moore",
+    "position": "TE",
+    "year": "Fr."
+  },
+  {
+    "number": 44,
+    "name": "Tarique Barnes",
+    "position": "LB",
+    "year": "Fr."
+  },
+  {
+    "number": 45,
+    "name": "Khalan Tolson",
+    "position": "LB",
+    "year": "So."
+  },
+  {
+    "number": 46,
+    "name": "Alec McEachern",
+    "position": "LB",
+    "year": "So."
+  },
+  {
+    "number": 47,
+    "name": "Oluwole Betiku Jr.",
+    "position": "DL",
+    "year": "Jr."
+  },
+  {
+    "number": 48,
+    "name": "Bryce Barnes",
+    "position": "TE",
+    "year": "Fr."
+  },
+  {
+    "number": 49,
+    "name": "Seth Coleman",
+    "position": "DL",
+    "year": "Fr."
+  },
+  {
+    "number": 51,
+    "name": "Sean Coghlan",
+    "position": "LB",
+    "year": "So."
+  },
+  {
+    "number": 52,
+    "name": "Verdis Brown",
+    "position": "OL",
+    "year": "R-Fr."
+  },
+  {
+    "number": 52,
+    "name": "Ayo Shogbonyo",
+    "position": "DL",
+    "year": "Jr."
+  },
+  {
+    "number": 53,
+    "name": "Kendrick Green",
+    "position": "OL",
+    "year": "So."
+  },
+  {
+    "number": 54,
+    "name": "Marc Mondesir",
+    "position": "DL",
+    "year": "Jr."
+  },
+  {
+    "number": 54,
+    "name": "Julian Pearl",
+    "position": "OL",
+    "year": "R-Fr."
+  },
+  {
+    "number": 55,
+    "name": "Jamal Milan",
+    "position": "DL",
+    "year": "Sr."
+  },
+  {
+    "number": 56,
+    "name": "Ethan Tabel",
+    "position": "LS",
+    "year": "Jr."
+  },
+  {
+    "number": 57,
+    "name": "Evan Kirts",
+    "position": "OL",
+    "year": "Fr."
+  },
+  {
+    "number": 58,
+    "name": "Preston Engel",
+    "position": "OL",
+    "year": "R-Fr."
+  },
+  {
+    "number": 59,
+    "name": "Josh Plohr",
+    "position": "OL",
+    "year": "Fr."
+  },
+  {
+    "number": 63,
+    "name": "Alex Palczewski",
+    "position": "OL",
+    "year": "Jr."
+  },
+  {
+    "number": 65,
+    "name": "Doug Kramer",
+    "position": "OL",
+    "year": "Jr."
+  },
+  {
+    "number": 66,
+    "name": "Jordyn Slaughter",
+    "position": "OL",
+    "year": "R-Fr."
+  },
+  {
+    "number": 68,
+    "name": "Jake Stover",
+    "position": "OL",
+    "year": "So."
+  },
+  {
+    "number": 69,
+    "name": "Moses Okpala",
+    "position": "DL",
+    "year": "Fr."
+  },
+  {
+    "number": 70,
+    "name": "Thomas Cronin",
+    "position": "OL",
+    "year": "Fr."
+  },
+  {
+    "number": 72,
+    "name": "Kievan Myers",
+    "position": "OL",
+    "year": "R-Fr."
+  },
+  {
+    "number": 73,
+    "name": "Jake Cerny",
+    "position": "OL",
+    "year": "Jr."
+  },
+  {
+    "number": 74,
+    "name": "Richie Petitbon",
+    "position": "OL",
+    "year": "Sr."
+  },
+  {
+    "number": 75,
+    "name": "Kurt Gavin",
+    "position": "OL",
+    "year": "Jr."
+  },
+  {
+    "number": 79,
+    "name": "Vederian Lowe",
+    "position": "OL",
+    "year": "Jr."
+  },
+  {
+    "number": 80,
+    "name": "Edwin Carter",
+    "position": "WR",
+    "year": "R-Fr."
+  },
+  {
+    "number": 81,
+    "name": "Griffin Palmer",
+    "position": "TE",
+    "year": "Jr."
+  },
+  {
+    "number": 82,
+    "name": "Luke Ford",
+    "position": "TE",
+    "year": "So."
+  },
+  {
+    "number": 83,
+    "name": "Bobby Walker",
+    "position": "TE",
+    "year": "Sr."
+  },
+  {
+    "number": 84,
+    "name": "Jordan Holmes",
+    "position": "WR",
+    "year": "So."
+  },
+  {
+    "number": 85,
+    "name": "Dylan Thomas",
+    "position": "WR",
+    "year": "R-Fr."
+  },
+  {
+    "number": 86,
+    "name": "Donny Navarro",
+    "position": "WR",
+    "year": "So."
+  },
+  {
+    "number": 87,
+    "name": "Daniel Barker",
+    "position": "TE",
+    "year": "So."
+  },
+  {
+    "number": 88,
+    "name": "Keith Randolph Jr.",
+    "position": "DL",
+    "year": "Fr."
+  },
+  {
+    "number": 89,
+    "name": "Alex Pihlstrom",
+    "position": "TE",
+    "year": "So."
+  },
+  {
+    "number": 90,
+    "name": "Lere Oladipo",
+    "position": "DL",
+    "year": "So."
+  },
+  {
+    "number": 91,
+    "name": "Jamal Woods",
+    "position": "DL",
+    "year": "So."
+  },
+  {
+    "number": 92,
+    "name": "Isaiah Gay",
+    "position": "DL",
+    "year": "Jr."
+  },
+  {
+    "number": 93,
+    "name": "Calvin Avery",
+    "position": "DL",
+    "year": "So."
+  },
+  {
+    "number": 95,
+    "name": "Kenyon Jackson",
+    "position": "DL",
+    "year": "Sr."
+  },
+  {
+    "number": 96,
+    "name": "Tymir Oliver",
+    "position": "DL",
+    "year": "Sr."
+  },
+  {
+    "number": 97,
+    "name": "Bobby Roundtree",
+    "position": "DL",
+    "year": "Jr."
+  },
+  {
+    "number": 98,
+    "name": "Deon Pate",
+    "position": "DL",
+    "year": "So."
+  },
+  {
+    "number": 99,
+    "name": "Owen Carney Jr.",
+    "position": "DL",
+    "year": "Jr."
+  }
+]

@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="FootballApp.Register"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FootballApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        
+
+        <NavigationView x:Name="NavView" Loaded="NavView_Loaded" BackRequested="NavView_BackRequested" PaneDisplayMode="Left" IsBackEnabled="True" IsBackButtonVisible="Visible">
+        </NavigationView>
+
+        <StackPanel Canvas.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Image Margin="0,30,0,0" Canvas.ZIndex="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="50" Source="Assets/illinois_athletics_logo_new_i.png"/>
+            <TextBlock FontSize="20" Margin="0,40,10,0" FontWeight="ExtraBold" Text="ILLINI FOOTBALL"></TextBlock>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left" Padding="0,50,0,0" Margin="350,0,0,0">
+            <TextBlock Text="New User" Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBox x:Name="Username" Header= "Username" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="Text" />
+            <TextBox x:Name="FirstName" Header="FirstName" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="NameOrPhoneNumber" />
+            <TextBox x:Name="LastName" Header="LastName" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="NameOrPhoneNumber" />
+            <TextBox x:Name="Email" Header="Email" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="EmailNameOrAddress" />
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="Player" Tag="Access" Margin="0,24" Checked="BGRadioButton_Checked"/>
+                <RadioButton Content="Coach" Tag="Access"  Margin="0,24" Checked="BGRadioButton_Checked"/>
+            </StackPanel>
+            <TextBlock x:Name="ErrorMessage" Text="" FontSize="20" Margin="4" Foreground="Red" TextAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Create" Margin="0,24" Click="CreateButton_Click"/>
+                <Button Content="Cancel" Margin="24" Click="CancelButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

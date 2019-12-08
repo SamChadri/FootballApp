@@ -1,0 +1,143 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FootballApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:telerikCore="using:Telerik.Core"
+    xmlns:telerikPrim="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:telerikData="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:local1="using:FootballDataLibrary"
+    xmlns:local2="using:FootballApp.Utils"
+    xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
+    x:Class="FootballApp.Profile"
+    mc:Ignorable="d"
+    >
+    <Page.Resources>
+        <local2:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Page.Resources>
+    <Page.Background>
+        <ThemeResource ResourceKey="ApplicationPageBackgroundThemeBrush"/>
+    </Page.Background>
+    <ScrollViewer>
+        <Grid>
+            <NavigationView  x:Name="NavView"
+            IsSettingsVisible="True"
+            IsBackEnabled="True"
+            IsBackButtonVisible="Auto"
+            IsTapEnabled="True"
+            BackRequested="NavView_BackRequested"
+            Canvas.ZIndex="1"
+            CompactModeThresholdWidth="1007"
+            AlwaysShowHeader="True"
+            ItemInvoked="NavView_ItemInvoked"
+            PaneDisplayMode="LeftCompact">
+
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Icon="Home"  Content="Home" Tag="Home" />
+                    <NavigationViewItem Icon="PreviewLink" Content="Season" Tag="Season" />
+                    <NavigationViewItem Icon="Add"  Content="Add" Tag="Create" />
+                    <NavigationViewItem Icon="Contact" Content="Profile" Tag="Profile" />
+
+                </NavigationView.MenuItems>
+
+            </NavigationView>
+
+            <SplitView IsPaneOpen="True"
+           DisplayMode="Inline"
+           OpenPaneLength="296" >
+                <SplitView.Pane>
+
+                    <Frame x:Name="PaneFrame">
+                        <Grid>
+                            <TextBlock HorizontalAlignment="Left" Margin="70,40,0,0" x:Name="PlayerName"  FontSize="20" FontWeight="Thin"/>
+                            <Border VerticalAlignment="Top" HorizontalAlignment="Left" Background="OrangeRed" Height="1" Width="200" Margin="70,70,0,0"/>
+                            <Custom:PersonPicture HorizontalAlignment="Left" Margin="70,89,0,0" ProfilePicture="Assets\profile_sample.jpg" VerticalAlignment="Top" Height="194" Width="196"/>
+
+                            <StackPanel HorizontalAlignment="Left" Margin="70,300,0,0" >
+                                <TextBlock  Opacity=".6" Foreground="OrangeRed" FontWeight="Light" Text="Position:"  FontSize="20"/>
+                                <TextBlock x:Name="Position" Margin="0,0,0,0" FontWeight="Light"  FontSize="20"/>
+
+                                <TextBlock Margin="0,20,0,0" Opacity=".6" Foreground="OrangeRed" FontWeight="Light" Text="Year:"  FontSize="20"/>
+                                <TextBlock x:Name="Year" Margin="0,0,0,0" FontWeight="Light" FontSize="20"/>
+
+                                <TextBlock Margin="0,20,0,0" Foreground="OrangeRed" Opacity=".6" FontWeight="Light" Text="Email:"  FontSize="20"/>
+                                <TextBlock x:Name="Email" Margin="0,0,0,0" FontWeight="Light"  FontSize="20"/>
+
+                                <TextBlock Margin="0,20,0,0" Foreground="OrangeRed" Opacity=".6" FontWeight="Light" Text="Username:"  FontSize="20"/>
+                                <TextBlock x:Name="Username" Margin="0,0,0,0" FontWeight="Light" FontSize="20"/>
+
+                                <Button x:Name="Roster" Background="#0A1E45" Content="Roster" Margin="0,20,0,0" VerticalAlignment="Top"/>
+
+
+
+
+
+                            </StackPanel>
+
+                        </Grid>
+                    </Frame>
+                </SplitView.Pane>
+
+                <Grid>
+
+                    <StackPanel Canvas.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Image Margin="0,30,0,0" Canvas.ZIndex="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="50" Source="Assets/illinois_athletics_logo_new_i.png"/>
+                        <TextBlock FontSize="20" Margin="0,40,10,0" FontWeight="ExtraBold" Text="ILLINI FOOTBALL"/>
+                    </StackPanel>
+                    <Border Canvas.ZIndex="0"  Height="2" Margin="0,70,0,0" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicElementBrush}"/>
+                    <Border Canvas.ZIndex="0"  Height="2" Margin="0,118,0,0" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicElementBrush}"/>
+
+                    <StackPanel  HorizontalAlignment="Left" Canvas.ZIndex="0" Orientation="Vertical" Margin="25,24,0,0">
+                        <TextBlock  Text="Overall Stats" FontSize="35" Style="{StaticResource TitleTextBlockStyle}"/>
+                        <TextBlock x:Name="PlayNum" Margin="0,24,0,0" FontSize="20" Style="{StaticResource TitleTextBlockStyle}" />
+                        <TextBlock Opacity=".6" x:Name="Points" Text="Individual Stats" FontSize="20" Style="{StaticResource TitleTextBlockStyle}" Margin="0,24,0,0"  HorizontalAlignment="Left"/>
+                        <ListView HorizontalAlignment="Left" Margin="0,24,0,0" x:Name="Stats">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="local2:Stat">
+                                    <StackPanel Orientation="Horizontal" Height="44" HorizontalAlignment="Left" Padding="0">
+                                        <TextBlock HorizontalTextAlignment="Left" Text="{x:Bind Converter={StaticResource StringFormatConverter}, ConverterParameter=' \{0\}: ', Path=statName}" VerticalAlignment="Center"  Foreground="OrangeRed" Margin="0,0,0,0"/>
+                                        <TextBlock HorizontalTextAlignment="Left" Text="{x:Bind Path=statVal}" VerticalAlignment="Center"  Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <StackPanel HorizontalAlignment="Center" Margin="0,24,0,0" Orientation="Horizontal">
+                            <StackPanel Width="150" Height="100" Padding="20,10,20,20" VerticalAlignment="Top" Margin="0,5,0,0"   Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                                <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Technique"  Style="{ThemeResource BaseTextBlockStyle}" Margin="0,4,0,0"/>
+                                <TextBlock Foreground="OrangeRed" FontSize="15" HorizontalAlignment="Center" Text="{x:Bind Converter={StaticResource StringFormatConverter}, ConverterParameter=' \{0\}% ', Path=ViewStatLine.techPercent}"
+                           Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".8" Margin="0,4,0,0"/>
+                                <TextBlock FontSize="12" HorizontalAlignment="Center" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".6" Margin="0,4,0,0"><Run Text="{x:Bind Path=ViewStatLine.tech}"/><Run Text=" "/><Run Text="of"/><Run Text=" "/><Run Text="{x:Bind Path=ViewStatLine.techTotal}"/></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Width="150" Height="100" Padding="20,10,20,20" VerticalAlignment="Top" Margin="5,5,0,0"  Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                                <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Pursuit"  Style="{ThemeResource BaseTextBlockStyle}" Margin="0,4,0,0"/>
+                                <TextBlock Foreground="OrangeRed" FontSize="15" HorizontalAlignment="Center" Text="{x:Bind Converter={StaticResource StringFormatConverter}, ConverterParameter=' \{0\}% ', Path=ViewStatLine.pursPercent}"
+                           Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".8" Margin="0,4,0,0"/>
+                                <TextBlock FontSize="12" HorizontalAlignment="Center" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".6" Margin="0,4,0,0"><Run Text="{x:Bind Path=ViewStatLine.purs}"/><Run Text=" "/><Run Text="of"/><Run Text=" "/><Run Text="{x:Bind Path=ViewStatLine.pursTotal}"/></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Width="150" Height="100" Padding="20,10,20,20" VerticalAlignment="Top" Margin="5,5,0,0" Background="{ThemeResource SystemControlAcrylicElementBrush}">
+                                <TextBlock HorizontalAlignment="Center" FontSize="20" Text="MTP"  Style="{ThemeResource BaseTextBlockStyle}" Margin="0,4,0,0"/>
+                                <TextBlock Foreground="OrangeRed" FontSize="15" HorizontalAlignment="Center" Text="{x:Bind Converter={StaticResource StringFormatConverter}, ConverterParameter=' \{0\}% ', Path=ViewStatLine.mtpPercent}"
+                           Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".8" Margin="0,4,0,0"/>
+                                <TextBlock FontSize="12" HorizontalAlignment="Center" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".6" Margin="0,4,0,0"><Run Text="{x:Bind Path=ViewStatLine.mtp}"/><Run Text=" "/><Run Text="of"/><Run Text=" "/><Run Text="{x:Bind Path=ViewStatLine.mtpTotal}"/></TextBlock>
+                            </StackPanel>
+
+                        </StackPanel>
+
+
+
+
+                    </StackPanel>
+
+                </Grid>
+
+            </SplitView>
+
+
+        </Grid>
+    </ScrollViewer>
+</Page>

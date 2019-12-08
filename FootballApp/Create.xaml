@@ -1,0 +1,120 @@
+﻿<Page
+    x:Class="FootballApp.Create"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FootballApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:telerikCore="using:Telerik.Core"
+    xmlns:telerikPrim="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:telerikData="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:local1="using:FootballDataLibrary"
+    xmlns:local2="using:FootballApp.Utils"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <local2:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Page.Resources>
+
+
+    <ScrollViewer>
+        <Grid>
+            <NavigationView  x:Name="NavView"
+            IsSettingsVisible="True"
+            IsBackEnabled="True"
+            IsBackButtonVisible="Auto"
+            IsTapEnabled="True"
+            BackRequested="NavView_BackRequested"
+            Canvas.ZIndex="1"
+            CompactModeThresholdWidth="1007"
+            ItemInvoked="NavView_ItemInvoked"                   
+            AlwaysShowHeader="True"
+            PaneDisplayMode="LeftCompact">
+
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Icon="Home"  Content="Home" Tag="Home" />
+                    <NavigationViewItem Icon="PreviewLink" Content="Season" Tag="Season" />
+                    <NavigationViewItem Icon="Add"  Content="Add" Tag="Create" />
+                    <NavigationViewItem Icon="Contact" Content="Profile" Tag="Profile" />
+                </NavigationView.MenuItems>
+                <Frame x:Name="contentFrame"/>
+            </NavigationView>
+
+            <SplitView IsPaneOpen="True"
+           DisplayMode="Inline"
+           OpenPaneLength="296" >
+                <SplitView.Pane>
+
+                    <Grid>
+                        <TextBlock Text="Plays" Style="{StaticResource TitleTextBlockStyle}" Margin="60,20,0,0" 
+                               FontSize="35" FontWeight="Light" HorizontalAlignment="Left"/>
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Center" Background="OrangeRed" Height="1" Width="200" Margin="0,70,0,0"/>
+                        <ListView x:Name="PlayList" x:DefaultBindMode="OneWay" Margin="15,80,0,0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="local1:Play">
+                                    <StackPanel Orientation="Horizontal" Height="44" Padding="12">
+                                        <TextBlock Text="{x:Bind playerNum, Converter={StaticResource StringFormatConverter}, ConverterParameter='#{0}'}" VerticalAlignment="Center" FontSize="15" Foreground="OrangeRed" Margin="12,0,0,0"/>
+                                        <TextBlock Text="{x:Bind calls}" VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </Grid>
+                </SplitView.Pane>
+                <Grid>
+
+                    <StackPanel Canvas.ZIndex="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Image Margin="0,30,0,0" Canvas.ZIndex="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="50" Width="50" Source="Assets/illinois_athletics_logo_new_i.png"/>
+                        <TextBlock FontSize="20" Margin="0,40,10,0" FontWeight="ExtraBold" Text="ILLINI FOOTBALL"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel  Canvas.ZIndex="0" Orientation="Vertical" Margin="25,24,0,0">
+                        <TextBlock Text="New Play" FontSize="35" Style="{StaticResource TitleTextBlockStyle}"/>
+                        <Border Canvas.ZIndex="0" Height="2" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicElementBrush}"/>
+                        <TextBox x:Name="Position" Header="Position" Margin="0,24,0,0" MaxLength="32" Width="400" HorizontalAlignment="Left" InputScope="Text"/>
+                        <TextBox x:Name="Calls" Header="Calls" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="Text" />
+                        <TextBox x:Name="Stat1" Header="Stat 1" PlaceholderText="Stat 1" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="Text" />
+                        <TextBox x:Name="Stat2" Header="Stat 2" PlaceholderText="Stat 2" Margin="0,24,0,0" MaxLength="50" Width="400" HorizontalAlignment="Left" InputScope="Text" />
+                        <TextBox x:Name="Comment" Header="Comment" Margin="0,24,0,0" MaxLength="15" Width="400" HorizontalAlignment="Left" InputScope="Text" />
+                        <RelativePanel>
+                            <TextBox x:Name="PlayNum" PlaceholderText="Play #" Margin="0,24,0,0" MaxLength="6"  Width="100" HorizontalAlignment="Left" InputScope="Number" />
+                            <TextBox x:Name="PlayerNum" PlaceholderText="Player #" Margin="24,24,0,0" MaxLength="6" RelativePanel.RightOf="PlayNum" Width="100" HorizontalAlignment="Left" InputScope="Number" />
+                            <TextBox x:Name="GameNum" PlaceholderText="Game #" Margin="24,24,0,0" MaxLength="6" RelativePanel.RightOf="PlayerNum" Width="100" HorizontalAlignment="Left" InputScope="Number" />
+                        </RelativePanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="Tech" PlaceholderText="Tech" Margin="0,24,0,0" MaxLength="6" Width="75" HorizontalAlignment="Left" InputScope="Digits" />
+                            <TextBox x:Name="Purs" PlaceholderText="Purs" Margin="24,24,0,0" MaxLength="6" Width="75" HorizontalAlignment="Left" InputScope="Digits" />
+                            <TextBox x:Name="MTP" PlaceholderText="MTP" Margin="24,24,0,0" MaxLength="6" Width="75" HorizontalAlignment="Left" InputScope="Digits" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton x:Name="RunRadio" Content="Run" Tag="Type" Margin="0,24" Checked="BGRadioButton_Checked"/>
+                            <RadioButton x:Name="PassRadio" Content="Pass" Tag="Type"  Margin="0,24" Checked="BGRadioButton_Checked"/>
+                        </StackPanel>
+
+                        <CheckBox x:Name="Loaf" Content="Loaf"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Background="OrangeRed" Content="Add" Margin="0,24,0,0" Click="AddButton_Click"/>
+                            <Button Background="#0A1E45" Content="Save" Margin="24,24,0,0" Click="SaveButton_Click"/>
+                            <Button Content="Cancel" Margin="24,24,0,0" Click="CancelButton_Click"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+
+                </Grid>
+
+
+
+
+            </SplitView>
+
+
+        </Grid>
+    </ScrollViewer>
+</Page>
