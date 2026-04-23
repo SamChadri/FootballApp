@@ -1,0 +1,43 @@
+name: .NET MAUI MacCatalyst Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build MacCatalyst App
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install MAUI Workloads
+        run: |
+          dotnet workload install maccatalyst
+          dotnet workload install android
+
+      - name: Clean
+        run: dotnet clean src/Football.MauiApp/Football.MauiApp.csproj
+
+      - name: Restore Dependencies
+        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj
+
+      - name: Build MacCatalyst App
+        run: |
+          dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacCatalyst-App
+          path: src/Football.MauiApp/bin/Release/net8.0-maccatalyst/maccatalyst-x64/**/*.app

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Football.Auth.Abstractions</AssemblyName>
+    <RootNamespace>Football.Auth</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Football.Core\Football.Core.csproj" />
+  </ItemGroup>
+</Project>

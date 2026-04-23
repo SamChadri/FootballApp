@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
+             x:Class="Football.MauiApp.Views.AddGamePage"
+             Title="Add Game">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Entry Placeholder="Opponent" Text="{Binding Opponent}" />
+        <DatePicker Date="{Binding Date}" />
+        <Entry Placeholder="Points" Text="{Binding Points}" Keyboard="Numeric" />
+        <Entry Placeholder="Opponent Points" Text="{Binding OpponentPoints}" Keyboard="Numeric" />
+        
+        <Button Text="Save" Clicked="OnSaveClicked" />
+    </VerticalStackLayout>
+</ContentPage>

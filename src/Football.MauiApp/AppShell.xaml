@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Football.MauiApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Football.MauiApp"
+    xmlns:views="clr-namespace:Football.MauiApp.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Football App">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate views:HomePage}"
+        Route="HomePage" />
+
+    <ShellContent
+        Title="Games"
+        ContentTemplate="{DataTemplate views:GamesListPage}"
+        Route="GamesListPage" />
+
+</Shell>
