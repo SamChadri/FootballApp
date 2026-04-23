@@ -25,14 +25,13 @@ jobs:
         run: dotnet workload restore src/Football.MauiApp/Football.MauiApp.csproj
 
       - name: Restore Dependencies
-        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -f net8.0-maccatalyst
+        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -p:TargetFrameworks=net8.0-maccatalyst
 
       - name: Build MacCatalyst App
-        run: |
-          dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst --no-restore
+        run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst --no-restore
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MacCatalyst-App
-          path: src/Football.MauiApp/bin/Release/net8.0-maccatalyst/maccatalyst-x64/**/*.app
+          path: src/Football.MauiApp/bin/Release/net8.0-maccatalyst/**/*.app
