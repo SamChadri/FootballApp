@@ -36,9 +36,9 @@
                       Position="{Binding CurrentPosition}"
                       Loop="False"
                       VerticalOptions="End"
-                      HeightRequest="300"
-                      Margin="0,0,0,50"
-                      PeekAreaInsets="100">
+                      PeekAreaInsets="110"
+                      HorizontalScrollBarVisibility="Never"
+                      VerticalScrollBarVisibility="Never">
             <CarouselView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" SnapPointsType="MandatorySingle" SnapPointsAlignment="Center" />
             </CarouselView.ItemsLayout>
@@ -66,13 +66,13 @@
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal">
                                             <VisualState.Setters>
-                                                <Setter Property="Scale" Value="0.7" />
-                                                <Setter Property="Opacity" Value="0.5" />
+                                                <Setter Property="Scale" Value="0.6" />
+                                                <Setter Property="Opacity" Value="0.4" />
                                             </VisualState.Setters>
                                         </VisualState>
                                         <VisualState x:Name="Current">
                                             <VisualState.Setters>
-                                                <Setter Property="Scale" Value="1.2" />
+                                                <Setter Property="Scale" Value="1.4" />
                                                 <Setter Property="Opacity" Value="1.0" />
                                                 <Setter Property="ZIndex" Value="1" />
                                             </VisualState.Setters>

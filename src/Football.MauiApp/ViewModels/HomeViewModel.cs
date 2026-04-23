@@ -32,11 +32,11 @@ public partial class HomeViewModel : ObservableObject
     {
         MenuItems = new ObservableCollection<HomeItem>
         {
-            new HomeItem { Title = "Teams", BgImage = "teams_bg.jpg", Route = nameof(GamesListPage) }, // Placeholder route
-            new HomeItem { Title = "Settings", BgImage = "settings_bg.jpg", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Games", BgImage = "home_bg.jpg", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Players", BgImage = "players_bg.jpg", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Create", BgImage = "create_bg.jpg", Route = nameof(AddGamePage) }
+            new HomeItem { Title = "Teams", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Settings", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Games", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Players", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Create", BgImage = "user_home_bg.jpg", Route = nameof(AddGamePage) }
         };
 
         CurrentPosition = 2; // Start on "Games"

@@ -1,0 +1,43 @@
+name: .NET MAUI MacCatalyst Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build MacCatalyst App
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui
+
+      - name: Restore Dependencies
+        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -r maccatalyst-x64
+
+      - name: Build MacCatalyst App
+        run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Debug -f net8.0-maccatalyst -r maccatalyst-x64 --no-restore
+
+      - name: Zip MacCatalyst App
+        run: |
+          APP_PATH=$(find src/Football.MauiApp/bin/Debug -name "*.app" | head -n 1)
+          echo "Found app at: $APP_PATH"
+          zip -r Football_Mac.zip "$APP_PATH"
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Football-Mac-App
+          path: Football_Mac.zip
