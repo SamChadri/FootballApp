@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-android;net8.0-maccatalyst</TargetFrameworks>
-        <RuntimeIdentifiers Condition="$(TargetFramework.Contains('-maccatalyst'))">maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers>
         <CheckEolWorkloads>false</CheckEolWorkloads>
         <_SkipXcodeVersionCheck>true</_SkipXcodeVersionCheck>
         <MtouchExtraArgs>--sdk=14.2</MtouchExtraArgs>
