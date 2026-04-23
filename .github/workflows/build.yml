@@ -22,19 +22,14 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Install MAUI Workloads
-        run: |
-          dotnet workload install maccatalyst
-          dotnet workload install android
-
-      - name: Clean
-        run: dotnet clean src/Football.MauiApp/Football.MauiApp.csproj
+        run: dotnet workload restore
 
       - name: Restore Dependencies
         run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj
 
       - name: Build MacCatalyst App
         run: |
-          dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst
+          dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst --no-restore
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
