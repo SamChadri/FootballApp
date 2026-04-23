@@ -25,10 +25,10 @@ jobs:
         run: dotnet workload install maui
 
       - name: Restore Dependencies
-        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -r maccatalyst-arm64
+        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -r maccatalyst-x64
 
       - name: Build MacCatalyst App
-        run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst -r maccatalyst-arm64 --no-restore
+        run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst -r maccatalyst-x64 --no-restore
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
