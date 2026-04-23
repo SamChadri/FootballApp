@@ -21,11 +21,11 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: Install MAUI Workloads
-        run: dotnet workload restore src/Football.MauiApp/Football.MauiApp.csproj
+      - name: Install MAUI Workload
+        run: dotnet workload install maui
 
       - name: Restore Dependencies
-        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -p:TargetFrameworks=net8.0-maccatalyst
+        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj
 
       - name: Build MacCatalyst App
         run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst --no-restore
