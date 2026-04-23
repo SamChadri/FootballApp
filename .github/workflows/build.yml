@@ -32,8 +32,9 @@ jobs:
 
       - name: Zip MacCatalyst App
         run: |
-          cd src/Football.MauiApp/bin/Release/net8.0-maccatalyst/maccatalyst-x64
-          zip -r ../../../../../Football_Mac.zip Football.MauiApp.app
+          APP_PATH=$(find src/Football.MauiApp/bin/Release -name "*.app" | head -n 1)
+          echo "Found app at: $APP_PATH"
+          zip -r Football_Mac.zip "$APP_PATH"
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
