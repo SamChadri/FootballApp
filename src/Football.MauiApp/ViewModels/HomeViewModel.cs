@@ -11,7 +11,7 @@ public partial class HomeItem : ObservableObject
     private string title = string.Empty;
 
     [ObservableProperty]
-    private string bgImage = "home_bg.jpg";
+    private string bgImage = "home_bg.png";
 
     [ObservableProperty]
     private string route = string.Empty;
@@ -32,11 +32,11 @@ public partial class HomeViewModel : ObservableObject
     {
         MenuItems = new ObservableCollection<HomeItem>
         {
-            new HomeItem { Title = "Teams", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Settings", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Games", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Players", BgImage = "user_home_bg.jpg", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Create", BgImage = "user_home_bg.jpg", Route = nameof(AddGamePage) }
+            new HomeItem { Title = "Teams", BgImage = "home_bg.png", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Settings", BgImage = "home_bg.png", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Games", BgImage = "home_bg.png", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Players", BgImage = "home_bg.png", Route = nameof(GamesListPage) },
+            new HomeItem { Title = "Create", BgImage = "home_bg.png", Route = nameof(AddGamePage) }
         };
 
         CurrentPosition = 2; // Start on "Games"

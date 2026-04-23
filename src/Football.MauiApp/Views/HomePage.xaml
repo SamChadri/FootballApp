@@ -36,7 +36,7 @@
                       Position="{Binding CurrentPosition}"
                       Loop="False"
                       VerticalOptions="End"
-                      PeekAreaInsets="110"
+                      PeekAreaInsets="60"
                       HorizontalScrollBarVisibility="Never"
                       VerticalScrollBarVisibility="Never">
             <CarouselView.ItemsLayout>
@@ -44,12 +44,12 @@
             </CarouselView.ItemsLayout>
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="vm:HomeItem">
-                    <Grid Padding="10">
+                    <Grid Padding="4">
                         <!-- 3D Card with Trim and Glow -->
                         <Border x:Name="CardBorder"
                                 Stroke="White"
                                 StrokeThickness="1"
-                                BackgroundColor="#33000000"
+                                BackgroundColor="Orange"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
                                 WidthRequest="180"
@@ -58,7 +58,7 @@
                                 <RoundRectangle CornerRadius="10" />
                             </Border.StrokeShape>
                             <Border.Shadow>
-                                <Shadow Brush="Black" Offset="5,5" Radius="10" Opacity="0.5" />
+                                <Shadow Brush="Orange" Offset="5,5" Radius="10" Opacity="0.5" />
                             </Border.Shadow>
                             
                             <VisualStateManager.VisualStateGroups>
@@ -66,13 +66,13 @@
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal">
                                             <VisualState.Setters>
-                                                <Setter Property="Scale" Value="0.6" />
-                                                <Setter Property="Opacity" Value="0.4" />
+                                                <Setter Property="Scale" Value="0.5" />
+                                                <Setter Property="Opacity" Value="0.3" />
                                             </VisualState.Setters>
                                         </VisualState>
                                         <VisualState x:Name="Current">
                                             <VisualState.Setters>
-                                                <Setter Property="Scale" Value="1.4" />
+                                                <Setter Property="Scale" Value="1.5" />
                                                 <Setter Property="Opacity" Value="1.0" />
                                                 <Setter Property="ZIndex" Value="1" />
                                             </VisualState.Setters>
