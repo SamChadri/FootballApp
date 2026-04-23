@@ -30,8 +30,13 @@ jobs:
       - name: Build MacCatalyst App
         run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst -r maccatalyst-x64 --no-restore
 
+      - name: Zip MacCatalyst App
+        run: |
+          cd src/Football.MauiApp/bin/Release/net8.0-maccatalyst/maccatalyst-x64
+          zip -r ../../../../../Football_Mac.zip Football.MauiApp.app
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MacCatalyst-App
-          path: src/Football.MauiApp/bin/Release/net8.0-maccatalyst/**/*.app
+          name: Football-Mac-App
+          path: Football_Mac.zip
