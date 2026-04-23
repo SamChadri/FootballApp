@@ -28,11 +28,11 @@ jobs:
         run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -r maccatalyst-x64
 
       - name: Build MacCatalyst App
-        run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Release -f net8.0-maccatalyst -r maccatalyst-x64 --no-restore
+        run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Debug -f net8.0-maccatalyst -r maccatalyst-x64 --no-restore
 
       - name: Zip MacCatalyst App
         run: |
-          APP_PATH=$(find src/Football.MauiApp/bin/Release -name "*.app" | head -n 1)
+          APP_PATH=$(find src/Football.MauiApp/bin/Debug -name "*.app" | head -n 1)
           echo "Found app at: $APP_PATH"
           zip -r Football_Mac.zip "$APP_PATH"
 
