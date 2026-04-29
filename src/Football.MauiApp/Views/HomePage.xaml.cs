@@ -4,7 +4,7 @@ namespace Football.MauiApp.Views;
 
 public partial class HomePage : ContentPage
 {
-    private string _currentBg = "home_bg.jpg";
+    private string _currentBg = "home_bg.png";
 
     public HomePage()
     {

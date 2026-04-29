@@ -30,35 +30,32 @@
                    Source="nike_nocta_logo_transparent.png" 
                    WidthRequest="60" 
                    HorizontalOptions="End" />
-        
         </Grid>
         -->
         <!-- Layer 3: Main Carousel Menu -->
         <Grid HorizontalOptions="FillAndExpand" 
               VerticalOptions="FillAndExpand"
-              Grid.Row="0"
               InputTransparent="True">
 
-            <StackPanel HorizontalOptions="Center" 
-                        VerticalOptions="Center"
-                        Grid.Row="0"
-                        Margin="20,0"> <Label Text="HAIL TO THE ORANGE"
+            <VerticalStackLayout HorizontalOptions="Center" 
+                                  VerticalOptions="Center"
+                                  Margin="20,0">
+                <Label Text="HAIL TO THE ORANGE"
                        TextColor="White"
                        FontSize="80"
                        FontAttributes="Bold"
                        Opacity="0.3"
-                       
                        HorizontalOptions="FillAndExpand"
-                       HorizontalTextAlignment="Center" 
-                       
-                       LineBreakMode="NoWrap" /> <Label Text="GAMES"
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="NoWrap" />
+                <Label Text="GAMES"
                        TextColor="Orange"
                        FontSize="28"
                        FontAttributes="Bold"
                        Opacity="0.4"
                        Margin="0,-10,0,0"
                        HorizontalOptions="Center" />
-            </StackPanel>
+            </VerticalStackLayout>
         </Grid>
         <CarouselView x:Name="MenuCarousel"
                       ItemsSource="{Binding MenuItems}"
