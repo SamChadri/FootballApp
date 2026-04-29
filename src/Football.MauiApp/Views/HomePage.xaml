@@ -62,7 +62,9 @@
                       Position="{Binding CurrentPosition}"
                       Loop="False"
                       VerticalOptions="End"
+                      HeightRequest="160"
                       PeekAreaInsets="10"
+                      Margin="0,0,0,40"
                       HorizontalScrollBarVisibility="Never"
                       VerticalScrollBarVisibility="Never">
             <CarouselView.ItemsLayout>
@@ -70,7 +72,7 @@
             </CarouselView.ItemsLayout>
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="vm:HomeItem">
-                    <Grid Padding="4">
+                    <Grid Padding="30" HeightRequest="160">
                         <!-- 3D Card with Trim and Glow -->
                         <Border x:Name="CardBorder"
                                 Stroke="White"
@@ -84,7 +86,7 @@
                                 <RoundRectangle CornerRadius="30" />
                             </Border.StrokeShape>
                             <Border.Shadow>
-                                <Shadow Brush="Orange" Offset="0,0" Radius="15" Opacity="0.8" />
+                                <Shadow Brush="Orange" Offset="0,0" Radius="30" Opacity="0.9" />
                             </Border.Shadow>
                             
                             <VisualStateManager.VisualStateGroups>
