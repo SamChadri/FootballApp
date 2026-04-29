@@ -15,6 +15,9 @@ public partial class HomeItem : ObservableObject
 
     [ObservableProperty]
     private string route = string.Empty;
+
+    [ObservableProperty]
+    private bool isSelected;
 }
 
 public partial class HomeViewModel : ObservableObject
@@ -41,6 +44,7 @@ public partial class HomeViewModel : ObservableObject
 
         CurrentPosition = 2; // Start on "Games"
         CurrentItem = MenuItems[CurrentPosition];
+        MenuItems[CurrentPosition].IsSelected = true;
     }
 
     [RelayCommand]
@@ -52,10 +56,24 @@ public partial class HomeViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    private void SelectItem(HomeItem item)
+    {
+        if (item == null) return;
+        var idx = MenuItems.IndexOf(item);
+        if (idx < 0) return;
+        foreach (var m in MenuItems) m.IsSelected = false;
+        item.IsSelected = true;
+        CurrentPosition = idx;
+        CurrentItem = item;
+    }
+
     partial void OnCurrentPositionChanged(int value)
     {
         if (value >= 0 && value < MenuItems.Count)
         {
+            foreach (var m in MenuItems) m.IsSelected = false;
+            MenuItems[value].IsSelected = true;
             CurrentItem = MenuItems[value];
         }
     }

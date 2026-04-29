@@ -57,78 +57,51 @@
                        HorizontalOptions="Center" />
             </VerticalStackLayout>
         </Grid>
-        <CarouselView x:Name="MenuCarousel"
-                      ItemsSource="{Binding MenuItems}"
-                      Position="{Binding CurrentPosition}"
-                      Loop="False"
-                      VerticalOptions="End"
-                      HeightRequest="180"
-                      PeekAreaInsets="150"
-                      Margin="0,0,0,30"
-                      HorizontalScrollBarVisibility="Never"
-                      VerticalScrollBarVisibility="Never">
-            <CarouselView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal"
-                                    ItemSpacing="0"
-                                    SnapPointsType="MandatorySingle"
-                                    SnapPointsAlignment="Center" />
-            </CarouselView.ItemsLayout>
-            <CarouselView.ItemTemplate>
+        <!-- Layer 3: Circle Navigation Row -->
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               VerticalOptions="End"
+                               Spacing="12"
+                               Margin="0,0,0,40"
+                               BindableLayout.ItemsSource="{Binding MenuItems}">
+            <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="vm:HomeItem">
-                    <Grid Padding="6" HeightRequest="180">
+                    <Border WidthRequest="60"
+                            HeightRequest="60"
+                            BackgroundColor="Black"
+                            Stroke="White"
+                            StrokeThickness="1"
+                            Scale="0.85"
+                            Opacity="0.6">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="30" />
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="Orange" Offset="0,0" Radius="8" Opacity="0.4" />
+                        </Border.Shadow>
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="Scale" Value="1.25" />
+                                <Setter Property="Opacity" Value="1.0" />
+                                <Setter Property="Stroke" Value="Orange" />
+                                <Setter Property="StrokeThickness" Value="2" />
+                            </DataTrigger>
+                        </Border.Triggers>
 
-                        <!-- VSM must be on the root DataTemplate element so CarouselView can apply Current/Normal states -->
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroupList>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal">
-                                        <VisualState.Setters>
-                                            <Setter Property="Scale" Value="0.8" />
-                                            <Setter Property="Opacity" Value="0.65" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState x:Name="Current">
-                                        <VisualState.Setters>
-                                            <Setter Property="Scale" Value="1.2" />
-                                            <Setter Property="Opacity" Value="1.0" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateGroupList>
-                        </VisualStateManager.VisualStateGroups>
-
-                        <!-- 3D Circle Card with Glow -->
-                        <Border Stroke="White"
-                                StrokeThickness="1"
-                                BackgroundColor="Black"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                WidthRequest="55"
-                                HeightRequest="55">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="27" />
-                            </Border.StrokeShape>
-                            <Border.Shadow>
-                                <Shadow Brush="Orange" Offset="0,0" Radius="20" Opacity="1.0" />
-                            </Border.Shadow>
-
-                            <Grid>
-                                <Label Text="{Binding Title}"
-                                       TextColor="White"
-                                       FontSize="10"
-                                       FontAttributes="Bold"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center" />
-
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=EnterSectionCommand}"
-                                                          CommandParameter="{Binding .}" />
-                                </Grid.GestureRecognizers>
-                            </Grid>
-                        </Border>
-                    </Grid>
+                        <Grid>
+                            <Label Text="{Binding Title}"
+                                   TextColor="White"
+                                   FontSize="9"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=SelectItemCommand}"
+                                                      CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
-            </CarouselView.ItemTemplate>
-        </CarouselView>
+            </BindableLayout.ItemTemplate>
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>
