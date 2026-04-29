@@ -17,9 +17,11 @@
                Opacity="0" />
         <Image x:Name="BgImageA" 
                Aspect="AspectFill" 
-               Source="home_bg.jpg" />
+               Source="home_bg.png" />
 
         <!-- Layer 2: Logos -->
+
+        <!--
         <Grid ColumnDefinitions="*, *" VerticalOptions="Start" Padding="20, 60">
             <Image Source="nike_logo_transparent.png" 
                    WidthRequest="60" 
@@ -28,15 +30,42 @@
                    Source="nike_nocta_logo_transparent.png" 
                    WidthRequest="60" 
                    HorizontalOptions="End" />
+        
         </Grid>
-
+        -->
         <!-- Layer 3: Main Carousel Menu -->
+        <Grid HorizontalOptions="FillAndExpand" 
+              VerticalOptions="FillAndExpand"
+              Grid.Row="0"
+              InputTransparent="True">
+
+            <StackPanel HorizontalOptions="Center" 
+                        VerticalOptions="Center"
+                        Grid.Row="0"
+                        Margin="20,0"> <Label Text="HAIL TO THE ORANGE"
+                       TextColor="White"
+                       FontSize="80"
+                       FontAttributes="Bold"
+                       Opacity="0.3"
+                       
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="Center" 
+                       
+                       LineBreakMode="NoWrap" /> <Label Text="GAMES"
+                       TextColor="Orange"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       Opacity="0.4"
+                       Margin="0,-10,0,0"
+                       HorizontalOptions="Center" />
+            </StackPanel>
+        </Grid>
         <CarouselView x:Name="MenuCarousel"
                       ItemsSource="{Binding MenuItems}"
                       Position="{Binding CurrentPosition}"
                       Loop="False"
                       VerticalOptions="End"
-                      PeekAreaInsets="60"
+                      PeekAreaInsets="10"
                       HorizontalScrollBarVisibility="Never"
                       VerticalScrollBarVisibility="Never">
             <CarouselView.ItemsLayout>
@@ -49,16 +78,16 @@
                         <Border x:Name="CardBorder"
                                 Stroke="White"
                                 StrokeThickness="1"
-                                BackgroundColor="Orange"
+                                BackgroundColor="Black"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
-                                WidthRequest="180"
-                                HeightRequest="120">
+                                WidthRequest="60"
+                                HeightRequest="60">
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
+                                <RoundRectangle CornerRadius="30" />
                             </Border.StrokeShape>
                             <Border.Shadow>
-                                <Shadow Brush="Orange" Offset="5,5" Radius="10" Opacity="0.5" />
+                                <Shadow Brush="Orange" Offset="0,0" Radius="15" Opacity="0.8" />
                             </Border.Shadow>
                             
                             <VisualStateManager.VisualStateGroups>
