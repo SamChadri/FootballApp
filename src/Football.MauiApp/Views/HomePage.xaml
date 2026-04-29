@@ -73,9 +73,29 @@
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="vm:HomeItem">
                     <Grid Padding="30" HeightRequest="160">
-                        <!-- 3D Card with Trim and Glow -->
-                        <Border x:Name="CardBorder"
-                                Stroke="White"
+
+                        <!-- VSM must be on the root DataTemplate element so CarouselView can apply Current/Normal states -->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale" Value="0.5" />
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Current">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale" Value="1.5" />
+                                            <Setter Property="Opacity" Value="1.0" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <!-- 3D Circle Card with Glow -->
+                        <Border Stroke="White"
                                 StrokeThickness="1"
                                 BackgroundColor="Black"
                                 HorizontalOptions="Center"
@@ -88,37 +108,17 @@
                             <Border.Shadow>
                                 <Shadow Brush="Orange" Offset="0,0" Radius="30" Opacity="0.9" />
                             </Border.Shadow>
-                            
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroupList>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal">
-                                            <VisualState.Setters>
-                                                <Setter Property="Scale" Value="0.5" />
-                                                <Setter Property="Opacity" Value="0.3" />
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                        <VisualState x:Name="Current">
-                                            <VisualState.Setters>
-                                                <Setter Property="Scale" Value="1.5" />
-                                                <Setter Property="Opacity" Value="1.0" />
-                                                <Setter Property="ZIndex" Value="1" />
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateGroupList>
-                            </VisualStateManager.VisualStateGroups>
 
                             <Grid>
-                                <Label Text="{Binding Title}" 
-                                       TextColor="White" 
-                                       FontSize="20" 
+                                <Label Text="{Binding Title}"
+                                       TextColor="White"
+                                       FontSize="10"
                                        FontAttributes="Bold"
-                                       HorizontalOptions="Center" 
+                                       HorizontalOptions="Center"
                                        VerticalOptions="Center" />
-                                
+
                                 <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=EnterSectionCommand}" 
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=EnterSectionCommand}"
                                                           CommandParameter="{Binding .}" />
                                 </Grid.GestureRecognizers>
                             </Grid>
