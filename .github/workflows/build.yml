@@ -21,11 +21,19 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      - name: Cache NuGet Packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Install MAUI Workload
         run: dotnet workload install maui
 
       - name: Restore Dependencies
-        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -r maccatalyst-x64
+        run: dotnet restore src/Football.MauiApp/Football.MauiApp.csproj -r maccatalyst-x64 --ignore-failed-sources
 
       - name: Build MacCatalyst App
         run: dotnet build src/Football.MauiApp/Football.MauiApp.csproj -c Debug -f net8.0-maccatalyst -r maccatalyst-x64 --no-restore
