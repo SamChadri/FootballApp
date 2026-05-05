@@ -136,7 +136,7 @@
                 <VerticalStackLayout Spacing="10"
                                      BindableLayout.ItemsSource="{Binding PlayerStats}">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate x:DataType="vm:StatLine">
+                        <DataTemplate x:DataType="core:StatLine">
                             <Border BackgroundColor="#111111"
                                     StrokeThickness="1"
                                     Stroke="#2A2A2A"
