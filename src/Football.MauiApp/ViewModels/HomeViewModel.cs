@@ -48,16 +48,7 @@ public partial class HomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task EnterSectionAsync(HomeItem item)
-    {
-        if (item != null && !string.IsNullOrEmpty(item.Route))
-        {
-            await Shell.Current.GoToAsync(item.Route);
-        }
-    }
-
-    [RelayCommand]
-    private void SelectItem(HomeItem item)
+    private async Task SelectItemAsync(HomeItem item)
     {
         if (item == null) return;
         var idx = MenuItems.IndexOf(item);
@@ -66,6 +57,9 @@ public partial class HomeViewModel : ObservableObject
         item.IsSelected = true;
         CurrentPosition = idx;
         CurrentItem = item;
+
+        if (!string.IsNullOrEmpty(item.Route))
+            await Shell.Current.GoToAsync(item.Route);
     }
 
     partial void OnCurrentPositionChanged(int value)
