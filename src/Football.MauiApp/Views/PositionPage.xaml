@@ -28,7 +28,7 @@
                 <Label Text="{Binding PageTitle}"
                        TextColor="White" FontSize="22" FontAttributes="Bold" />
                 <Label Text="SELECT A POSITION"
-                       TextColor="#FF6B00" FontSize="12" LetterSpacing="3" FontAttributes="Bold" />
+                       TextColor="#FF6B00" FontSize="12" CharacterSpacing="3" FontAttributes="Bold" />
             </VerticalStackLayout>
         </Grid>
 

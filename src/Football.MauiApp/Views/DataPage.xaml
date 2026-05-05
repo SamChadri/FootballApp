@@ -20,11 +20,11 @@
                    TextColor="White"
                    FontSize="36"
                    FontAttributes="Bold"
-                   LetterSpacing="4" />
+                   CharacterSpacing="4" />
             <Label Text="SELECT A SEASON"
                    TextColor="#FF6B00"
                    FontSize="13"
-                   LetterSpacing="3"
+                   CharacterSpacing="3"
                    FontAttributes="Bold" />
         </VerticalStackLayout>
 

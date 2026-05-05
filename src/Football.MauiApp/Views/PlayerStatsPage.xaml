@@ -28,7 +28,7 @@
                 <Label Text="{Binding PageTitle}"
                        TextColor="White" FontSize="22" FontAttributes="Bold" />
                 <Label Text="PLAYER BREAKDOWN"
-                       TextColor="#FF6B00" FontSize="12" LetterSpacing="3" FontAttributes="Bold" />
+                       TextColor="#FF6B00" FontSize="12" CharacterSpacing="3" FontAttributes="Bold" />
             </VerticalStackLayout>
         </Grid>
 
@@ -52,7 +52,7 @@
                         <Label Text="TACKLE SHARE"
                                TextColor="#888888"
                                FontSize="11"
-                               LetterSpacing="2"
+                               CharacterSpacing="2"
                                FontAttributes="Bold"
                                VerticalOptions="Start" />
 
@@ -97,7 +97,7 @@
                                Text="TACKLES BY WEEK"
                                TextColor="#888888"
                                FontSize="11"
-                               LetterSpacing="2"
+                               CharacterSpacing="2"
                                FontAttributes="Bold"
                                Margin="0,0,0,12" />
                         <!-- Bar chart rendered as horizontal stack of proportional bars -->
@@ -129,7 +129,7 @@
                 <Label Text="PLAYERS"
                        TextColor="#888888"
                        FontSize="11"
-                       LetterSpacing="2"
+                       CharacterSpacing="2"
                        FontAttributes="Bold"
                        Margin="4,0" />
 
