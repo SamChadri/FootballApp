@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
+             xmlns:core="clr-namespace:Football.Core;assembly=Football.Core"
+             x:Class="Football.MauiApp.Views.TeamGroupPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#000000"
+             Title="Team Group">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="24,60,24,24">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,32">
+            <!-- Back Button -->
+            <Border Grid.Column="0"
+                    WidthRequest="40" HeightRequest="40"
+                    BackgroundColor="#1A1A1A"
+                    Margin="0,0,16,0"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                <Label Text="‹" TextColor="White" FontSize="22" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                <Label Text="{Binding SeasonTitle}"
+                       TextColor="White" FontSize="26" FontAttributes="Bold" />
+                <Label Text="SELECT A UNIT"
+                       TextColor="#FF6B00" FontSize="12" LetterSpacing="3" FontAttributes="Bold" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Divider -->
+        <BoxView Grid.Row="1" HeightRequest="1" Color="#1F1F1F" Margin="0,0,0,32" />
+
+        <!-- Group Cards -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="16"
+                                 BindableLayout.ItemsSource="{Binding Groups}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="core:TeamGroup">
+                        <Border BackgroundColor="#111111"
+                                StrokeThickness="1"
+                                Stroke="#2A2A2A"
+                                Padding="24,20">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
+                                <!-- Icon circle -->
+                                <Border Grid.Column="0"
+                                        WidthRequest="52" HeightRequest="52"
+                                        BackgroundColor="#FF6B00"
+                                        VerticalOptions="Center">
+                                    <Border.StrokeShape><RoundRectangle CornerRadius="26" /></Border.StrokeShape>
+                                    <Label Text="{Binding Icon}"
+                                           FontSize="22"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+
+                                <!-- Name + positions -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"
+                                           TextColor="White" FontSize="20" FontAttributes="Bold" />
+                                    <Label Text="{Binding Subtitle}"
+                                           TextColor="#888888" FontSize="12" />
+                                </VerticalStackLayout>
+
+                                <!-- Arrow -->
+                                <Label Grid.Column="2"
+                                       Text="›"
+                                       TextColor="#FF6B00"
+                                       FontSize="28"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TeamGroupViewModel}}, Path=SelectGroupCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

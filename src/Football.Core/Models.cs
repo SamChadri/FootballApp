@@ -35,6 +35,37 @@ public sealed record Play(
     string Position,
     int GameId,
     int TeamId
-
 );
 
+// ── Data Dashboard Models ──────────────────────────────────────────────────
+
+public class Season
+{
+    public int Year { get; set; }
+    public List<Game> Games { get; set; } = [];
+}
+
+public class TeamGroup
+{
+    public string Name { get; set; } = string.Empty;
+    public string Icon { get; set; } = string.Empty;
+    public string Subtitle { get; set; } = string.Empty;
+    public List<PositionGroup> Positions { get; set; } = [];
+}
+
+public class PositionGroup
+{
+    public string Name { get; set; } = string.Empty;
+    public List<Player> Players { get; set; } = [];
+}
+
+public class StatLine
+{
+    public string PlayerNumber { get; set; } = string.Empty;
+    public string PlayerName { get; set; } = string.Empty;
+    public int Tackles { get; set; }
+    public int TechTackles { get; set; }
+    public int TechTotal { get; set; }
+    public int Sacks { get; set; }
+    public int Assists { get; set; }
+}

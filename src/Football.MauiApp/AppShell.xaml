@@ -18,4 +18,24 @@
         ContentTemplate="{DataTemplate views:GamesListPage}"
         Route="GamesListPage" />
 
+    <ShellContent
+        Title="Data"
+        ContentTemplate="{DataTemplate views:DataPage}"
+        Route="DataPage" />
+
+    <ShellContent
+        Title="Team Group"
+        ContentTemplate="{DataTemplate views:TeamGroupPage}"
+        Route="TeamGroupPage" />
+
+    <ShellContent
+        Title="Position"
+        ContentTemplate="{DataTemplate views:PositionPage}"
+        Route="PositionPage" />
+
+    <ShellContent
+        Title="Player Stats"
+        ContentTemplate="{DataTemplate views:PlayerStatsPage}"
+        Route="PlayerStatsPage" />
+
 </Shell>

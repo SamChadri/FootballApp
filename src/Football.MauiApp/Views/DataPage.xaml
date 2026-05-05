@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
+             xmlns:core="clr-namespace:Football.Core;assembly=Football.Core"
+             x:Class="Football.MauiApp.Views.DataPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#000000"
+             Title="Data">
+
+    <ContentPage.BindingContext>
+        <vm:DataViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="24,60,24,24">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4" Margin="0,0,0,32">
+            <Label Text="DATA"
+                   TextColor="White"
+                   FontSize="36"
+                   FontAttributes="Bold"
+                   LetterSpacing="4" />
+            <Label Text="SELECT A SEASON"
+                   TextColor="#FF6B00"
+                   FontSize="13"
+                   LetterSpacing="3"
+                   FontAttributes="Bold" />
+        </VerticalStackLayout>
+
+        <!-- Divider -->
+        <BoxView Grid.Row="1"
+                 HeightRequest="1"
+                 Color="#1F1F1F"
+                 Margin="0,0,0,32" />
+
+        <!-- Season Cards -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="16"
+                                 BindableLayout.ItemsSource="{Binding Seasons}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="core:Season">
+                        <Border BackgroundColor="#111111"
+                                StrokeThickness="1"
+                                Stroke="#2A2A2A"
+                                Padding="28,22">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Brush="#FF6B00" Offset="0,0" Radius="0" Opacity="0" />
+                            </Border.Shadow>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="Stroke" Value="#FF6B00" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                    <Label Text="{Binding Year}"
+                                           TextColor="White"
+                                           FontSize="28"
+                                           FontAttributes="Bold" />
+                                    <Label Text="Season"
+                                           TextColor="#888888"
+                                           FontSize="13" />
+                                </VerticalStackLayout>
+
+                                <!-- Orange glow arrow -->
+                                <Border Grid.Column="1"
+                                        WidthRequest="44"
+                                        HeightRequest="44"
+                                        BackgroundColor="#FF6B00"
+                                        VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="22" />
+                                    </Border.StrokeShape>
+                                    <Label Text="›"
+                                           TextColor="White"
+                                           FontSize="24"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DataViewModel}}, Path=SelectSeasonCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

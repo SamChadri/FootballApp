@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
+             xmlns:core="clr-namespace:Football.Core;assembly=Football.Core"
+             x:Class="Football.MauiApp.Views.PlayerStatsPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#000000"
+             Title="Player Stats">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="24,60,24,24">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,20">
+            <Border Grid.Column="0"
+                    WidthRequest="40" HeightRequest="40"
+                    BackgroundColor="#1A1A1A"
+                    Margin="0,0,16,0"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                <Label Text="‹" TextColor="White" FontSize="22" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                <Label Text="{Binding PageTitle}"
+                       TextColor="White" FontSize="22" FontAttributes="Bold" />
+                <Label Text="PLAYER BREAKDOWN"
+                       TextColor="#FF6B00" FontSize="12" LetterSpacing="3" FontAttributes="Bold" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Divider -->
+        <BoxView Grid.Row="1" HeightRequest="1" Color="#1F1F1F" Margin="0,0,0,20" />
+
+        <!-- Body -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="20">
+
+                <!-- ── Donut Chart Placeholder ── -->
+                <Border BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="20"
+                        HeightRequest="220">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Label Text="TACKLE SHARE"
+                               TextColor="#888888"
+                               FontSize="11"
+                               LetterSpacing="2"
+                               FontAttributes="Bold"
+                               VerticalOptions="Start" />
+
+                        <!-- Simulated donut using concentric arcs via BoxViews -->
+                        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                            <!-- Outer ring -->
+                            <Ellipse WidthRequest="160" HeightRequest="160"
+                                     Stroke="#FF6B00" StrokeThickness="28"
+                                     Fill="Transparent" />
+                            <!-- Inner accent segment -->
+                            <Ellipse WidthRequest="160" HeightRequest="160"
+                                     Stroke="#FF8A00" StrokeThickness="10"
+                                     Fill="Transparent"
+                                     Opacity="0.4" />
+                            <!-- Center label -->
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="2">
+                                <Label Text="{Binding PlayerStats.Count, StringFormat='{0}'}"
+                                       TextColor="White"
+                                       FontSize="32"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center" />
+                                <Label Text="Players"
+                                       TextColor="#888888"
+                                       FontSize="12"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- ── Bar Chart Placeholder ── -->
+                <Border BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="20"
+                        HeightRequest="200">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <Grid RowDefinitions="Auto,*">
+                        <Label Grid.Row="0"
+                               Text="TACKLES BY WEEK"
+                               TextColor="#888888"
+                               FontSize="11"
+                               LetterSpacing="2"
+                               FontAttributes="Bold"
+                               Margin="0,0,0,12" />
+                        <!-- Bar chart rendered as horizontal stack of proportional bars -->
+                        <HorizontalStackLayout Grid.Row="1"
+                                               VerticalOptions="End"
+                                               Spacing="6"
+                                               BindableLayout.ItemsSource="{Binding GameStats}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:GameStat">
+                                    <VerticalStackLayout Spacing="4" WidthRequest="32" VerticalOptions="End">
+                                        <BoxView BackgroundColor="#FF6B00"
+                                                 WidthRequest="28"
+                                                 HeightRequest="{Binding TotalTackles, Converter={StaticResource TackleHeightConverter}}"
+                                                 CornerRadius="4"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="End" />
+                                        <Label Text="{Binding GameLabel}"
+                                               TextColor="#555555"
+                                               FontSize="9"
+                                               HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- ── Player Cards ── -->
+                <Label Text="PLAYERS"
+                       TextColor="#888888"
+                       FontSize="11"
+                       LetterSpacing="2"
+                       FontAttributes="Bold"
+                       Margin="4,0" />
+
+                <VerticalStackLayout Spacing="10"
+                                     BindableLayout.ItemsSource="{Binding PlayerStats}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:StatLine">
+                            <Border BackgroundColor="#111111"
+                                    StrokeThickness="1"
+                                    Stroke="#2A2A2A"
+                                    Padding="20,16">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="16" />
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="16">
+                                    <!-- Jersey number -->
+                                    <Border Grid.Column="0"
+                                            WidthRequest="44" HeightRequest="44"
+                                            BackgroundColor="#1E1E1E"
+                                            VerticalOptions="Center">
+                                        <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                                        <Label Text="{Binding PlayerNumber, StringFormat='#{0}'}"
+                                               TextColor="#FF6B00"
+                                               FontSize="12"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Border>
+                                    <!-- Name -->
+                                    <Label Grid.Column="1"
+                                           Text="{Binding PlayerName}"
+                                           TextColor="White"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center" />
+                                    <!-- Stats -->
+                                    <VerticalStackLayout Grid.Column="2" Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Label Text="{Binding Tackles}" TextColor="White" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="TKL" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="3" Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Label Text="{Binding Sacks}" TextColor="#FF6B00" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="SCK" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="4" Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Label Text="{Binding Assists}" TextColor="#888" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="AST" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

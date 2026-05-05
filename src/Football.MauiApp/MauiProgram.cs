@@ -36,6 +36,16 @@ public static class MauiProgram
         builder.Services.AddTransient<AddGamePage>();
         builder.Services.AddTransient<AddGameViewModel>();
 
+        // Data drill-down pages
+        builder.Services.AddTransient<DataPage>();
+        builder.Services.AddTransient<DataViewModel>();
+        builder.Services.AddTransient<TeamGroupPage>();
+        builder.Services.AddTransient<TeamGroupViewModel>();
+        builder.Services.AddTransient<PositionPage>();
+        builder.Services.AddTransient<PositionViewModel>();
+        builder.Services.AddTransient<PlayerStatsPage>();
+        builder.Services.AddTransient<PlayerStatsViewModel>();
+
 		return builder.Build();
 	}
 }
