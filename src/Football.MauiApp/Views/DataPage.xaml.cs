@@ -6,4 +6,7 @@ public partial class DataPage : ContentPage
     {
         InitializeComponent();
     }
+
+    private async void OnBackTapped(object sender, EventArgs e) =>
+        await Shell.Current.GoToAsync("//HomePage");
 }

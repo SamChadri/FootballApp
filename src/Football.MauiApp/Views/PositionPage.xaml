@@ -11,7 +11,7 @@
     <Grid RowDefinitions="Auto,Auto,*" Padding="24,60,24,24">
 
         <!-- Header -->
-        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,32">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,20">
             <Border Grid.Column="0"
                     WidthRequest="40" HeightRequest="40"
                     BackgroundColor="#1A1A1A"
@@ -33,48 +33,121 @@
         </Grid>
 
         <!-- Divider -->
-        <BoxView Grid.Row="1" HeightRequest="1" Color="#1F1F1F" Margin="0,0,0,32" />
+        <BoxView Grid.Row="1" HeightRequest="1" Color="#1F1F1F" Margin="0,0,0,20" />
 
-        <!-- Position Grid -->
+        <!-- Scrollable body -->
         <ScrollView Grid.Row="2">
-            <FlexLayout BindableLayout.ItemsSource="{Binding Positions}"
-                        Wrap="Wrap"
-                        JustifyContent="Start"
-                        AlignItems="Start">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="core:PositionGroup">
-                        <Border BackgroundColor="#111111"
-                                StrokeThickness="1"
-                                Stroke="#2A2A2A"
-                                WidthRequest="160"
-                                HeightRequest="100"
-                                Margin="0,0,12,12">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="16" />
-                            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="24">
 
-                            <Grid RowDefinitions="*,Auto" Padding="16,12">
-                                <Label Grid.Row="0"
-                                       Text="{Binding Name}"
-                                       TextColor="White"
-                                       FontSize="24"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center" />
-                                <Label Grid.Row="1"
-                                       Text="View Stats ›"
-                                       TextColor="#FF6B00"
-                                       FontSize="12" />
-                            </Grid>
+                <!-- ── Vertical Bar Chart: tackles per position ── -->
+                <Border BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="20"
+                        HeightRequest="190">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <Label Grid.Row="0"
+                               Text="TACKLES BY POSITION"
+                               TextColor="#888888"
+                               FontSize="11"
+                               CharacterSpacing="2"
+                               FontAttributes="Bold"
+                               Margin="0,0,0,8" />
 
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PositionViewModel}}, Path=SelectPositionCommand}"
-                                    CommandParameter="{Binding .}" />
-                            </Border.GestureRecognizers>
-                        </Border>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
+                        <!-- Bars -->
+                        <HorizontalStackLayout Grid.Row="1"
+                                               VerticalOptions="End"
+                                               Spacing="10"
+                                               HorizontalOptions="Center"
+                                               BindableLayout.ItemsSource="{Binding PositionChart}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:PositionBar">
+                                    <VerticalStackLayout Spacing="4" WidthRequest="44" VerticalOptions="End">
+                                        <Label Text="{Binding Tackles}"
+                                               TextColor="#FF6B00"
+                                               FontSize="10"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center" />
+                                        <BoxView BackgroundColor="#FF6B00"
+                                                 WidthRequest="32"
+                                                 HeightRequest="{Binding BarHeight}"
+                                                 CornerRadius="4"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="End" />
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </HorizontalStackLayout>
+
+                        <!-- Position labels -->
+                        <HorizontalStackLayout Grid.Row="2"
+                                               Spacing="10"
+                                               HorizontalOptions="Center"
+                                               Margin="0,6,0,0"
+                                               BindableLayout.ItemsSource="{Binding PositionChart}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:PositionBar">
+                                    <Label Text="{Binding Name}"
+                                           TextColor="#666666"
+                                           FontSize="10"
+                                           WidthRequest="44"
+                                           HorizontalOptions="Center"
+                                           HorizontalTextAlignment="Center" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- ── Position Cards ── -->
+                <Label Text="SELECT A POSITION"
+                       TextColor="#888888"
+                       FontSize="11"
+                       CharacterSpacing="2"
+                       FontAttributes="Bold"
+                       Margin="4,0" />
+
+                <FlexLayout BindableLayout.ItemsSource="{Binding Positions}"
+                            Wrap="Wrap"
+                            JustifyContent="Start"
+                            AlignItems="Start">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="core:PositionGroup">
+                            <Border BackgroundColor="#111111"
+                                    StrokeThickness="1"
+                                    Stroke="#2A2A2A"
+                                    WidthRequest="150"
+                                    HeightRequest="90"
+                                    Margin="0,0,10,10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="14" />
+                                </Border.StrokeShape>
+                                <Grid RowDefinitions="*,Auto" Padding="14,10">
+                                    <Label Grid.Row="0"
+                                           Text="{Binding Name}"
+                                           TextColor="White"
+                                           FontSize="22"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Row="1"
+                                           Text="View Stats ›"
+                                           TextColor="#FF6B00"
+                                           FontSize="11" />
+                                </Grid>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PositionViewModel}}, Path=SelectPositionCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+
+            </VerticalStackLayout>
         </ScrollView>
     </Grid>
 </ContentPage>

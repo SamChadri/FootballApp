@@ -11,8 +11,7 @@
     <Grid RowDefinitions="Auto,Auto,*" Padding="24,60,24,24">
 
         <!-- Header -->
-        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,32">
-            <!-- Back Button -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,20">
             <Border Grid.Column="0"
                     WidthRequest="40" HeightRequest="40"
                     BackgroundColor="#1A1A1A"
@@ -25,7 +24,6 @@
                     <TapGestureRecognizer Tapped="OnBackTapped" />
                 </Border.GestureRecognizers>
             </Border>
-
             <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                 <Label Text="{Binding SeasonTitle}"
                        TextColor="White" FontSize="26" FontAttributes="Bold" />
@@ -35,60 +33,120 @@
         </Grid>
 
         <!-- Divider -->
-        <BoxView Grid.Row="1" HeightRequest="1" Color="#1F1F1F" Margin="0,0,0,32" />
+        <BoxView Grid.Row="1" HeightRequest="1" Color="#1F1F1F" Margin="0,0,0,20" />
 
-        <!-- Group Cards -->
+        <!-- Scrollable body -->
         <ScrollView Grid.Row="2">
-            <VerticalStackLayout Spacing="16"
-                                 BindableLayout.ItemsSource="{Binding Groups}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="core:TeamGroup">
-                        <Border BackgroundColor="#111111"
-                                StrokeThickness="1"
-                                Stroke="#2A2A2A"
-                                Padding="24,20">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="20" />
-                            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="24">
 
-                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
-                                <!-- Icon circle -->
-                                <Border Grid.Column="0"
-                                        WidthRequest="52" HeightRequest="52"
-                                        BackgroundColor="#FF6B00"
-                                        VerticalOptions="Center">
-                                    <Border.StrokeShape><RoundRectangle CornerRadius="26" /></Border.StrokeShape>
-                                    <Label Text="{Binding Icon}"
-                                           FontSize="22"
-                                           HorizontalOptions="Center"
+                <!-- ── Unit Distribution Chart ── -->
+                <Border BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="TACKLES BY UNIT"
+                               TextColor="#888888"
+                               FontSize="11"
+                               CharacterSpacing="2"
+                               FontAttributes="Bold" />
+
+                        <VerticalStackLayout Spacing="12"
+                                             BindableLayout.ItemsSource="{Binding GroupChart}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:GroupSummaryBar">
+                                    <VerticalStackLayout Spacing="5">
+                                        <!-- Label row -->
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Grid.Column="0"
+                                                   Text="{Binding Name}"
+                                                   TextColor="White"
+                                                   FontSize="13"
+                                                   FontAttributes="Bold" />
+                                            <HorizontalStackLayout Grid.Column="1" Spacing="4">
+                                                <Label Text="{Binding Tackles}"
+                                                       TextColor="{Binding Color}"
+                                                       FontSize="13"
+                                                       FontAttributes="Bold" />
+                                                <Label Text="TKL ·"
+                                                       TextColor="#555555"
+                                                       FontSize="13" />
+                                                <Label Text="{Binding Percentage}"
+                                                       TextColor="{Binding Color}"
+                                                       FontSize="13"
+                                                       FontAttributes="Bold" />
+                                            </HorizontalStackLayout>
+                                        </Grid>
+                                        <!-- Bar track -->
+                                        <Grid HeightRequest="10">
+                                            <BoxView BackgroundColor="#1E1E1E"
+                                                     HeightRequest="10"
+                                                     CornerRadius="5"
+                                                     HorizontalOptions="Fill" />
+                                            <BoxView BackgroundColor="{Binding Color}"
+                                                     HeightRequest="10"
+                                                     WidthRequest="{Binding BarWidth}"
+                                                     CornerRadius="5"
+                                                     HorizontalOptions="Start" />
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ── Unit Cards ── -->
+                <Label Text="SELECT A UNIT"
+                       TextColor="#888888"
+                       FontSize="11"
+                       CharacterSpacing="2"
+                       FontAttributes="Bold"
+                       Margin="4,0" />
+
+                <VerticalStackLayout Spacing="12"
+                                     BindableLayout.ItemsSource="{Binding Groups}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="core:TeamGroup">
+                            <Border BackgroundColor="#111111"
+                                    StrokeThickness="1"
+                                    Stroke="#2A2A2A"
+                                    Padding="20,18">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="16" />
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                                    <Border Grid.Column="0"
+                                            WidthRequest="48" HeightRequest="48"
+                                            BackgroundColor="#FF6B00"
+                                            VerticalOptions="Center">
+                                        <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
+                                        <Label Text="{Binding Icon}" FontSize="20"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
+                                               TextColor="White" FontSize="18" FontAttributes="Bold" />
+                                        <Label Text="{Binding Subtitle}"
+                                               TextColor="#666666" FontSize="12" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="›"
+                                           TextColor="#FF6B00" FontSize="26" FontAttributes="Bold"
                                            VerticalOptions="Center" />
-                                </Border>
+                                </Grid>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TeamGroupViewModel}}, Path=SelectGroupCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
 
-                                <!-- Name + positions -->
-                                <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
-                                    <Label Text="{Binding Name}"
-                                           TextColor="White" FontSize="20" FontAttributes="Bold" />
-                                    <Label Text="{Binding Subtitle}"
-                                           TextColor="#888888" FontSize="12" />
-                                </VerticalStackLayout>
-
-                                <!-- Arrow -->
-                                <Label Grid.Column="2"
-                                       Text="›"
-                                       TextColor="#FF6B00"
-                                       FontSize="28"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center" />
-                            </Grid>
-
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TeamGroupViewModel}}, Path=SelectGroupCommand}"
-                                    CommandParameter="{Binding .}" />
-                            </Border.GestureRecognizers>
-                        </Border>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
