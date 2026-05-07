@@ -20,6 +20,6 @@ public partial class GamesListPage : ContentPage
 
     private async void OnAddGameClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(AddGamePage));
+        await Shell.Current.GoToAsync(nameof(CreateHubPage));
     }
 }

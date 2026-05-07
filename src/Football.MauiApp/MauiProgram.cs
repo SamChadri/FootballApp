@@ -35,6 +35,11 @@ public static class MauiProgram
         builder.Services.AddTransient<GamesListViewModel>();
         builder.Services.AddTransient<AddGamePage>();
         builder.Services.AddTransient<AddGameViewModel>();
+        builder.Services.AddTransient<CreateHubPage>();
+        builder.Services.AddTransient<AddPlayerPage>();
+        builder.Services.AddTransient<AddPlayerViewModel>();
+        builder.Services.AddTransient<AddPlayPage>();
+        builder.Services.AddTransient<AddPlayViewModel>();
 
         // Data drill-down pages
         builder.Services.AddTransient<DataPage>();

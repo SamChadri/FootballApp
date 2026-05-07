@@ -2,13 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
-             x:Class="Football.MauiApp.Views.AddGamePage"
+             x:Class="Football.MauiApp.Views.AddPlayerPage"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#000000"
-             Title="Add Game">
+             Title="Add Player">
 
     <Grid RowDefinitions="Auto,*">
-        <!-- Header -->
         <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Padding="24,48,24,12">
             <Border WidthRequest="40" HeightRequest="40"
                     BackgroundColor="#1A1A1A"
@@ -22,12 +21,12 @@
                 </Border.GestureRecognizers>
             </Border>
             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                <Label Text="NEW GAME"
+                <Label Text="NEW PLAYER"
                        TextColor="White"
                        FontSize="22"
                        FontAttributes="Bold"
                        CharacterSpacing="2" />
-                <Label Text="SCHEDULE &amp; SCORE"
+                <Label Text="ROSTER"
                        TextColor="#FF6B00"
                        FontSize="10"
                        CharacterSpacing="2"
@@ -41,7 +40,6 @@
                   ColumnSpacing="20"
                   MinimumHeightRequest="420">
 
-                <!-- Left: hero image -->
                 <Border Grid.Column="0"
                         BackgroundColor="#111111"
                         StrokeThickness="1"
@@ -49,18 +47,18 @@
                         Padding="0">
                     <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
                     <Grid>
-                        <Image Source="teams_bg.jpg"
+                        <Image Source="players_bg.jpg"
                                Aspect="AspectCrop"
                                Opacity="0.95" />
                         <Border BackgroundColor="#88000000"
                                 Padding="20">
                             <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
                             <VerticalStackLayout VerticalOptions="End" Spacing="8">
-                                <Label Text="GAME"
+                                <Label Text="PLAYER"
                                        TextColor="White"
                                        FontSize="28"
                                        FontAttributes="Bold" />
-                                <Label Text="Record opponent, date, and final score."
+                                <Label Text="Jersey number, position group, and class year."
                                        TextColor="#CCCCCC"
                                        FontSize="13"
                                        LineBreakMode="WordWrap" />
@@ -69,7 +67,6 @@
                     </Grid>
                 </Border>
 
-                <!-- Right: form -->
                 <VerticalStackLayout Grid.Column="1"
                                      Spacing="14"
                                      VerticalOptions="Center">
@@ -79,65 +76,54 @@
                            FontSize="18"
                            FontAttributes="Bold" />
 
-                    <Label Text="OPPONENT" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Label Text="JERSEY #" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
                     <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
                         <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
-                        <Entry Placeholder="Team name"
+                        <Entry Placeholder="64"
                                PlaceholderColor="#666666"
                                TextColor="White"
-                               Text="{Binding Opponent}" />
+                               Keyboard="Numeric"
+                               Text="{Binding NumberText}" />
                     </Border>
 
-                    <Label Text="DATE" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
-                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="8,4">
+                    <Label Text="NAME" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
                         <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
-                        <DatePicker Date="{Binding Date}"
-                                    TextColor="White"
-                                    BackgroundColor="Transparent" />
+                        <Entry Placeholder="Full name"
+                               PlaceholderColor="#666666"
+                               TextColor="White"
+                               Text="{Binding Name}" />
                     </Border>
 
-                    <Label Text="RESULT" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
-                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="8,4">
+                    <Label Text="POSITION" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
                         <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
-                        <Picker Title="Win / Loss / Tie"
-                                TitleColor="#888888"
-                                TextColor="White"
-                                BackgroundColor="Transparent"
-                                SelectedIndex="{Binding ResultPickerIndex}">
-                            <Picker.Items>
-                                <x:String>Win (W)</x:String>
-                                <x:String>Loss (L)</x:String>
-                                <x:String>Tie (T)</x:String>
-                            </Picker.Items>
-                        </Picker>
+                        <Entry Placeholder="e.g. Defensive Line"
+                               PlaceholderColor="#666666"
+                               TextColor="White"
+                               Text="{Binding Position}" />
                     </Border>
 
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-                        <VerticalStackLayout Grid.Column="0">
-                            <Label Text="POINTS" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
-                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
-                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
-                                <Entry Placeholder="0"
-                                       PlaceholderColor="#666666"
-                                       TextColor="White"
-                                       Keyboard="Numeric"
-                                       Text="{Binding PointsText}" />
-                            </Border>
-                        </VerticalStackLayout>
-                        <VerticalStackLayout Grid.Column="1">
-                            <Label Text="OPP PTS" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
-                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
-                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
-                                <Entry Placeholder="0"
-                                       PlaceholderColor="#666666"
-                                       TextColor="White"
-                                       Keyboard="Numeric"
-                                       Text="{Binding OpponentPointsText}" />
-                            </Border>
-                        </VerticalStackLayout>
-                    </Grid>
+                    <Label Text="YEAR" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Entry Placeholder="FR / SO / JR / SR"
+                               PlaceholderColor="#666666"
+                               TextColor="White"
+                               Text="{Binding Year}" />
+                    </Border>
 
-                    <Button Text="SAVE GAME"
+                    <Label Text="TEAM ID" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Entry Placeholder="1"
+                               PlaceholderColor="#666666"
+                               TextColor="White"
+                               Keyboard="Numeric"
+                               Text="{Binding TeamIdText}" />
+                    </Border>
+
+                    <Button Text="SAVE PLAYER"
                             BackgroundColor="#FF6B00"
                             TextColor="Black"
                             FontAttributes="Bold"

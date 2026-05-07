@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Football.MauiApp.Views.CreateHubPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#000000"
+             Title="Create">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="24,52,24,24">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,16">
+            <Border Grid.Column="0"
+                    WidthRequest="40" HeightRequest="40"
+                    BackgroundColor="#1A1A1A"
+                    Margin="0,0,16,0"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                <Label Text="‹" TextColor="White" FontSize="22" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                <Label Text="CREATE"
+                       TextColor="White"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       CharacterSpacing="4" />
+                <Label Text="CHOOSE WHAT TO ADD"
+                       TextColor="#FF6B00"
+                       FontSize="11"
+                       CharacterSpacing="2"
+                       FontAttributes="Bold" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <BoxView Grid.Row="1" HeightRequest="1" Color="#1F1F1F" Margin="0,0,0,20" />
+
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="16">
+
+                <Label Text="Select an entity below. Each screen uses a split layout — illustration on the left and fields on the right."
+                       TextColor="#888888"
+                       FontSize="13"
+                       LineBreakMode="WordWrap"
+                       Margin="0,0,0,8" />
+
+                <!-- Game -->
+                <Border BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnGameTapped" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="120,*" Padding="16">
+                        <Border Grid.Column="0"
+                                HeightRequest="100"
+                                BackgroundColor="#1E1538">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                            <Image Source="teams_bg.jpg"
+                                   Aspect="AspectCrop"
+                                   Opacity="0.92" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="16,8"
+                                             VerticalOptions="Center"
+                                             Spacing="6">
+                            <Label Text="Game" TextColor="White" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="Schedule &amp; box score"
+                                   TextColor="#888888"
+                                   FontSize="12" />
+                            <Label Text="›"
+                                   TextColor="#FF6B00"
+                                   FontSize="22"
+                                   HorizontalOptions="End" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Player -->
+                <Border BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPlayerTapped" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="120,*" Padding="16">
+                        <Border Grid.Column="0"
+                                HeightRequest="100"
+                                BackgroundColor="#153828">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                            <Image Source="players_bg.jpg"
+                                   Aspect="AspectCrop"
+                                   Opacity="0.92" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="16,8"
+                                             VerticalOptions="Center"
+                                             Spacing="6">
+                            <Label Text="Player" TextColor="White" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="Roster entry — number, position, year"
+                                   TextColor="#888888"
+                                   FontSize="12" />
+                            <Label Text="›"
+                                   TextColor="#FF6B00"
+                                   FontSize="22"
+                                   HorizontalOptions="End" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Play -->
+                <Border BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPlayTapped" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="120,*" Padding="16">
+                        <Border Grid.Column="0"
+                                HeightRequest="100"
+                                BackgroundColor="#382418">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                            <Image Source="create_bg.jpg"
+                                   Aspect="AspectCrop"
+                                   Opacity="0.92" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="16,8"
+                                             VerticalOptions="Center"
+                                             Spacing="6">
+                            <Label Text="Play" TextColor="White" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="Film-grade stats for one snap"
+                                   TextColor="#888888"
+                                   FontSize="12" />
+                            <Label Text="›"
+                                   TextColor="#FF6B00"
+                                   FontSize="22"
+                                   HorizontalOptions="End" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

@@ -2,11 +2,11 @@ using Football.MauiApp.ViewModels;
 
 namespace Football.MauiApp.Views;
 
-public partial class AddGamePage : ContentPage
+public partial class AddPlayPage : ContentPage
 {
-    private readonly AddGameViewModel _viewModel;
+    private readonly AddPlayViewModel _viewModel;
 
-    public AddGamePage(AddGameViewModel viewModel)
+    public AddPlayPage(AddPlayViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = _viewModel = viewModel;
@@ -25,7 +25,14 @@ public partial class AddGamePage : ContentPage
 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
-        await _viewModel.SaveGameAsync();
-        await Shell.Current.GoToAsync("..");
+        try
+        {
+            await _viewModel.SaveAsync();
+            await Shell.Current.GoToAsync("..");
+        }
+        catch (InvalidOperationException ex)
+        {
+            await DisplayAlert("Cannot save play", ex.Message, "OK");
+        }
     }
 }

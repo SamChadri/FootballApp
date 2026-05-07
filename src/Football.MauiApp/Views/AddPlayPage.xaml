@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
+             x:Class="Football.MauiApp.Views.AddPlayPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#000000"
+             Title="Add Play">
+
+    <Grid RowDefinitions="Auto,*">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Padding="24,48,24,12">
+            <Border WidthRequest="40" HeightRequest="40"
+                    BackgroundColor="#1A1A1A"
+                    Margin="0,0,16,0"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                <Label Text="‹" TextColor="White" FontSize="22" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                <Label Text="NEW PLAY"
+                       TextColor="White"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       CharacterSpacing="2" />
+                <Label Text="FILM STATS"
+                       TextColor="#FF6B00"
+                       FontSize="10"
+                       CharacterSpacing="2"
+                       FontAttributes="Bold" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <Grid Padding="24,8,24,32"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="20"
+                  MinimumHeightRequest="520">
+
+                <!-- Left visual -->
+                <Border Grid.Column="0"
+                        BackgroundColor="#111111"
+                        StrokeThickness="1"
+                        Stroke="#2A2A2A"
+                        Padding="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Grid>
+                        <Image Source="create_bg.jpg"
+                               Aspect="AspectCrop"
+                               Opacity="0.95" />
+                        <Border BackgroundColor="#88000000"
+                                Padding="20">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                            <VerticalStackLayout VerticalOptions="End" Spacing="8">
+                                <Label Text="PLAY"
+                                       TextColor="White"
+                                       FontSize="28"
+                                       FontAttributes="Bold" />
+                                <Label Text="Link to game &amp; player, then capture grading fields."
+                                       TextColor="#CCCCCC"
+                                       FontSize="13"
+                                       LineBreakMode="WordWrap" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Right form -->
+                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="12">
+
+                    <Label Text="Links"
+                           TextColor="White"
+                           FontSize="18"
+                           FontAttributes="Bold" />
+
+                    <Label Text="GAME" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="8,4">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Picker Title="Select game"
+                                TitleColor="#888888"
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                ItemsSource="{Binding GameLabels}"
+                                SelectedIndex="{Binding SelectedGameIndex}" />
+                    </Border>
+
+                    <Label Text="PLAYER" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="8,4">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Picker Title="Select player"
+                                TitleColor="#888888"
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                ItemsSource="{Binding PlayerLabels}"
+                                SelectedIndex="{Binding SelectedPlayerIndex}" />
+                    </Border>
+
+                    <Label Text="Stats"
+                           TextColor="White"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           Margin="0,8,0,0" />
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="PLAY #" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry Keyboard="Numeric" TextColor="White" PlaceholderColor="#666666"
+                                       Text="{Binding PlayNumText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="TYPE (1 LETTER)" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry MaxLength="4" TextColor="White" PlaceholderColor="#666666"
+                                       Text="{Binding TypeText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Label Text="CALLS" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Entry TextColor="White" PlaceholderColor="#666666"
+                               Text="{Binding Calls}" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                        <VerticalStackLayout>
+                            <Label Text="TECH" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry Keyboard="Numeric" TextColor="White" Text="{Binding TechText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout>
+                            <Label Text="PURS" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry Keyboard="Numeric" TextColor="White" Text="{Binding PursText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout>
+                            <Label Text="MTP" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry Keyboard="Numeric" TextColor="White" Text="{Binding MtpText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout>
+                            <Label Text="STAT 1" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry TextColor="White" Text="{Binding Stat1}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout>
+                            <Label Text="STAT 2" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry TextColor="White" Text="{Binding Stat2}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Label Text="POSITION (TEXT)" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Entry TextColor="White" Text="{Binding Position}" />
+                    </Border>
+
+                    <Label Text="COMMENT" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Editor AutoSize="TextChanges" MinimumHeightRequest="72"
+                                TextColor="White"
+                                PlaceholderColor="#666666"
+                                Text="{Binding Comment}" />
+                    </Border>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <CheckBox Color="#FF6B00" IsChecked="{Binding Loaf}" VerticalOptions="Center" />
+                        <Label Text="Loaf / bust flag"
+                               TextColor="#CCCCCC"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="TEAM ID" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Entry Keyboard="Numeric" TextColor="White" Text="{Binding TeamIdText}" />
+                    </Border>
+
+                    <Button Text="SAVE PLAY"
+                            BackgroundColor="#FF6B00"
+                            TextColor="Black"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            Margin="0,12,0,0"
+                            Clicked="OnSaveClicked" />
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

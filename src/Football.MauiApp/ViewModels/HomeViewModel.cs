@@ -39,7 +39,7 @@ public partial class HomeViewModel : ObservableObject
             new HomeItem { Title = "Settings", BgImage = "home_bg.png", Route = nameof(GamesListPage) },
             new HomeItem { Title = "Data", BgImage = "home_bg.png", Route = nameof(DataPage) },
             new HomeItem { Title = "Players", BgImage = "home_bg.png", Route = nameof(GamesListPage) },
-            new HomeItem { Title = "Create", BgImage = "home_bg.png", Route = nameof(AddGamePage) }
+            new HomeItem { Title = "Create", BgImage = "home_bg.png", Route = nameof(CreateHubPage) }
         };
 
         CurrentPosition = 2; // Start on "Games"
