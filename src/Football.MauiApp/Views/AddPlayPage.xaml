@@ -49,7 +49,7 @@
                     <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
                     <Grid>
                         <Image Source="create_bg.jpg"
-                               Aspect="AspectCrop"
+                               Aspect="AspectFill"
                                Opacity="0.95" />
                         <Border BackgroundColor="#88000000"
                                 Padding="20">

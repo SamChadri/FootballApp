@@ -62,7 +62,7 @@
                                 BackgroundColor="#1E1538">
                             <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
                             <Image Source="teams_bg.jpg"
-                                   Aspect="AspectCrop"
+                                   Aspect="AspectFill"
                                    Opacity="0.92" />
                         </Border>
                         <VerticalStackLayout Grid.Column="1"
@@ -96,7 +96,7 @@
                                 BackgroundColor="#153828">
                             <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
                             <Image Source="players_bg.jpg"
-                                   Aspect="AspectCrop"
+                                   Aspect="AspectFill"
                                    Opacity="0.92" />
                         </Border>
                         <VerticalStackLayout Grid.Column="1"
@@ -130,7 +130,7 @@
                                 BackgroundColor="#382418">
                             <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
                             <Image Source="create_bg.jpg"
-                                   Aspect="AspectCrop"
+                                   Aspect="AspectFill"
                                    Opacity="0.92" />
                         </Border>
                         <VerticalStackLayout Grid.Column="1"
