@@ -29,6 +29,11 @@ public interface IFootballRepository
     Task<IReadOnlyList<Play>> GetPlayerPlaysAsync(int playerId, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<Play>> GetPositionGamePlaysAsync(string position, int gameId, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<Play>> GetPositionPlaysAsync(string position, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<Player>> GetPositionPlayersAsync(string position, CancellationToken cancellationToken = default);
+    Task<SeasonGroup> GetSeasonGroupAsync(int seasonId, CancellationToken cancellationToken = default);
+    Task<SquadGroup> GetSquadGroupAsync(int seasonId,Squad squad,int teamId, CancellationToken cancellationToken = default);
+    Task<PositionGroup> GetPositionGroupAsync(string position, int teamId, int seasonId, CancellationToken cancellationToken = default);
+    
     Task<int> DeleteGameAsync(int gameId, CancellationToken cancellationToken = default);
     Task<int> DeletePlayerAsync(int playerId, CancellationToken cancellationToken = default);
     Task<int> DeletePlayAsync(int playId, CancellationToken cancellationToken = default);
