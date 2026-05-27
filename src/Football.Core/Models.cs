@@ -52,11 +52,9 @@ public sealed record Player(
     string Name,
     string Position,
     string Year,
-    int TeamId
-)
-{
-    public int SeasonId { get; set; }
-}
+    int TeamId,
+    int SeasonId
+);
 
 public sealed record Play(
     int Id,
@@ -108,12 +106,12 @@ public class SeasonGroup
         Ties = SeasonGames.Count(g => g.Result == 'T');
         PointsFor = SeasonGames.Sum(g => g.Points);
         PointsAgainst = SeasonGames.Sum(g => g.OpponentPoints);
-        HomeWins = SeasonGames.Count(g => g.Result == 'W' && g.Location == 'H');
-        HomeLosses = SeasonGames.Count(g => g.Result == 'L' && g.Location == 'H');
-        HomeTies = SeasonGames.Count(g => g.Result == 'T' && g.Location == 'H');
-        AwayWins = SeasonGames.Count(g => g.Result == 'W' && g.Location == 'A');
-        AwayLosses = SeasonGames.Count(g => g.Result == 'L' && g.Location == 'A');
-        AwayTies = SeasonGames.Count(g => g.Result == 'T' && g.Location == 'A');
+        HomeWins = SeasonGames.Count(g => g.Result == 'W' && g.Location == "H");
+        HomeLosses = SeasonGames.Count(g => g.Result == 'L' && g.Location == "H");
+        HomeTies = SeasonGames.Count(g => g.Result == 'T' && g.Location == "H");
+        AwayWins = SeasonGames.Count(g => g.Result == 'W' && g.Location == "A");
+        AwayLosses = SeasonGames.Count(g => g.Result == 'L' && g.Location == "A");
+        AwayTies = SeasonGames.Count(g => g.Result == 'T' && g.Location == "A");
         return 0;
     }
 }
@@ -130,7 +128,7 @@ public class SquadGroup
     public string Name { get; set; } = string.Empty;
     public string Icon { get; set; } = string.Empty;
     public string Subtitle { get; set; } = string.Empty;
-    public Squad Squad { get; set; } = new();
+    public Squad Squad { get; set; } = null!;
     public List<PositionGroup> Positions { get; set; } = [];
     public sealed record Stats
     {
@@ -177,7 +175,7 @@ public class PositionGroup
     public int CalculateStats()
     {
         SnapCount = PositionPlays.Count;
-        GamesPlayed = PositionGames.Count;
+        GamesPlayed = PositionPlays.Select(x => x.GameId).Distinct().Count();
         SnapPercentage = GamesPlayed == 0 ? 0 : (double)SnapCount * 100 / GamesPlayed;
         return 0;
     }

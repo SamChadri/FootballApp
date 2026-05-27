@@ -266,7 +266,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         await db.OpenAsync(cancellationToken);
 
         var cmd = db.CreateCommand();
-        cmd.CommandText = "SELECT ID, Number, Date, Opponent, Result, Points, OpPoints, Location, SeasonId FROM Gam es WHERE SeasonId = $seasonId;";
+        cmd.CommandText = "SELECT ID, Number, Date, Opponent, Result, Points, OpPoints, Location, SeasonId FROM Games WHERE SeasonId = $seasonId;";
         cmd.Parameters.AddWithValue("$seasonId", seasonId);
 
         var result = new List<Game>();
@@ -281,9 +281,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var points = reader.GetInt32(5);
             var opPoints = reader.GetInt32(6);
             var location = reader.GetString(7);
-            var seasonId = reader.GetInt32(8);
+            var resultSeasonId = reader.GetInt32(8);
 
-            result.Add(new Game(id, number, date, opponent, resultChar, points, opPoints, location, seasonId));
+            result.Add(new Game(id, number, date, opponent, resultChar, points, opPoints, location, resultSeasonId));
         }
 
         return result;
@@ -326,7 +326,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         await db.OpenAsync(cancellationToken);
 
         var cmd = db.CreateCommand();
-        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId FROM Players;";
+        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId, SeasonId FROM Players;";
 
         var result = new List<Player>();
         await using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
@@ -338,8 +338,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var position = reader.GetString(3);
             var year = reader.GetString(4);
             var teamId = reader.GetInt32(5);
+            var seasonId = reader.GetInt32(6);
 
-            result.Add(new Player(id, number, name, position, year, teamId));
+            result.Add(new Player(id, number, name, position, year, teamId, seasonId));
         }
 
         return result;
@@ -354,7 +355,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         await db.OpenAsync(cancellationToken);
 
         var cmd = db.CreateCommand();
-        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId FROM Players WHERE ID = $playerId;";
+        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId, SeasonId FROM Players WHERE ID = $playerId;";
         cmd.Parameters.AddWithValue("$playerId", playerId);
         Player? result = null;
         await using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
@@ -366,8 +367,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var position = reader.GetString(3);
             var year = reader.GetString(4);
             var teamId = reader.GetInt32(5);
+            var seasonId = reader.GetInt32(6);
 
-            result = new Player(id, number, name, position, year, teamId);
+            result = new Player(id, number, name, position, year, teamId, seasonId);
         }
 
         return result;
@@ -379,7 +381,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         await db.OpenAsync(cancellationToken);
 
         var cmd = db.CreateCommand();
-        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId FROM Players WHERE TeamId = $teamId;";
+        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId, SeasonId FROM Players WHERE TeamId = $teamId;";
         cmd.Parameters.AddWithValue("$teamId", teamId);
 
         var result = new List<Player>();
@@ -392,8 +394,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var position = reader.GetString(3);
             var year = reader.GetString(4);
             var resultTeamId = reader.GetInt32(5);
+            var seasonId = reader.GetInt32(6);
 
-            result.Add(new Player(id, number, name, position, year, resultTeamId));
+            result.Add(new Player(id, number, name, position, year, resultTeamId, seasonId));
         }
 
         return result;
@@ -574,7 +577,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         await db.OpenAsync(cancellationToken);
 
         var cmd = db.CreateCommand();
-        cmd.CommandText = "SELECT ID, PlayNum, Calls, PlayerId, Tech, Purs, Mtp, Type, Stat1, Stat2, Loaf, Comment, Position, GameId, TeamId, SeasonId FROM Plays WHERE Position = $position AND GameId = $gameId AND SeasonId = $seasonId;";
+        cmd.CommandText = "SELECT ID, PlayNum, Calls, PlayerId, NumPenalties, PenaltyNames, PlayYards, Tackles, Tech, Purs, Mtp, Type, Stat1, Stat2, Loaf, Comment, Position, GameId, TeamId, SeasonId FROM Plays WHERE Position = $position AND GameId = $gameId AND SeasonId = $seasonId;";
         cmd.Parameters.AddWithValue("$position", position);
         cmd.Parameters.AddWithValue("$gameId", gameId);
         cmd.Parameters.AddWithValue("$seasonId", seasonId);
@@ -599,12 +602,12 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
             var comment = reader.GetString(15);
-            var position = reader.GetString(16);
-            var gameId = reader.GetInt32(17);
-            var teamId = reader.GetInt32(18);
-            var seasonId = reader.GetInt32(19);
+            var resultPosition = reader.GetString(16);
+            var resultGameId = reader.GetInt32(17);
+            var resultTeamId = reader.GetInt32(18);
+            var resultSeasonId = reader.GetInt32(19);
 
-            result.Add(new Play(id, playNum, calls, playerId, numPenalties, penaltyNames, playYards, tackles, tech, purs, mtp, type, stat1, stat2, loaf, comment, position, gameId, teamId, seasonId));
+            result.Add(new Play(id, playNum, calls, playerId, numPenalties, penaltyNames, playYards, tackles, tech, purs, mtp, type, stat1, stat2, loaf, comment, resultPosition, resultGameId, resultTeamId, resultSeasonId));
         }
 
         return result;
@@ -661,7 +664,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         await db.OpenAsync(cancellationToken);
 
         var cmd = db.CreateCommand();
-        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId FROM Players WHERE Position = $position AND TeamId = $teamId;";
+        cmd.CommandText = "SELECT ID, Number, Name, Position, Year, TeamId, SeasonId FROM Players WHERE Position = $position AND TeamId = $teamId;";
         cmd.Parameters.AddWithValue("$position", position);
         cmd.Parameters.AddWithValue("$teamId", teamId);
 
@@ -674,8 +677,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var name = reader.GetString(2);
             var playerPosition = reader.GetString(3);
             var year = reader.GetString(4);
-            var teamId = reader.GetInt32(5);
-            result.Add(new Player(id, number, name, playerPosition, year, teamId));
+            var resultTeamId = reader.GetInt32(5);
+            var seasonId = reader.GetInt32(6);
+            result.Add(new Player(id, number, name, playerPosition, year, resultTeamId, seasonId));
         }
 
         return result;
@@ -733,10 +737,8 @@ public sealed class SqliteFootballRepository : IFootballRepository
         var cmd = db.CreateCommand();
         cmd.CommandText = "SELECT * FROM Games WHERE SeasonId = $seasonId;";
         cmd.Parameters.AddWithValue("$seasonId", seasonId);
-        cmd.Parameters.AddWithValue("$position", position);
-        cmd.Parameters.AddWithValue("$teamId", teamId);
 
-
+        var positionGames = new List<Game>();
 
         await using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
         while (await reader.ReadAsync(cancellationToken))
@@ -753,11 +755,10 @@ public sealed class SqliteFootballRepository : IFootballRepository
 
             positionGames.Add(new Game(id, number, date, opponent, resultChar, points, opponentPoints, location, resultSeasonId));
         }
-        var positionGames = await GetSeasonGamesAsync(seasonId, cancellationToken);
         var positionPlayers = await GetPositionPlayersAsync(position, teamId, cancellationToken);
         var positionPlays = await GetPositionPlaysAsync(position, teamId, seasonId, cancellationToken);
 
-        return new PositionGroup(position, positionGames, positionPlayers, positionPlays);
+        return new PositionGroup(position, positionGames, positionPlayers.ToList(), positionPlays.ToList());
     }
 
     public async Task<IReadOnlyList<Game>> GetSeasonGamesAsync(int seasonId, CancellationToken cancellationToken = default)
