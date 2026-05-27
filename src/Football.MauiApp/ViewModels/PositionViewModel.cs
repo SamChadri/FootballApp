@@ -14,7 +14,7 @@ public class PositionBar
 }
 
 [QueryProperty(nameof(Season), "Season")]
-[QueryProperty(nameof(TeamGroup), "TeamGroup")]
+[QueryProperty(nameof(SquadGroup), "TeamGroup")]
 public partial class PositionViewModel : ObservableObject
 {
     private const int MaxBarHeight = 100;
@@ -31,7 +31,7 @@ public partial class PositionViewModel : ObservableObject
     private Season? season;
 
     [ObservableProperty]
-    private TeamGroup? teamGroup;
+    private SquadGroup? teamGroup;
 
     [ObservableProperty]
     private string pageTitle = string.Empty;
@@ -42,7 +42,7 @@ public partial class PositionViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<PositionBar> positionChart = [];
 
-    partial void OnTeamGroupChanged(TeamGroup? value) => Refresh();
+    partial void OnTeamGroupChanged(SquadGroup? value) => Refresh();
     partial void OnSeasonChanged(Season? value) => Refresh();
 
     private void Refresh()

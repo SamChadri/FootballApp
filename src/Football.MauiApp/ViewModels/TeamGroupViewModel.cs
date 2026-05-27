@@ -27,7 +27,7 @@ public partial class TeamGroupViewModel : ObservableObject
     private string seasonTitle = string.Empty;
 
     [ObservableProperty]
-    private ObservableCollection<TeamGroup> groups = [];
+    private ObservableCollection<SquadGroup> groups = [];
 
     [ObservableProperty]
     private ObservableCollection<GroupSummaryBar> groupChart = [];
@@ -43,7 +43,7 @@ public partial class TeamGroupViewModel : ObservableObject
     {
         Groups =
         [
-            new TeamGroup
+            new SquadGroup(0, "Offense", new Offense())
             {
                 Name = "Offense",
                 Icon = "⚡",
@@ -57,7 +57,7 @@ public partial class TeamGroupViewModel : ObservableObject
                     new PositionGroup { Name = "OL" }
                 ]
             },
-            new TeamGroup
+            new SquadGroup(0, "Defense", new Defense())
             {
                 Name = "Defense",
                 Icon = "🛡",
@@ -70,7 +70,7 @@ public partial class TeamGroupViewModel : ObservableObject
                     new PositionGroup { Name = "S" }
                 ]
             },
-            new TeamGroup
+            new SquadGroup(0, "Special Teams", new SpecialTeams())
             {
                 Name = "Special Teams",
                 Icon = "⭐",
@@ -110,7 +110,7 @@ public partial class TeamGroupViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task SelectGroupAsync(TeamGroup group)
+    private async Task SelectGroupAsync(SquadGroup group)
     {
         var param = new Dictionary<string, object>
         {

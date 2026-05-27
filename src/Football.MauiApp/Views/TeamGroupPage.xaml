@@ -110,7 +110,7 @@
                 <VerticalStackLayout Spacing="12"
                                      BindableLayout.ItemsSource="{Binding Groups}">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate x:DataType="core:TeamGroup">
+                        <DataTemplate x:DataType="core:SquadGroup">
                             <Border BackgroundColor="#111111"
                                     StrokeThickness="1"
                                     Stroke="#2A2A2A"
