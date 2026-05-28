@@ -17,6 +17,7 @@ public class SeasonSummaryBar
 public partial class DataViewModel : ObservableObject
 {
     private const int MaxBarWidth = 220;
+    private int SeasonId = 1;
 
     [ObservableProperty]
     private ObservableCollection<Season> seasons = [];
@@ -31,11 +32,12 @@ public partial class DataViewModel : ObservableObject
         // Sample per-season tackle totals — oldest → newest
         var rawTackles = new[] { 287, 312, 298, 341 };
         var maxTackles = rawTackles.Max();
-
+        var seasonId = 1;
         for (int i = 0; i < 4; i++)
         {
             var year = currentYear - (3 - i);
-            Seasons.Add(new Season { Year = year });
+            seasonId++;
+            Seasons.Add(new Season(seasonId, year));
             SeasonChart.Add(new SeasonSummaryBar
             {
                 Year = year,

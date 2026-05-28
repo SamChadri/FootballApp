@@ -106,6 +106,40 @@
                            Margin="0,8,0,0" />
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout>
+                            <Label Text="TACKLES" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry Keyboard="Numeric" TextColor="White" Text="{Binding TacklesText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout>
+                            <Label Text="PLAY YARDS" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry Keyboard="Numeric" TextColor="White" Text="{Binding PlayYardsText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0" WidthRequest="70">
+                            <Label Text="PENALTIES" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry Keyboard="Numeric" TextColor="White" Text="{Binding NumPenaltiesText}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="PENALTY NAMES" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                            <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                                <Entry TextColor="White" PlaceholderColor="#666666" Text="{Binding PenaltyNames}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                         <VerticalStackLayout Grid.Column="0">
                             <Label Text="PLAY #" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
                             <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">

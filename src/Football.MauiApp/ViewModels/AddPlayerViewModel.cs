@@ -8,6 +8,7 @@ public partial class AddPlayerViewModel : ObservableObject
 {
     private readonly IFootballRepository _repository;
     private int _nextPlayerId = 1;
+    private int seasonId = 1;
 
     [ObservableProperty]
     private string numberText = string.Empty;
@@ -49,7 +50,8 @@ public partial class AddPlayerViewModel : ObservableObject
             Name: Name,
             Position: Position,
             Year: Year,
-            TeamId: teamId);
+            TeamId: teamId,
+            SeasonId: seasonId);
 
         await _repository.AddPlayerAsync(player, cancellationToken);
     }

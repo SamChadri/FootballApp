@@ -7,6 +7,7 @@ namespace Football.MauiApp.ViewModels;
 public class GamesListViewModel
 {
     private readonly IFootballRepository _repository;
+    private int SeasonId = 1;
 
     public ObservableCollection<Game> Games { get; } = new();
 
@@ -17,7 +18,7 @@ public class GamesListViewModel
 
     public async Task LoadGamesAsync()
     {
-        var gamesList = await _repository.GetGamesAsync();
+        var gamesList = await _repository.GetGamesAsync(SeasonId);
         Games.Clear();
         foreach (var game in gamesList)
         {

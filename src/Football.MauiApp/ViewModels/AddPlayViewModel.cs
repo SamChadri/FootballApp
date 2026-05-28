@@ -9,6 +9,7 @@ public partial class AddPlayViewModel : ObservableObject
 {
     private readonly IFootballRepository _repository;
     private int _nextPlayId = 1;
+    private int seasonId = 1;
     private readonly List<int> _gameIds = [];
     private readonly List<int> _playerIds = [];
 
@@ -23,6 +24,18 @@ public partial class AddPlayViewModel : ObservableObject
 
     [ObservableProperty]
     private string playNumText = "1";
+
+    [ObservableProperty]
+    private string numPenaltiesText = "0";
+
+    [ObservableProperty]
+    private string penaltyNames = string.Empty;
+
+    [ObservableProperty]
+    private string playYardsText = "0";
+
+    [ObservableProperty]
+    private string tacklesText = "0";
 
     [ObservableProperty]
     private string calls = string.Empty;
@@ -72,7 +85,7 @@ public partial class AddPlayViewModel : ObservableObject
         _gameIds.Clear();
         _playerIds.Clear();
 
-        var games = await _repository.GetGamesAsync(cancellationToken);
+        var games = await _repository.GetGamesAsync(seasonId, cancellationToken);
         foreach (var g in games.OrderBy(x => x.Date))
         {
             GameLabels.Add($"{g.Date:MMM d, yyyy} · vs {g.Opponent}");
@@ -111,6 +124,12 @@ public partial class AddPlayViewModel : ObservableObject
             mtp = 0;
         if (!int.TryParse(TeamIdText, out var teamId))
             teamId = 1;
+        if (!int.TryParse(NumPenaltiesText, out var numPenalties))
+            numPenalties = 0;
+        if (!int.TryParse(PlayYardsText, out var playYards))
+            playYards = 0;
+        if (!int.TryParse(TacklesText, out var tackles))
+            tackles = 0;
 
         var typeTrim = (TypeText ?? string.Empty).Trim();
         var typeChar = typeTrim.Length > 0 ? typeTrim[0] : ' ';
@@ -120,6 +139,10 @@ public partial class AddPlayViewModel : ObservableObject
             PlayNum: playNum,
             Calls: Calls,
             PlayerId: _playerIds[pi],
+            NumPenalties: numPenalties,
+            PenaltyNames: PenaltyNames,
+            PlayYards: playYards,
+            Tackles: tackles,
             Tech: tech,
             Purs: purs,
             Mtp: mtp,
@@ -130,7 +153,8 @@ public partial class AddPlayViewModel : ObservableObject
             Comment: Comment,
             Position: Position,
             GameId: _gameIds[gi],
-            TeamId: teamId);
+            TeamId: teamId,
+            SeasonId: seasonId);
 
         await _repository.AddPlayAsync(play, cancellationToken);
     }
