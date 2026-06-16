@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Football.Core;
+using Football.Data.Sqlite;
 using Football.MauiApp.Views;
 
 namespace Football.MauiApp.ViewModels;
