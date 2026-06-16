@@ -433,7 +433,6 @@ public sealed class BasicTests
         var group = await repo.GetPositionGroupAsync("Quarterback",TestTeamId,TestSeasonId);;
         Xunit.Assert.Equal("Quarterback", group.Name);
         Xunit.Assert.Single(group.PositionPlayers);
-        Xunit.Assert.Single(group.PositionGames);
         Xunit.Assert.Single(group.PositionPlays);
         
         

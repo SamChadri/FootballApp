@@ -758,7 +758,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         var positionPlayers = await GetPositionPlayersAsync(position, teamId, cancellationToken);
         var positionPlays = await GetPositionPlaysAsync(position, teamId, seasonId, cancellationToken);
 
-        return new PositionGroup(position, positionGames, positionPlayers.ToList(), positionPlays.ToList());
+        return new PositionGroup(position, positionPlayers.ToList(), positionPlays.ToList());
     }
 
     public async Task<IReadOnlyList<Game>> GetSeasonGamesAsync(int seasonId, CancellationToken cancellationToken = default)
