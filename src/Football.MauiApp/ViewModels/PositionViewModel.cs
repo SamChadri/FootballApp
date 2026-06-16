@@ -11,6 +11,10 @@ public class PositionBar
     public string Name { get; set; } = string.Empty;
     public int Tackles { get; set; }
     public int BarHeight { get; set; }  // pre-computed px height (max 100)
+    public int SnapCount { get; set;}
+    public int GamesPlayed {get; set;}
+    public int SnapPercentage {get; set;}
+
 }
 
 [QueryProperty(nameof(Season), "Season")]
@@ -45,29 +49,68 @@ public partial class PositionViewModel : ObservableObject
     partial void OnTeamGroupChanged(SquadGroup? value) => Refresh();
     partial void OnSeasonChanged(Season? value) => Refresh();
 
+    private readonly IFootballRepository _repository;
+
+    public PositionViewModel(IFootballRepository repository)
+    {
+        _repository = repository;
+    }
+
     private void Refresh()
     {
         if (TeamGroup == null || Season == null) return;
         PageTitle = $"{Season.Year} · {TeamGroup.Name}";
-        Positions = new ObservableCollection<PositionGroup>(TeamGroup.Positions);
-        BuildChart();
+        _ = LoadDataAsync();
     }
 
-    private void BuildChart()
+    public async Task LoadDataAsync()
     {
-        if (TeamGroup == null) return;
-        var key = TeamGroup.Name;
-        if (!SampleData.TryGetValue(key, out var rows)) return;
+        if (TeamGroup == null || Season == null) return;
+        var seasonId = Season.Id;
+        var teamGroupName = TeamGroup.Name;
+        var teamId = 1;
 
-        int maxT = rows.Max(r => r.tkl);
-        PositionChart = new ObservableCollection<PositionBar>(
-            rows.Select(r => new PositionBar
+        List<string> posNames = [];
+        switch(teamGroupName)
+        {
+            case "Offense":
+                posNames = new Offense().positionNames;
+                break;
+            case "Defense":
+                posNames = new Defense().positionNames;
+                break;
+            case "Special Teams":
+                posNames = new SpecialTeams().positionNames;
+                break;
+        }
+
+        Positions.Clear();
+        PositionChart.Clear();
+
+        foreach(var position in posNames)
+        {
+            var positionPlayers = (await _repository.GetPositionPlayersAsync(position, teamId)).ToList();
+            var positionPlays = (await _repository.GetPositionPlaysAsync(position, teamId, seasonId)).ToList();
+            
+            var positionGroup = new PositionGroup(position, positionPlayers, positionPlays);
+            positionGroup.CalculateStats();
+            Positions.Add(positionGroup);
+        }
+
+        int maxT = Positions.Count > 0 ? Positions.Max(p => p.Tackles) : 0;
+
+        foreach(var pg in Positions)
+        {
+            PositionChart.Add(new PositionBar
             {
-                Name      = r.pos,
-                Tackles   = r.tkl,
-                BarHeight = (int)((double)r.tkl / maxT * MaxBarHeight)
-            })
-        );
+                Name = pg.Name,
+                Tackles = pg.Tackles,
+                BarHeight = maxT == 0 ? 0 : (int)((double)pg.Tackles / maxT * MaxBarHeight),
+                SnapCount = pg.SnapCount,
+                GamesPlayed = pg.GamesPlayed,
+                SnapPercentage = pg.SnapPercentage
+            });
+        }
     }
 
     [RelayCommand]

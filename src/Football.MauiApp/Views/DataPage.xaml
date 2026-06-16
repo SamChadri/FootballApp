@@ -8,9 +8,6 @@
              BackgroundColor="#000000"
              Title="Data">
 
-    <ContentPage.BindingContext>
-        <vm:DataViewModel />
-    </ContentPage.BindingContext>
 
     <Grid RowDefinitions="Auto,Auto,*" Padding="24,60,24,24">
 
@@ -58,7 +55,7 @@
                         <RoundRectangle CornerRadius="20" />
                     </Border.StrokeShape>
                     <VerticalStackLayout Spacing="14">
-                        <Label Text="TACKLES BY SEASON"
+                        <Label Text="WINS BY SEASON"
                                TextColor="#888888"
                                FontSize="11"
                                CharacterSpacing="2"
@@ -92,7 +89,7 @@
                                         </Grid>
                                         <!-- Value label -->
                                         <Label Grid.Column="2"
-                                               Text="{Binding TackleLabel}"
+                                               Text="{Binding WinLabel}"
                                                TextColor="#FF6B00"
                                                FontSize="12"
                                                FontAttributes="Bold"

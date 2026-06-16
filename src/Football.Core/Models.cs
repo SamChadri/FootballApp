@@ -128,8 +128,12 @@ public class SquadGroup
     public string Name { get; set; } = string.Empty;
     public string Icon { get; set; } = string.Empty;
     public string Subtitle { get; set; } = string.Empty;
+    public string Color { get; set;} = string.Empty;
     public Squad Squad { get; set; } = null!;
     public List<PositionGroup> Positions { get; set; } = [];
+    public int Tackles { get; set; }
+    public int Penalties { get; set; }
+    public int PlayYards { get; set; }
     public sealed record Stats
     {
         public int Tackles {get; set;} = 0;
@@ -139,6 +143,7 @@ public class SquadGroup
     public List<Stats> PositionStats { get; set; } = [];
     public int CalculateStats()
     {
+        PositionStats.Clear();
         foreach (var p in Positions)
         {
             var stat = new Stats();
@@ -146,8 +151,10 @@ public class SquadGroup
             stat.Penalties = p.PositionPlays.Sum(x => x.NumPenalties);
             stat.PlayYards = p.PositionPlays.Sum(x => x.PlayYards);
             PositionStats.Add(stat);
-            
         }
+        Tackles = PositionStats.Sum(x => x.Tackles);
+        Penalties = PositionStats.Sum(x => x.Penalties);
+        PlayYards = PositionStats.Sum(x => x.PlayYards);
         return 0;
     }
 }
@@ -156,7 +163,6 @@ public class PositionGroup
 {
     public string Name { get; set; } = string.Empty;
     public List<Player> PositionPlayers { get; set; } = [];
-    public List<Game> PositionGames { get; set; } = [];
     public List<Play> PositionPlays { get; set; } = [];
     public int GamesPlayed { get; set; }
     public int SnapCount { get; set; }
@@ -164,10 +170,9 @@ public class PositionGroup
 
     // Constructors
     public PositionGroup() {}
-    public PositionGroup(string name, List<Game> games, List<Player> players, List<Play> plays)
+    public PositionGroup(string name, List<Player> players, List<Play> plays)
     {
         Name = name;
-        PositionGames = games;
         PositionPlayers = players;
         PositionPlays = plays;
     }
@@ -187,8 +192,6 @@ public class StatLine
     public string PlayerNumber { get; set; } = string.Empty;
     public string PlayerName { get; set; } = string.Empty;
     public int Tackles { get; set; }
-    public int TechTackles { get; set; }
-    public int TechTotal { get; set; }
-    public int Sacks { get; set; }
-    public int Assists { get; set; }
+    public int PlayYards{ get; set; }
+    public int NumPenalties { get; set; }
 }

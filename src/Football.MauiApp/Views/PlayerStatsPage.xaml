@@ -171,12 +171,12 @@
                                         <Label Text="TKL" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout Grid.Column="3" Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
-                                        <Label Text="{Binding Sacks}" TextColor="#FF6B00" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
-                                        <Label Text="SCK" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
+                                        <Label Text="{Binding PlayYards}" TextColor="#FF6B00" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="YDS" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout Grid.Column="4" Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
-                                        <Label Text="{Binding Assists}" TextColor="#888" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
-                                        <Label Text="AST" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
+                                        <Label Text="{Binding NumPenalties}" TextColor="#888" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="PEN" TextColor="#555" FontSize="10" HorizontalOptions="Center" />
                                     </VerticalStackLayout>
                                 </Grid>
                             </Border>

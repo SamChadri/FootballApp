@@ -10,6 +10,8 @@ public class GroupSummaryBar
 {
     public string Name { get; set; } = string.Empty;
     public int Tackles { get; set; }
+    public int Penalties { get; set;}
+    public int PlayYards {get; set;}
     public int BarWidth { get; set; }   // pre-computed px width (max 220)
     public string Color { get; set; } = "#FF6B00";
     public string Percentage { get; set; } = string.Empty;
@@ -19,6 +21,7 @@ public class GroupSummaryBar
 public partial class TeamGroupViewModel : ObservableObject
 {
     private const int MaxBarWidth = 220;
+    private readonly IFootballRepository _repository;
 
     [ObservableProperty]
     private Season? season;
@@ -35,13 +38,20 @@ public partial class TeamGroupViewModel : ObservableObject
     partial void OnSeasonChanged(Season? value)
     {
         SeasonTitle = value != null ? $"{value.Year} Season" : "Season";
-        BuildGroups();
-        BuildChart();
+        LoadDataAsync();
+        //BuildGroups();
+        //BuildChart();
     }
+
+    public TeamGroupViewModel(IFootballRepository repository)
+    {
+        _repository = repository;
+    }
+
 
     private void BuildGroups()
     {
-        Groups =
+        groups =
         [
             new SquadGroup(0, "Offense", new Offense())
             {
@@ -85,28 +95,67 @@ public partial class TeamGroupViewModel : ObservableObject
         ];
     }
 
-    private void BuildChart()
+    public async Task LoadDataAsync()
     {
-        // Sample total-tackle distribution across the three unit groups
-        var raw = new (string name, int tackles, string color)[]
-        {
-            ("Offense",       98,  "#FF8A00"),
-            ("Defense",       217, "#FF6B00"),
-            ("Special Teams", 26,  "#FFC700"),
-        };
-        int total = raw.Sum(r => r.tackles);
-        int maxT  = raw.Max(r => r.tackles);
+        if (Season == null) return;
+        var seasonId = Season.Id;
 
-        GroupChart = new ObservableCollection<GroupSummaryBar>(
-            raw.Select(r => new GroupSummaryBar
+        var plays = await _repository.GetPlaysAsync();
+        var teamId = plays.FirstOrDefault(p => p.SeasonId == seasonId)?.TeamId ?? 1;
+        var squads = new Squad[] {
+            new Offense(),
+            new Defense(),
+            new SpecialTeams()
+        };
+
+        Groups.Clear();
+        GroupChart.Clear();
+
+        foreach(var squad in squads)
+        {
+            var group = await _repository.GetSquadGroupAsync(seasonId, squad, teamId);
+            switch(squad)
             {
-                Name       = r.name,
-                Tackles    = r.tackles,
-                BarWidth   = (int)((double)r.tackles / maxT * MaxBarWidth),
-                Color      = r.color,
-                Percentage = $"{(int)Math.Round((double)r.tackles / total * 100)}%"
-            })
-        );
+                case Offense:
+                    group.Name = "Offense";
+                    group.Icon = "⚡";
+                    group.Subtitle = "QB · RB · WR · TE · OL";
+                    group.Color = "#FF8A00";
+                    break;
+                case Defense:
+                    group.Name = "Defense";
+                    group.Icon = "🛡";
+                    group.Subtitle = "DL · LB · DB · S";
+                    group.Color = "#FF6B00";
+                    break;
+                case SpecialTeams:
+                    group.Name = "Special Teams";
+                    group.Icon = "⭐";
+                    group.Subtitle = "K · P · KR";
+                    group.Color = "#FFC700";
+                    break;
+            }
+            group.CalculateStats();
+            Groups.Add(group);
+        }
+
+        int maxTackles = Groups.Count > 0 ? Groups.Max(g => g.Tackles) : 0;
+        int total = Groups.Sum(g => g.Tackles);
+        if (total == 0) total = 1;
+
+        foreach(var sg in Groups)
+        {
+            GroupChart.Add(new GroupSummaryBar
+            {
+                Name = sg.Name,
+                Tackles = sg.Tackles,
+                Penalties = sg.Penalties,
+                PlayYards = sg.PlayYards,
+                BarWidth = maxTackles == 0 ? 0 : (int)((double)sg.Tackles / maxTackles * MaxBarWidth),
+                Color = sg.Color,
+                Percentage = $"{(int)Math.Round((double)sg.Tackles / total * 100)}%"
+            });
+        }
     }
 
     [RelayCommand]

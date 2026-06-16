@@ -125,14 +125,18 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="14" />
                                 </Border.StrokeShape>
-                                <Grid RowDefinitions="*,Auto" Padding="14,10">
+                                <Grid RowDefinitions="*,Auto,Auto" Padding="14,10">
                                     <Label Grid.Row="0"
                                            Text="{Binding Name}"
                                            TextColor="White"
                                            FontSize="22"
-                                           FontAttributes="Bold"
-                                           VerticalOptions="Center" />
-                                    <Label Grid.Row="1"
+                                           FontAttributes="Bold" />
+                                    <HorizontalStackLayout Grid.Row="1" Spacing="5" Margin="0,2,0,8">
+                                        <Label Text="{Binding SnapCount, StringFormat='{0} SNAPS'}" TextColor="#888" FontSize="10" />
+                                        <Label Text="·" TextColor="#555" FontSize="10" />
+                                        <Label Text="{Binding GamesPlayed, StringFormat='{0} GMS'}" TextColor="#888" FontSize="10" />
+                                    </HorizontalStackLayout>
+                                    <Label Grid.Row="2"
                                            Text="View Stats ›"
                                            TextColor="#FF6B00"
                                            FontSize="11" />

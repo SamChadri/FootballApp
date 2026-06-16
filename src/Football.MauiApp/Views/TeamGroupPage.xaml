@@ -67,17 +67,12 @@
                                                    FontSize="13"
                                                    FontAttributes="Bold" />
                                             <HorizontalStackLayout Grid.Column="1" Spacing="4">
-                                                <Label Text="{Binding Tackles}"
-                                                       TextColor="{Binding Color}"
-                                                       FontSize="13"
-                                                       FontAttributes="Bold" />
-                                                <Label Text="TKL ·"
-                                                       TextColor="#555555"
-                                                       FontSize="13" />
-                                                <Label Text="{Binding Percentage}"
-                                                       TextColor="{Binding Color}"
-                                                       FontSize="13"
-                                                       FontAttributes="Bold" />
+                                                <Label Text="{Binding Tackles}" TextColor="{Binding Color}" FontSize="13" FontAttributes="Bold" />
+                                                <Label Text="TKL ·" TextColor="#555555" FontSize="13" />
+                                                <Label Text="{Binding PlayYards}" TextColor="{Binding Color}" FontSize="13" FontAttributes="Bold" />
+                                                <Label Text="YDS ·" TextColor="#555555" FontSize="13" />
+                                                <Label Text="{Binding Penalties}" TextColor="{Binding Color}" FontSize="13" FontAttributes="Bold" />
+                                                <Label Text="PEN" TextColor="#555555" FontSize="13" />
                                             </HorizontalStackLayout>
                                         </Grid>
                                         <!-- Bar track -->
