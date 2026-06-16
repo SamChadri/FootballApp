@@ -109,7 +109,7 @@ public partial class PositionViewModel : ObservableObject
                 BarHeight = maxT == 0 ? 0 : (int)((double)pg.Tackles / maxT * MaxBarHeight),
                 SnapCount = pg.SnapCount,
                 GamesPlayed = pg.GamesPlayed,
-                SnapPercentage = pg.SnapPercentage
+                SnapPercentage = (int)pg.SnapPercentage
             });
         }
     }

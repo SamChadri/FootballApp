@@ -167,6 +167,7 @@ public class PositionGroup
     public int GamesPlayed { get; set; }
     public int SnapCount { get; set; }
     public double SnapPercentage { get; set; }
+    public int Tackles { get; set; }
 
     // Constructors
     public PositionGroup() {}
@@ -182,6 +183,7 @@ public class PositionGroup
         SnapCount = PositionPlays.Count;
         GamesPlayed = PositionPlays.Select(x => x.GameId).Distinct().Count();
         SnapPercentage = GamesPlayed == 0 ? 0 : (double)SnapCount * 100 / GamesPlayed;
+        Tackles = PositionPlays.Sum(x => x.Tackles);
         return 0;
     }
 
