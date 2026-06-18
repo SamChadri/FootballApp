@@ -202,7 +202,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -242,7 +242,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -428,7 +428,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -471,7 +471,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -513,7 +513,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -554,7 +554,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -597,7 +597,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -640,7 +640,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var tech = reader.GetInt32(8);
             var purs = reader.GetInt32(9);
             var mtp = reader.GetInt32(10);
-            var type = reader.GetChar(11);
+            var type = reader.GetString(11) is { Length: > 0 } s ? s[0] : ' ';
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
             var loaf = reader.GetBoolean(14);
@@ -703,7 +703,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var number = reader.GetInt32(1);
             var date = reader.GetDateTime(2);
             var opponent = reader.GetString(3);
-            var resultChar = reader.GetChar(4);
+            var resultChar = reader.GetString(4) is { Length: > 0 } s ? s[0] : ' ';
             var points = reader.GetInt32(5);
             var opponentPoints = reader.GetInt32(6);
             var location = reader.GetString(7);
@@ -747,7 +747,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var number = reader.GetInt32(1);
             var date = reader.GetDateTime(2);
             var opponent = reader.GetString(3);
-            var resultChar = reader.GetChar(4);
+            var resultChar = reader.GetString(4) is { Length: > 0 } s ? s[0] : ' ';
             var points = reader.GetInt32(5);
             var opponentPoints = reader.GetInt32(6);
             var location = reader.GetString(7);
@@ -779,7 +779,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var number = reader.GetInt32(1);
             var date = reader.GetDateTime(2);
             var opponent = reader.GetString(3);
-            var resultChar = reader.GetChar(4);
+            var resultChar = reader.GetString(4) is { Length: > 0 } s ? s[0] : ' ';
             var points = reader.GetInt32(5);
             var opponentPoints = reader.GetInt32(6);
             var location = reader.GetString(7);
