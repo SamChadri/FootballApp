@@ -245,12 +245,12 @@ public sealed class SqliteFootballRepository : IFootballRepository
             var type = reader.GetChar(11);
             var stat1 = reader.GetString(12);
             var stat2 = reader.GetString(13);
-            var loaf = reader.GetBoolean(10);
-            var comment = reader.GetString(11);
-            var position = reader.GetString(12);
-            var GameId = reader.GetInt32(13);
-            var teamId = reader.GetInt32(14);
-            var seasonId = reader.GetInt32(15);
+            var loaf = reader.GetBoolean(14);
+            var comment = reader.GetString(15);
+            var position = reader.GetString(16);
+            var GameId = reader.GetInt32(17);
+            var teamId = reader.GetInt32(18);
+            var seasonId = reader.GetInt32(19);
 
             result.Add(new Play(id, playNum, calls, PlayerId, numPenalties, penaltyNames, playYards, tackles, tech, purs, mtp, type, stat1, stat2, loaf, comment, position, GameId, teamId, seasonId));
         }
