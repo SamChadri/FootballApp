@@ -12,6 +12,22 @@ public sealed class SqliteFootballRepository : IFootballRepository
         _dbPathProvider = dbPathProvider;
     }
 
+    public async Task DropAllTablesAsync(CancellationToken cancellationToken = default)
+    {
+        var dbPath = _dbPathProvider.GetFootballDbPath();
+        await using var db = new SqliteConnection($"Filename={dbPath}");
+        await db.OpenAsync(cancellationToken);
+
+        var cmd = db.CreateCommand();
+        cmd.CommandText = """
+            DROP TABLE IF EXISTS Plays;
+            DROP TABLE IF EXISTS Players;
+            DROP TABLE IF EXISTS Games;
+            DROP TABLE IF EXISTS Seasons;
+            """;
+        await cmd.ExecuteNonQueryAsync(cancellationToken);
+    }
+
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         var dbPath = _dbPathProvider.GetFootballDbPath();
@@ -164,10 +180,10 @@ public sealed class SqliteFootballRepository : IFootballRepository
         cmd.Parameters.AddWithValue("$tech", play.Tech);
         cmd.Parameters.AddWithValue("$purs", play.Purs);
         cmd.Parameters.AddWithValue("$mtp", play.Mtp);
-        cmd.Parameters.AddWithValue("$type", play.Type);
+        cmd.Parameters.AddWithValue("$type", play.Type.ToString());
         cmd.Parameters.AddWithValue("$stat1", play.Stat1);
         cmd.Parameters.AddWithValue("$stat2", play.Stat2);
-        cmd.Parameters.AddWithValue("$loaf", play.Loaf);
+        cmd.Parameters.AddWithValue("$loaf", play.Loaf ? 1 : 0);
         cmd.Parameters.AddWithValue("$comment", play.Comment);
         cmd.Parameters.AddWithValue("$position", play.Position);
         cmd.Parameters.AddWithValue("$GameId", play.GameId);

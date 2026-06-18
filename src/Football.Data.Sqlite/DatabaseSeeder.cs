@@ -9,9 +9,23 @@ public static class DatabaseSeeder
         await repo.InitializeAsync();
         
         // If there are plays, we assume the DB is already seeded or populated.
-        var existingPlays = await repo.GetPlaysAsync();
-        if (existingPlays.Count > 0)
-            return;
+        // Wrap in try-catch: if old data was written with wrong types (char as int, etc.),
+        // reading will throw. In that case, wipe and re-seed.
+        try
+        {
+            var existingPlays = await repo.GetPlaysAsync();
+            if (existingPlays.Count > 0)
+                return;
+        }
+        catch
+        {
+            // Old DB has corrupt type data — drop tables and re-create
+            if (repo is SqliteFootballRepository sqlRepo)
+            {
+                await sqlRepo.DropAllTablesAsync();
+                await repo.InitializeAsync();
+            }
+        }
 
         // Create 3 seasons
         var seasons = new[] { 1, 2, 3 };
