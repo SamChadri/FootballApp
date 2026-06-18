@@ -110,10 +110,8 @@
                        FontAttributes="Bold"
                        Margin="4,0" />
 
-                <FlexLayout BindableLayout.ItemsSource="{Binding Positions}"
-                            Wrap="Wrap"
-                            JustifyContent="Start"
-                            AlignItems="Start">
+                <VerticalStackLayout Spacing="12"
+                                     BindableLayout.ItemsSource="{Binding Positions}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="core:PositionGroup">
                             <Border BackgroundColor="#111111"
@@ -149,7 +147,7 @@
                             </Border>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
-                </FlexLayout>
+                </VerticalStackLayout>
 
             </VerticalStackLayout>
         </ScrollView>

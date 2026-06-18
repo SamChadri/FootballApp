@@ -19,18 +19,10 @@ public class PositionBar
 }
 
 [QueryProperty(nameof(Season), "Season")]
-[QueryProperty(nameof(SquadGroup), "TeamGroup")]
+[QueryProperty(nameof(TeamGroup), "TeamGroup")]
 public partial class PositionViewModel : ObservableObject
 {
     private const int MaxBarHeight = 100;
-
-    // Sample tackle distributions per position within each group
-    private static readonly Dictionary<string, (string pos, int tkl)[]> SampleData = new()
-    {
-        ["Offense"]       = [("QB", 12), ("RB", 28), ("WR", 18), ("TE", 15), ("OL", 25)],
-        ["Defense"]       = [("DL", 105), ("LB", 87), ("DB", 63), ("S", 42)],
-        ["Special Teams"] = [("K", 4), ("P", 6), ("KR", 16)],
-    };
 
     [ObservableProperty]
     private Season? season;
@@ -68,31 +60,19 @@ public partial class PositionViewModel : ObservableObject
     {
         if (TeamGroup == null || Season == null) return;
         var seasonId = Season.Id;
-        var teamGroupName = TeamGroup.Name;
-        var teamId = 1;
+        var posNames = TeamGroup.Squad?.positionNames ?? [];
 
-        List<string> posNames = [];
-        switch(teamGroupName)
-        {
-            case "Offense":
-                posNames = new Offense().positionNames;
-                break;
-            case "Defense":
-                posNames = new Defense().positionNames;
-                break;
-            case "Special Teams":
-                posNames = new SpecialTeams().positionNames;
-                break;
-        }
+        var plays = await _repository.GetPlaysAsync();
+        var teamId = plays.FirstOrDefault(p => p.SeasonId == seasonId)?.TeamId ?? 1;
 
         Positions.Clear();
         PositionChart.Clear();
 
-        foreach(var position in posNames)
+        foreach (var position in posNames)
         {
             var positionPlayers = (await _repository.GetPositionPlayersAsync(position, teamId)).ToList();
             var positionPlays = (await _repository.GetPositionPlaysAsync(position, teamId, seasonId)).ToList();
-            
+
             var positionGroup = new PositionGroup(position, positionPlayers, positionPlays);
             positionGroup.CalculateStats();
             Positions.Add(positionGroup);
