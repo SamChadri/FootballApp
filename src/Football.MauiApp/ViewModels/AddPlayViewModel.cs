@@ -9,12 +9,14 @@ public partial class AddPlayViewModel : ObservableObject
 {
     private readonly IFootballRepository _repository;
     private int _nextPlayId = 1;
-    private int seasonId = 1;
     private readonly List<int> _gameIds = [];
     private readonly List<int> _playerIds = [];
 
     public ObservableCollection<string> GameLabels { get; } = new();
     public ObservableCollection<string> PlayerLabels { get; } = new();
+
+    [ObservableProperty]
+    private string seasonIdText = "1";
 
     [ObservableProperty]
     private int selectedGameIndex;
@@ -80,17 +82,8 @@ public partial class AddPlayViewModel : ObservableObject
     {
         await _repository.InitializeAsync(cancellationToken);
 
-        GameLabels.Clear();
         PlayerLabels.Clear();
-        _gameIds.Clear();
         _playerIds.Clear();
-
-        var games = await _repository.GetGamesAsync(seasonId, cancellationToken);
-        foreach (var g in games.OrderBy(x => x.Date))
-        {
-            GameLabels.Add($"{g.Date:MMM d, yyyy} · vs {g.Opponent}");
-            _gameIds.Add(g.Id);
-        }
 
         var players = await _repository.GetPlayersAsync(cancellationToken);
         foreach (var p in players.OrderBy(x => x.Number))
@@ -102,8 +95,29 @@ public partial class AddPlayViewModel : ObservableObject
         var plays = await _repository.GetPlaysAsync(cancellationToken);
         _nextPlayId = plays.Count == 0 ? 1 : plays.Max(p => p.Id) + 1;
 
-        SelectedGameIndex = GameLabels.Count > 0 ? 0 : 0;
+        await ReloadGamesAsync(cancellationToken);
+
         SelectedPlayerIndex = PlayerLabels.Count > 0 ? 0 : 0;
+    }
+
+    partial void OnSeasonIdTextChanged(string value) => _ = ReloadGamesAsync();
+
+    private int ParseSeasonId() =>
+        int.TryParse(SeasonIdText, out var id) && id > 0 ? id : 1;
+
+    private async Task ReloadGamesAsync(CancellationToken cancellationToken = default)
+    {
+        GameLabels.Clear();
+        _gameIds.Clear();
+
+        var games = await _repository.GetGamesAsync(ParseSeasonId(), cancellationToken);
+        foreach (var g in games.OrderBy(x => x.Date))
+        {
+            GameLabels.Add($"{g.Date:MMM d, yyyy} · vs {g.Opponent}");
+            _gameIds.Add(g.Id);
+        }
+
+        SelectedGameIndex = GameLabels.Count > 0 ? 0 : 0;
     }
 
     public async Task SaveAsync(CancellationToken cancellationToken = default)
@@ -154,7 +168,7 @@ public partial class AddPlayViewModel : ObservableObject
             Position: Position,
             GameId: _gameIds[gi],
             TeamId: teamId,
-            SeasonId: seasonId);
+            SeasonId: ParseSeasonId());
 
         await _repository.AddPlayAsync(play, cancellationToken);
     }

@@ -79,6 +79,13 @@
                            FontSize="18"
                            FontAttributes="Bold" />
 
+                    <Label Text="SEASON" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
+                    <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+                        <Entry Keyboard="Numeric" TextColor="White" PlaceholderColor="#666666"
+                               Text="{Binding SeasonIdText}" />
+                    </Border>
+
                     <Label Text="OPPONENT" TextColor="#888888" FontSize="10" CharacterSpacing="1" />
                     <Border BackgroundColor="#1A1A1A" StrokeThickness="1" Stroke="#2A2A2A" Padding="12,8">
                         <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>

@@ -27,7 +27,9 @@ public partial class AddGameViewModel : ObservableObject
     [ObservableProperty]
     private int resultPickerIndex;
 
-    private int seasonId = 1;
+    [ObservableProperty]
+    private string seasonIdText = "1";
+
     private string location = "H";
 
     public AddGameViewModel(IFootballRepository repository)
@@ -38,7 +40,17 @@ public partial class AddGameViewModel : ObservableObject
     public async Task PrepareAsync(CancellationToken cancellationToken = default)
     {
         await _repository.InitializeAsync(cancellationToken);
-        var games = await _repository.GetGamesAsync(seasonId,cancellationToken);
+        await UpdateNextGameNumbersAsync(cancellationToken);
+    }
+
+    partial void OnSeasonIdTextChanged(string value) => _ = UpdateNextGameNumbersAsync();
+
+    private int ParseSeasonId() =>
+        int.TryParse(SeasonIdText, out var id) && id > 0 ? id : 1;
+
+    private async Task UpdateNextGameNumbersAsync(CancellationToken cancellationToken = default)
+    {
+        var games = await _repository.GetGamesAsync(ParseSeasonId(), cancellationToken);
         if (games.Count == 0)
         {
             _nextGameId = 1;
@@ -70,7 +82,7 @@ public partial class AddGameViewModel : ObservableObject
             Points: points,
             OpponentPoints: opPts,
             Location: location,
-            SeasonId: seasonId);
+            SeasonId: ParseSeasonId());
 
         await _repository.AddGameAsync(game, cancellationToken);
     }
