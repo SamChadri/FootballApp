@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
+             x:Class="Football.MauiApp.Views.RosterPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#000000"
+             Title="Roster">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+
+        <!-- ═══ Row 0: Top Header Bar ═══ -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Padding="16,50,16,14"
+              BackgroundColor="#111111">
+
+            <!-- Back Button -->
+            <Border WidthRequest="36" HeightRequest="36"
+                    BackgroundColor="#1A1A1A"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                <Label Text="‹" TextColor="White" FontSize="22" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- Title -->
+            <Label Grid.Column="1"
+                   Text="ROSTER"
+                   TextColor="White"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   CharacterSpacing="3"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <!-- Search Icon -->
+            <Border Grid.Column="2"
+                    WidthRequest="36" HeightRequest="36"
+                    BackgroundColor="Transparent"
+                    Stroke="Transparent"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                <Label Text="🔍" FontSize="18"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleSearchCommand}" />
+                </Border.GestureRecognizers>
+            </Border>
+        </Grid>
+
+        <!-- ═══ Row 1: Search Bar (collapsible) ═══ -->
+        <Border Grid.Row="1"
+                IsVisible="{Binding IsSearchVisible}"
+                BackgroundColor="#1A1A1A"
+                Stroke="#2A2A2A"
+                StrokeThickness="1"
+                Padding="12,8"
+                Margin="16,8,16,0">
+            <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+            <Entry Placeholder="Search by name, number, or position..."
+                   PlaceholderColor="#666666"
+                   TextColor="White"
+                   FontSize="14"
+                   Text="{Binding SearchText}" />
+        </Border>
+
+        <!-- ═══ Row 2: Filter Chips ═══ -->
+        <VerticalStackLayout Grid.Row="2" Padding="16,16,16,8" Spacing="10">
+            <Label Text="FILTER BY UNIT"
+                   TextColor="#FF6B00"
+                   FontSize="11"
+                   CharacterSpacing="2"
+                   FontAttributes="Bold" />
+
+            <HorizontalStackLayout Spacing="10">
+                <!-- ALL -->
+                <Border Padding="14,6"
+                        BackgroundColor="Transparent"
+                        StrokeThickness="1.5">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding SelectedFilter}" Value="All">
+                            <Setter Property="Stroke" Value="#FF6B00" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Stroke" Value="#333333" />
+                        </Style>
+                    </Border.Style>
+                    <Label Text="ALL" TextColor="#FF6B00" FontSize="11"
+                           FontAttributes="Bold" CharacterSpacing="1" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FilterCommand}"
+                                              CommandParameter="All" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- OFFENSE -->
+                <Border Padding="14,6"
+                        BackgroundColor="Transparent"
+                        StrokeThickness="1.5">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding SelectedFilter}" Value="Offense">
+                            <Setter Property="Stroke" Value="#FF6B00" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Stroke" Value="#333333" />
+                        </Style>
+                    </Border.Style>
+                    <Label Text="OFFENSE" TextColor="White" FontSize="11"
+                           FontAttributes="Bold" CharacterSpacing="1" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FilterCommand}"
+                                              CommandParameter="Offense" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- DEFENSE -->
+                <Border Padding="14,6"
+                        BackgroundColor="Transparent"
+                        StrokeThickness="1.5">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding SelectedFilter}" Value="Defense">
+                            <Setter Property="Stroke" Value="#FF6B00" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Stroke" Value="#333333" />
+                        </Style>
+                    </Border.Style>
+                    <Label Text="DEFENSE" TextColor="White" FontSize="11"
+                           FontAttributes="Bold" CharacterSpacing="1" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FilterCommand}"
+                                              CommandParameter="Defense" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- SPECIAL TEAMS -->
+                <Border Padding="14,6"
+                        BackgroundColor="Transparent"
+                        StrokeThickness="1.5">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border"
+                                     Binding="{Binding SelectedFilter}" Value="Special Teams">
+                            <Setter Property="Stroke" Value="#FF6B00" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Stroke" Value="#333333" />
+                        </Style>
+                    </Border.Style>
+                    <Label Text="SPECIAL TEAMS" TextColor="White" FontSize="11"
+                           FontAttributes="Bold" CharacterSpacing="1" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FilterCommand}"
+                                              CommandParameter="Special Teams" />
+                    </Border.GestureRecognizers>
+                </Border>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- ═══ Row 3: Player List ═══ -->
+        <CollectionView Grid.Row="3"
+                         ItemsSource="{Binding Players}"
+                         Margin="12,4,12,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:RosterPlayerItem">
+                    <Border BackgroundColor="#1A1A1A"
+                            StrokeThickness="0"
+                            Margin="0,4"
+                            Padding="0"
+                            HeightRequest="70">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10" /></Border.StrokeShape>
+
+                        <Grid ColumnDefinitions="52,56,*,40" Padding="0">
+
+                            <!-- Jersey Number -->
+                            <Label Grid.Column="0"
+                                   Text="{Binding JerseyDisplay}"
+                                   TextColor="#FF6B00"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
+                            <!-- Headshot (circular) -->
+                            <Border Grid.Column="1"
+                                    WidthRequest="46" HeightRequest="46"
+                                    BackgroundColor="#222222"
+                                    StrokeThickness="0"
+                                    VerticalOptions="Center">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="23" /></Border.StrokeShape>
+                                <Image Source="{Binding HeadshotFileName}"
+                                       Aspect="AspectFill"
+                                       WidthRequest="46"
+                                       HeightRequest="46" />
+                            </Border>
+
+                            <!-- Name + Subtitle -->
+                            <VerticalStackLayout Grid.Column="2"
+                                                  VerticalOptions="Center"
+                                                  Spacing="2"
+                                                  Margin="12,0,0,0">
+                                <Label Text="{Binding NameDisplay}"
+                                       TextColor="White"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       CharacterSpacing="0.5"
+                                       LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding SubtitleDisplay}"
+                                       TextColor="#FF6B00"
+                                       FontSize="10"
+                                       CharacterSpacing="1"
+                                       Opacity="0.7" />
+                            </VerticalStackLayout>
+
+                            <!-- Chevron -->
+                            <Label Grid.Column="3"
+                                   Text="›"
+                                   TextColor="#555555"
+                                   FontSize="22"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RosterViewModel}}, Path=SelectPlayerCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- ═══ Row 4: Bottom Bar + FAB ═══ -->
+        <Grid Grid.Row="4" HeightRequest="70" BackgroundColor="#111111">
+
+            <!-- FAB (+) positioned above the bottom bar -->
+            <Border WidthRequest="52" HeightRequest="52"
+                    BackgroundColor="#FF6B00"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Margin="0,-26,20,0">
+                <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#FF6B00" Offset="0,2" Radius="10" Opacity="0.5" />
+                </Border.Shadow>
+                <Label Text="+"
+                       TextColor="White"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddPlayerCommand}" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- Bottom Nav Labels -->
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    Spacing="40">
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="👥" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Teams" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="⚙" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Settings" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="🏈" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Games" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="👤" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Players" TextColor="#FF6B00" FontSize="9"
+                           FontAttributes="Bold" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="⊕" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Create" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

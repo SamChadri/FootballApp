@@ -50,6 +50,8 @@ public static class MauiProgram
         builder.Services.AddTransient<PositionViewModel>();
         builder.Services.AddTransient<PlayerStatsPage>();
         builder.Services.AddTransient<PlayerStatsViewModel>();
+        builder.Services.AddTransient<RosterPage>();
+        builder.Services.AddTransient<RosterViewModel>();
 
 		return builder.Build();
 	}
