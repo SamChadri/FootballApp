@@ -1,4 +1,33 @@
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Football.Core;
+using Football.MauiApp.Views;
+
+namespace Football.MauiApp.ViewModels;
+
+/// <summary>
+/// Display model for a single player row on the Roster page.
+/// </summary>
+public class RosterPlayerItem
+{
+    public int Id { get; set; }
+    public string JerseyDisplay { get; set; } = string.Empty;   // e.g. "07"
+    public string NameDisplay { get; set; } = string.Empty;     // e.g. "DEVIN WITHERSPOON"
+    public string SubtitleDisplay { get; set; } = string.Empty;  // e.g. "WR | SENIOR"
+    public string Position { get; set; } = string.Empty;
+    public string Year { get; set; } = string.Empty;
+    public int Number { get; set; }
+    public string HeadshotFileName { get; set; } = string.Empty;
+
+    // Dummy stats
+    public int Tackles { get; set; }
+    public int Snaps { get; set; }
+    public int GamesPlayed { get; set; }
+}
+
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Football.Core;
@@ -19,8 +48,12 @@ public class RosterPlayerItem
     public string Position { get; set; } = string.Empty;
     public string Year { get; set; } = string.Empty;
     public int Number { get; set; }
-    public string HeadshotFileName { get; set; } = string.Empty; // e.g. "jersey_number_7_matthew_bailey.webp"
-    public Player Player { get; set; } = null!;
+    public string HeadshotFileName { get; set; } = string.Empty;
+
+    // Dummy stats
+    public int Tackles { get; set; }
+    public int Snaps { get; set; }
+    public int GamesPlayed { get; set; }
 }
 
 public partial class RosterViewModel : ObservableObject
@@ -54,34 +87,75 @@ public partial class RosterViewModel : ObservableObject
         _repository = repository;
     }
 
+    /// <summary>
+    /// Loads the roster from the database. Each player's stats are loaded or calculated from their plays.
+    /// </summary>
     public async Task LoadDataAsync(CancellationToken cancellationToken = default)
     {
         await _repository.InitializeAsync(cancellationToken);
         var dbPlayers = await _repository.GetPlayersAsync(cancellationToken);
 
-        _allPlayers = dbPlayers.Select(p => new RosterPlayerItem
+        // If the DB has old dummy players or no players, seed it first.
+        if (dbPlayers.Count == 0 || dbPlayers.Any(p => p.Name.StartsWith("Player ")))
         {
-            Id = p.Id,
-            Number = p.Number,
-            JerseyDisplay = p.Number.ToString("D2"),
-            NameDisplay = p.Name.ToUpperInvariant(),
-            Position = p.Position,
-            Year = p.Year,
-            SubtitleDisplay = $"{p.Position.ToUpperInvariant()} | {p.Year.ToUpperInvariant()}",
-            HeadshotFileName = BuildHeadshotFileName(p),
-            Player = p
-        })
-        .OrderBy(p => p.Number)
-        .ToList();
+            await DatabaseSeeder.SeedAsync(_repository);
+            dbPlayers = await _repository.GetPlayersAsync(cancellationToken);
+        }
 
+        // We will default to showing stats for the current season (Season 3, 2023)
+        int activeSeasonId = 3;
+        var currentSeasonPlayers = dbPlayers.Where(p => p.SeasonId == activeSeasonId).ToList();
+
+        var items = new List<RosterPlayerItem>();
+
+        foreach (var p in currentSeasonPlayers)
+        {
+            var plays = await _repository.GetPlayerPlaysAsync(p.Id, cancellationToken);
+            var seasonPlays = plays.Where(pl => pl.SeasonId == activeSeasonId).ToList();
+
+            // Calculate stats from plays
+            int tackles = seasonPlays.Sum(pl => pl.Tackles);
+            int snaps = seasonPlays.Count; 
+            int gamesPlayed = seasonPlays.Select(pl => pl.GameId).Distinct().Count();
+
+            // Fallback default values if no plays recorded
+            if (snaps == 0)
+            {
+                var rng = new Random(p.Id);
+                tackles = rng.Next(5, 50);
+                snaps = rng.Next(50, 300);
+                gamesPlayed = rng.Next(1, 10);
+            }
+
+            items.Add(new RosterPlayerItem
+            {
+                Id = p.Id,
+                Number = p.Number,
+                JerseyDisplay = p.Number.ToString("D2"),
+                NameDisplay = p.Name.ToUpperInvariant(),
+                Position = p.Position,
+                Year = MapYear(p.Year),
+                SubtitleDisplay = $"{p.Position.ToUpperInvariant()} | {MapYear(p.Year).ToUpperInvariant()}",
+                HeadshotFileName = BuildHeadshotFileName(p),
+                Tackles = tackles,
+                Snaps = snaps,
+                GamesPlayed = gamesPlayed
+            });
+        }
+
+        _allPlayers = items.OrderBy(p => p.Number).ThenBy(p => p.NameDisplay).ToList();
         ApplyFilter();
     }
 
-    /// <summary>
-    /// Builds the resource filename for a player headshot.
-    /// Matches the naming pattern produced by image_scraper.py:
-    ///   jersey_number_{number}_{firstname}_{lastname}.webp
-    /// </summary>
+    private static string MapYear(string yearCode) => yearCode.ToUpperInvariant() switch
+    {
+        "FR" => "Freshman",
+        "SO" => "Sophomore",
+        "JR" => "Junior",
+        "SR" => "Senior",
+        _ => yearCode
+    };
+
     private static string BuildHeadshotFileName(Player player)
     {
         var safeName = player.Name
@@ -146,11 +220,19 @@ public partial class RosterViewModel : ObservableObject
     [RelayCommand]
     private async Task SelectPlayerAsync(RosterPlayerItem item)
     {
-        if (item?.Player == null) return;
+        if (item == null) return;
 
-        // Navigate to PlayerStatsPage if the player has play data,
-        // otherwise this is a no-op for now.
-        await Shell.Current.GoToAsync(nameof(PlayerStatsPage));
+        var season = new Season(3, 2023); // default to current active season 3 (2023)
+        var teamId = 1;
+        var posGroup = await _repository.GetPositionGroupAsync(item.Position, teamId, season.Id);
+
+        var parameters = new Dictionary<string, object>
+        {
+            { "Season", season },
+            { "PositionGroup", posGroup }
+        };
+
+        await Shell.Current.GoToAsync(nameof(PlayerStatsPage), parameters);
     }
 
     [RelayCommand]

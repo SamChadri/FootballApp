@@ -486,6 +486,25 @@ public sealed class BasicTests
         var deleted = await repo.DeletePlayerAsync(5);
         Xunit.Assert.Equal(1, deleted);
     }
+
+    [Xunit.Fact]
+    public async Task CanSeedDatabaseWithRealRoster()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), "footballapp-tests", Guid.NewGuid().ToString("N"));
+        var dbPathProvider = new TestDbPathProvider(baseDir);
+        var repo = new SqliteFootballRepository(dbPathProvider);
+        
+        await DatabaseSeeder.SeedAsync(repo);
+        
+        var players = await repo.GetPlayersAsync();
+        Xunit.Assert.NotEmpty(players);
+        Xunit.Assert.DoesNotContain(players, p => p.Name.StartsWith("Player "));
+        
+        // Check a known player
+        var macResetich = players.FirstOrDefault(p => p.Name == "Mac Resetich");
+        Xunit.Assert.NotNull(macResetich);
+        Xunit.Assert.Equal(0, macResetich.Number);
+    }
 }
 
 file sealed class TestDbPathProvider : IDbPathProvider
