@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Football.Core;
+using Football.Data.Sqlite;
 using Football.MauiApp.Views;
 
 
