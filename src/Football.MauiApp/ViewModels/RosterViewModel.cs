@@ -5,34 +5,6 @@ using CommunityToolkit.Mvvm.Input;
 using Football.Core;
 using Football.MauiApp.Views;
 
-namespace Football.MauiApp.ViewModels;
-
-/// <summary>
-/// Display model for a single player row on the Roster page.
-/// </summary>
-public class RosterPlayerItem
-{
-    public int Id { get; set; }
-    public string JerseyDisplay { get; set; } = string.Empty;   // e.g. "07"
-    public string NameDisplay { get; set; } = string.Empty;     // e.g. "DEVIN WITHERSPOON"
-    public string SubtitleDisplay { get; set; } = string.Empty;  // e.g. "WR | SENIOR"
-    public string Position { get; set; } = string.Empty;
-    public string Year { get; set; } = string.Empty;
-    public int Number { get; set; }
-    public string HeadshotFileName { get; set; } = string.Empty;
-
-    // Dummy stats
-    public int Tackles { get; set; }
-    public int Snaps { get; set; }
-    public int GamesPlayed { get; set; }
-}
-
-using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Football.Core;
-using Football.Data.Sqlite;
-using Football.MauiApp.Views;
 
 namespace Football.MauiApp.ViewModels;
 
@@ -55,6 +27,8 @@ public class RosterPlayerItem
     public int Snaps { get; set; }
     public int GamesPlayed { get; set; }
 }
+
+
 
 public partial class RosterViewModel : ObservableObject
 {
