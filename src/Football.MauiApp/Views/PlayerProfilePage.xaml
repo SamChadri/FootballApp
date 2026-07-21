@@ -54,10 +54,10 @@
             <VerticalStackLayout Spacing="0">
 
                 <!-- Hero / Headshot section -->
-                <Grid HeightRequest="320" BackgroundColor="#050505">
+                <Grid HeightRequest="420" BackgroundColor="#050505">
                     <!-- Player Headshot Image -->
                     <Image Source="{Binding PlayerItem.HeadshotFileName}"
-                           Aspect="AspectFill"
+                           Aspect="AspectFit"
                            Opacity="0.45"
                            HorizontalOptions="FillAndExpand"
                            VerticalOptions="FillAndExpand" />
