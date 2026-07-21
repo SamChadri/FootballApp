@@ -197,17 +197,12 @@ public partial class RosterViewModel : ObservableObject
     {
         if (item == null) return;
 
-        var season = new Season(3, 2023); // default to current active season 3 (2023)
-        var teamId = 1;
-        var posGroup = await _repository.GetPositionGroupAsync(item.Position, teamId, season.Id);
-
         var parameters = new Dictionary<string, object>
         {
-            { "Season", season },
-            { "PositionGroup", posGroup }
+            { "PlayerItem", item }
         };
 
-        await Shell.Current.GoToAsync(nameof(PlayerStatsPage), parameters);
+        await Shell.Current.GoToAsync(nameof(PlayerProfilePage), parameters);
     }
 
     [RelayCommand]

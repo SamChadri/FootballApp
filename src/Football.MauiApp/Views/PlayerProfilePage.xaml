@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Football.MauiApp.ViewModels"
+             x:Class="Football.MauiApp.Views.PlayerProfilePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#000000"
+             Title="Player Profile">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ═══ Row 0: Top Header Bar ═══ -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Padding="16,50,16,14"
+              BackgroundColor="#111111">
+
+            <!-- Back Button -->
+            <Border WidthRequest="36" HeightRequest="36"
+                    BackgroundColor="#1A1A1A"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                <Label Text="‹" TextColor="White" FontSize="22" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- Title -->
+            <Label Grid.Column="1"
+                   Text="ROSTER"
+                   TextColor="White"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   CharacterSpacing="3"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <!-- Search Icon -->
+            <Border Grid.Column="2"
+                    WidthRequest="36" HeightRequest="36"
+                    BackgroundColor="Transparent"
+                    Stroke="Transparent"
+                    VerticalOptions="Center">
+                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                <Label Text="🔍" FontSize="18"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+        </Grid>
+
+        <!-- ═══ Row 1: Scrolling Body Content ═══ -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="0">
+
+                <!-- Hero / Headshot section -->
+                <Grid HeightRequest="320" BackgroundColor="#050505">
+                    <!-- Player Headshot Image -->
+                    <Image Source="{Binding PlayerItem.HeadshotFileName}"
+                           Aspect="AspectFill"
+                           Opacity="0.45"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand" />
+
+                    <!-- Gradient Overlay to fade the image to black at the bottom -->
+                    <BoxView VerticalOptions="Fill" HorizontalOptions="Fill">
+                        <BoxView.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="Transparent" Offset="0.0" />
+                                <GradientStop Color="#000000" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </BoxView.Background>
+                    </BoxView>
+
+                    <!-- Info Text Overlay -->
+                    <VerticalStackLayout VerticalOptions="End" Padding="24,24,24,14" Spacing="4">
+                        <!-- Jersey Display with vertical bar -->
+                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                            <Label Text="{Binding PlayerItem.JerseyDisplay}"
+                                   TextColor="#FF6B00"
+                                   FontSize="15"
+                                   FontAttributes="Bold" />
+                            <BoxView WidthRequest="2" HeightRequest="16" Color="#FF6B00" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <!-- Name -->
+                        <Label Text="{Binding FirstName}"
+                               TextColor="White"
+                               FontSize="30"
+                               FontAttributes="Bold"
+                               CharacterSpacing="1" />
+                        <Label Text="{Binding LastName}"
+                               TextColor="White"
+                               FontSize="30"
+                               FontAttributes="Bold"
+                               CharacterSpacing="1" />
+
+                        <!-- Active Roster Pill -->
+                        <Border BackgroundColor="#FF6B00"
+                                StrokeThickness="0"
+                                HorizontalOptions="Start"
+                                Padding="10,5"
+                                Margin="0,10,0,0">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="4" /></Border.StrokeShape>
+                            <Label Text="ACTIVE ROSTER"
+                                   TextColor="White"
+                                   FontSize="9"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="1.5" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Horizontal Metadata Card (Position, Year, Team ID) -->
+                <Border BackgroundColor="#111111"
+                        Stroke="#222222"
+                        StrokeThickness="1"
+                        Padding="24,18"
+                        Margin="24,12">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape>
+                    <Grid ColumnDefinitions="*,1,*,1,*" ColumnSpacing="10">
+                        <!-- Position -->
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="POSITION" TextColor="#888888" FontSize="10" FontAttributes="Bold" CharacterSpacing="1" />
+                            <Label Text="{Binding PlayerItem.Position}" TextColor="#FF6B00" FontSize="16" FontAttributes="Bold" />
+                        </VerticalStackLayout>
+
+                        <!-- Divider -->
+                        <BoxView Grid.Column="1" WidthRequest="1" Color="#2A2A2A" VerticalOptions="Fill" />
+
+                        <!-- Year -->
+                        <VerticalStackLayout Grid.Column="2" Spacing="4" Margin="14,0,0,0">
+                            <Label Text="YEAR" TextColor="#888888" FontSize="10" FontAttributes="Bold" CharacterSpacing="1" />
+                            <Label Text="{Binding PlayerItem.Year}" TextColor="White" FontSize="16" FontAttributes="Bold" />
+                        </VerticalStackLayout>
+
+                        <!-- Divider -->
+                        <BoxView Grid.Column="3" WidthRequest="1" Color="#2A2A2A" VerticalOptions="Fill" />
+
+                        <!-- Team ID -->
+                        <VerticalStackLayout Grid.Column="4" Spacing="4" Margin="14,0,0,0" HorizontalOptions="End">
+                            <Label Text="TEAM ID" TextColor="#888888" FontSize="10" FontAttributes="Bold" CharacterSpacing="1" />
+                            <Label Text="{Binding TeamIdDisplay}" TextColor="White" FontSize="16" FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Statistics Cards (Grid Layout) -->
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="24,12">
+                    <!-- Season Tackles Card -->
+                    <Border Grid.Column="0" BackgroundColor="#111111" Stroke="#222222" StrokeThickness="1" Padding="14,16" HeightRequest="150">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                        <Grid RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0" Text="SEASON TACKLES" TextColor="#888888" FontSize="9" FontAttributes="Bold" CharacterSpacing="1" />
+                            <!-- Football Icon Top-Right -->
+                            <Label Grid.Row="0" Text="🏈" TextColor="#333333" FontSize="18" HorizontalOptions="End" Opacity="0.4" />
+
+                            <!-- Value -->
+                            <HorizontalStackLayout Grid.Row="1" VerticalOptions="Center" Spacing="4">
+                                <Label Text="{Binding PlayerItem.Tackles}" TextColor="#FF6B00" FontSize="36" FontAttributes="Bold" />
+                                <Label Text="SOLO" TextColor="#888888" FontSize="9" VerticalOptions="End" Margin="0,0,0,8" />
+                            </HorizontalStackLayout>
+
+                            <!-- Progress Bar -->
+                            <ProgressBar Grid.Row="2" Progress="{Binding TacklesProgress}" ProgressColor="#FF6B00" BackgroundColor="#222222" HeightRequest="4" VerticalOptions="End" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Total Snaps Card -->
+                    <Border Grid.Column="1" BackgroundColor="#111111" Stroke="#222222" StrokeThickness="1" Padding="14,16" HeightRequest="150">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                        <Grid RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0" Text="TOTAL SNAPS" TextColor="#888888" FontSize="9" FontAttributes="Bold" CharacterSpacing="1" />
+
+                            <!-- Value -->
+                            <Label Grid.Row="1" Text="{Binding PlayerItem.Snaps}" TextColor="#FF6B00" FontSize="36" FontAttributes="Bold" VerticalOptions="Center" />
+
+                            <!-- Trend -->
+                            <HorizontalStackLayout Grid.Row="2" Spacing="4" VerticalOptions="End">
+                                <Label Text="📈" TextColor="#FF6B00" FontSize="11" VerticalOptions="Center" />
+                                <Label Text="12% INCREASE FROM PREV. SEASON" TextColor="#888888" FontSize="8" LineBreakMode="WordWrap" MaxLines="2" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Games Played Card -->
+                    <Border Grid.Column="2" BackgroundColor="#111111" Stroke="#222222" StrokeThickness="1" Padding="14,16" HeightRequest="150">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                        <Grid RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0" Text="GAMES PLAYED" TextColor="#888888" FontSize="9" FontAttributes="Bold" CharacterSpacing="1" />
+
+                            <!-- Value -->
+                            <Label Grid.Row="1" Text="{Binding PlayerItem.GamesPlayed}" TextColor="#FF6B00" FontSize="36" FontAttributes="Bold" VerticalOptions="Center" />
+
+                            <!-- Dots & Percentage -->
+                            <Grid Grid.Row="2" ColumnDefinitions="*,Auto" VerticalOptions="End">
+                                <HorizontalStackLayout Grid.Column="0" Spacing="3" VerticalOptions="Center">
+                                    <Ellipse WidthRequest="6" HeightRequest="6" Fill="{Binding Dot1Color}" />
+                                    <Ellipse WidthRequest="6" HeightRequest="6" Fill="{Binding Dot2Color}" />
+                                    <Ellipse WidthRequest="6" HeightRequest="6" Fill="{Binding Dot3Color}" />
+                                    <Ellipse WidthRequest="6" HeightRequest="6" Fill="{Binding Dot4Color}" />
+                                </HorizontalStackLayout>
+                                <Label Grid.Column="1" Text="{Binding GamesPlayedPercentDisplay}" TextColor="#888888" FontSize="8" VerticalOptions="Center" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- Action Buttons -->
+                <VerticalStackLayout Spacing="12" Margin="24,16,24,24">
+                    <Button Text="EDIT PLAYER DATA"
+                            BackgroundColor="#FF6B00"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            HeightRequest="50"
+                            CornerRadius="8"
+                            Command="{Binding EditPlayerCommand}" />
+
+                    <Button Text="EXPORT SCOUTING REPORT"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            StrokeColor="#333333"
+                            StrokeThickness="1.5"
+                            FontAttributes="Bold"
+                            HeightRequest="50"
+                            CornerRadius="8"
+                            Command="{Binding ExportReportCommand}" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ═══ Row 2: Bottom Navigation Bar ═══ -->
+        <Grid Grid.Row="2" HeightRequest="70" BackgroundColor="#111111">
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    Spacing="40">
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="👥" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Teams" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="⚙" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Settings" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="🏈" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Games" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="👤" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Players" TextColor="#FF6B00" FontSize="9"
+                           FontAttributes="Bold" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="⊕" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="Create" TextColor="#666666" FontSize="9"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>
