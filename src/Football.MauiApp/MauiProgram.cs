@@ -53,6 +53,9 @@ public static class MauiProgram
         builder.Services.AddTransient<RosterPage>();
         builder.Services.AddTransient<RosterViewModel>();
 
+        builder.Services.AddTransient<PlayerProfilePage>();
+builder.Services.AddTransient<PlayerProfileViewModel>();
+
 		return builder.Build();
 	}
 }
