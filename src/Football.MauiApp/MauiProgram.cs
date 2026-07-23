@@ -5,6 +5,8 @@ using Football.MauiApp.Infrastructure;
 using Football.MauiApp.Views;
 using Football.MauiApp.ViewModels;
 
+using CommunityToolkit.Maui;
+
 namespace Football.MauiApp;
 
 public static class MauiProgram
@@ -12,6 +14,7 @@ public static class MauiProgram
 	public static Microsoft.Maui.Hosting.MauiApp CreateMauiApp()
 	{
 		var builder = Microsoft.Maui.Hosting.MauiApp.CreateBuilder();
+                builder.UseMauiCommunityToolkit();
 		builder
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
@@ -27,6 +30,8 @@ public static class MauiProgram
         // Data Layer
         builder.Services.AddSingleton<IDbPathProvider, MauiDbPathProvider>();
         builder.Services.AddSingleton<IFootballRepository, SqliteFootballRepository>();
+
+        
 
         // ViewModels & Pages
         builder.Services.AddTransient<HomePage>();
