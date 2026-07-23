@@ -120,6 +120,30 @@ public partial class AddPlayViewModel : ObservableObject
         SelectedGameIndex = GameLabels.Count > 0 ? 0 : 0;
     }
 
+    private void ClearForm()
+    {
+        seasonIdText = string.Empty;
+        selectedGameIndex = 0;
+        selectedPlayerIndex = 0;
+        playNumText = string.Empty;
+        numPenaltiesText = string.Empty;
+        penaltyNames = string.Empty;
+        playYardsText = string.Empty;
+        tacklesText = string.Empty;
+        calls = string.Empty;
+        techText = string.Empty;
+        pursText = string.Empty;
+        mtpText = string.Empty;
+        typeText = string.Empty;
+        stat1 = string.Empty;
+        stat2 = string.Empty;
+        loaf = false;
+        comment = string.Empty;
+        position = string.Empty;
+        teamIdText = string.Empty;
+    }
+    
+
     public async Task SaveAsync(CancellationToken cancellationToken = default)
     {
         if (GameLabels.Count == 0 || PlayerLabels.Count == 0)
@@ -170,6 +194,12 @@ public partial class AddPlayViewModel : ObservableObject
             TeamId: teamId,
             SeasonId: ParseSeasonId());
 
-        await _repository.AddPlayAsync(play, cancellationToken);
+        var result = await _repository.AddPlayAsync(play, cancellationToken);
+        if (result == 1)
+        {
+            await Shell.Current.CurrentPage.ShowPopupAsync(
+                new SuccessPopup("Play Added", $"Play #{play.PlayNum} was added."));
+            ClearForm();
+        }
     }
 }

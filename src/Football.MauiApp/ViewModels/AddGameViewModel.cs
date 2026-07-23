@@ -84,6 +84,22 @@ public partial class AddGameViewModel : ObservableObject
             Location: location,
             SeasonId: ParseSeasonId());
 
-        await _repository.AddGameAsync(game, cancellationToken);
+        var result = await _repository.AddGameAsync(game, cancellationToken);
+        if (result == 1)
+        {
+            await Shell.Current.CurrentPage.ShowPopupAsync(
+                new SuccessPopup("Game Added", $"Game #{game.Number} was added."));
+            ClearForm();
+        }
+    }
+
+    private void ClearForm()
+    {
+        opponent = string.Empty;
+        pointsText = "0";
+        opponentPointsText = "0";
+        resultPickerIndex = 0;
+        seasonIdText = "1";
+        location = "H";
     }
 }

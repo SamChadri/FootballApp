@@ -37,6 +37,15 @@ public partial class AddPlayerViewModel : ObservableObject
         _nextPlayerId = players.Count == 0 ? 1 : players.Max(p => p.Id) + 1;
     }
 
+    private void ClearForm()
+    {
+        numberText = string.Empty;
+        name = string.Empty;
+        position = string.Empty;
+        year = string.Empty;
+        teamIdText = "1";
+    }
+
     public async Task SaveAsync(CancellationToken cancellationToken = default)
     {
         if (!int.TryParse(NumberText, out var number))
@@ -53,6 +62,13 @@ public partial class AddPlayerViewModel : ObservableObject
             TeamId: teamId,
             SeasonId: seasonId);
 
-        await _repository.AddPlayerAsync(player, cancellationToken);
+        var result = await _repository.AddPlayerAsync(player, cancellationToken);
+
+        if (result == 1)
+        {
+            await Shell.Current.CurrentPage.ShowPopupAsync(
+                new SuccessPopup("Player Added", $"{player.Name} was added."));
+            ClearForm();
+        }
     }
 }
