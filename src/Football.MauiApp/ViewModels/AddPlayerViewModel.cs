@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Maui.Views;
 using Football.Core;
 using Football.Data.Sqlite;
 

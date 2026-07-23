@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Maui.Views;
 using Football.Core;
 using Football.Data.Sqlite;
 
@@ -142,7 +143,7 @@ public partial class AddPlayViewModel : ObservableObject
         position = string.Empty;
         teamIdText = string.Empty;
     }
-    
+
 
     public async Task SaveAsync(CancellationToken cancellationToken = default)
     {
