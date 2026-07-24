@@ -85,10 +85,11 @@ public partial class AddGameViewModel : ObservableObject
             OpponentPoints: opPts,
             Location: location,
             SeasonId: ParseSeasonId());
+        var result = -1;
 
         try
         {
-            var result = await _repository.AddGameAsync(game, cancellationToken);
+            result = await _repository.AddGameAsync(game, cancellationToken);
 
             await Shell.Current.DisplayAlert("Debug", $"Result = {result}", "OK");
         }
