@@ -86,11 +86,30 @@ public partial class AddGameViewModel : ObservableObject
             Location: location,
             SeasonId: ParseSeasonId());
 
-        var result = await _repository.AddGameAsync(game, cancellationToken);
+        try
+        {
+            var result = await _repository.AddGameAsync(game, cancellationToken);
+
+            await Shell.Current.DisplayAlert("Debug", $"Result = {result}", "OK");
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Database Error", ex.ToString(), "OK");
+        }
         if (result == 1)
         {
+            /*
             await Shell.Current.CurrentPage.ShowPopupAsync(
                 new SuccessPopup("Game Added", $"Game #{game.Number} was added."));
+            ClearForm();
+            */
+
+            await Application.Current!.MainPage!.DisplayAlert(
+                "Debug",
+                "SaveGameAsync reached popup section.",
+                "OK");
+
+
             ClearForm();
         }
     }
