@@ -63,9 +63,16 @@ public partial class AddPlayerViewModel : ObservableObject
             Year: Year,
             TeamId: teamId,
             SeasonId: seasonId);
+        var result = 0;
 
-        var result = await _repository.AddPlayerAsync(player, cancellationToken);
-
+        try
+        {
+            result = await _repository.AddPlayerAsync(player, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Database Error", ex.ToString(), "OK");
+        }
         if (result == 1)
         {
             await Shell.Current.CurrentPage.ShowPopupAsync(

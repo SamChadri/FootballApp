@@ -90,8 +90,6 @@ public partial class AddGameViewModel : ObservableObject
         try
         {
             result = await _repository.AddGameAsync(game, cancellationToken);
-
-            await Shell.Current.DisplayAlert("Debug", $"Result = {result}", "OK");
         }
         catch (Exception ex)
         {
@@ -99,18 +97,8 @@ public partial class AddGameViewModel : ObservableObject
         }
         if (result == 1)
         {
-            /*
             await Shell.Current.CurrentPage.ShowPopupAsync(
                 new SuccessPopup("Game Added", $"Game #{game.Number} was added."));
-            ClearForm();
-            */
-
-            await Application.Current!.MainPage!.DisplayAlert(
-                "Debug",
-                "SaveGameAsync reached popup section.",
-                "OK");
-
-
             ClearForm();
         }
     }

@@ -196,7 +196,16 @@ public partial class AddPlayViewModel : ObservableObject
             TeamId: teamId,
             SeasonId: ParseSeasonId());
 
-        var result = await _repository.AddPlayAsync(play, cancellationToken);
+        var result = 0;
+
+        try
+        {
+            result = await _repository.AddPlayAsync(play, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Database Error", ex.ToString(), "OK");
+        }
         if (result == 1)
         {
             await Shell.Current.CurrentPage.ShowPopupAsync(
