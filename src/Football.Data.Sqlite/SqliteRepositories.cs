@@ -41,7 +41,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         createGames.CommandText =
             """
             CREATE TABLE IF NOT EXISTS Games (
-              ID INTEGER PRIMARY KEY,
+              ID INTEGER PRIMARY KEY AUTOINCREMENT,
               Number INTEGER,
               Date TEXT,
               Opponent TEXT,
@@ -58,7 +58,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         createSeasons.CommandText =
             """
             CREATE TABLE IF NOT EXISTS Seasons (
-              ID INTEGER PRIMARY KEY,
+              ID INTEGER PRIMARY KEY AUTOINCREMENT,
               Year INTEGER
             );
             """;
@@ -68,7 +68,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         createPlayers.CommandText =
             """
             CREATE TABLE IF NOT EXISTS Players (
-              ID INTEGER PRIMARY KEY,
+              ID INTEGER PRIMARY KEY AUTOINCREMENT,
               Number INTEGER,
               Name TEXT,
               Position TEXT,
@@ -83,7 +83,7 @@ public sealed class SqliteFootballRepository : IFootballRepository
         createPlays.CommandText =
             """
             CREATE TABLE IF NOT EXISTS Plays (
-              ID INTEGER PRIMARY KEY,
+              ID INTEGER PRIMARY KEY AUTOINCREMENT,
               PlayNum INTEGER,
               Calls TEXT,
               PlayerId INTEGER,
@@ -118,10 +118,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
         var cmd = db.CreateCommand();
         cmd.CommandText =
             """
-            INSERT INTO Games(ID,Number, Date, Opponent, Result, Points, OpPoints, Location, SeasonId)
-            VALUES ($id,$number, $date, $opponent, $result, $points, $opPoints, $location, $seasonId);
+            INSERT INTO Games(Number, Date, Opponent, Result, Points, OpPoints, Location, SeasonId)
+            VALUES ($number, $date, $opponent, $result, $points, $opPoints, $location, $seasonId);
             """;
-        cmd.Parameters.AddWithValue("$id", game.Id);
         cmd.Parameters.AddWithValue("$number", game.Number);
         cmd.Parameters.AddWithValue("$date", game.Date.ToString("yyyy-MM-dd"));
         cmd.Parameters.AddWithValue("$opponent", game.Opponent);
@@ -143,10 +142,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
         var cmd = db.CreateCommand();
         cmd.CommandText =
             """
-            INSERT INTO Players(ID,Number, Name, Position, Year, TeamId, SeasonId)
-            VALUES ($id,$number, $name, $position, $year, $teamId, $seasonId);
+            INSERT INTO Players(Number, Name, Position, Year, TeamId, SeasonId)
+            VALUES ($number, $name, $position, $year, $teamId, $seasonId);
             """;
-        cmd.Parameters.AddWithValue("$id", player.Id);
         cmd.Parameters.AddWithValue("$number", player.Number);
         cmd.Parameters.AddWithValue("$name", player.Name);
         cmd.Parameters.AddWithValue("$position", player.Position);
@@ -166,10 +164,9 @@ public sealed class SqliteFootballRepository : IFootballRepository
 
         var cmd = db.CreateCommand();
         cmd.CommandText = """
-            INSERT INTO Plays(ID,PlayNum, Calls, PlayerId, NumPenalties, PenaltyNames, PlayYards, Tackles, Tech, Purs, Mtp, Type, Stat1, Stat2, Loaf, Comment, Position, GameId, TeamId , SeasonId)
-            VALUES ($id,$playNum, $calls, $PlayerId, $numPenalties, $penaltyNames, $playYards, $tackles, $tech, $purs, $mtp, $type, $stat1, $stat2, $loaf, $comment, $position, $GameId, $TeamId, $seasonId);
+            INSERT INTO Plays(PlayNum, Calls, PlayerId, NumPenalties, PenaltyNames, PlayYards, Tackles, Tech, Purs, Mtp, Type, Stat1, Stat2, Loaf, Comment, Position, GameId, TeamId, SeasonId)
+            VALUES ($playNum, $calls, $PlayerId, $numPenalties, $penaltyNames, $playYards, $tackles, $tech, $purs, $mtp, $type, $stat1, $stat2, $loaf, $comment, $position, $GameId, $TeamId, $seasonId);
             """;
-        cmd.Parameters.AddWithValue("$id", play.Id);
         cmd.Parameters.AddWithValue("$playNum", play.PlayNum);
         cmd.Parameters.AddWithValue("$calls", play.Calls);
         cmd.Parameters.AddWithValue("$PlayerId", play.PlayerId);

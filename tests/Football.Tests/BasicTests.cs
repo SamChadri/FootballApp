@@ -450,10 +450,13 @@ public sealed class BasicTests
         var repo = new SqliteFootballRepository(dbPathProvider);
         await repo.InitializeAsync();
 
-        var inserted = await repo.AddPlayAsync(MakePlay(id: 5));
+        var inserted = await repo.AddPlayAsync(MakePlay());
         Xunit.Assert.Equal(1, inserted);
 
-        var deleted = await repo.DeletePlayAsync(5);
+        var plays = await repo.GetPlaysAsync();
+        var playId = plays[0].Id;
+
+        var deleted = await repo.DeletePlayAsync(playId);
         Xunit.Assert.Equal(1, deleted);
     }
 
@@ -465,10 +468,13 @@ public sealed class BasicTests
         var repo = new SqliteFootballRepository(dbPathProvider);
         await repo.InitializeAsync();
 
-        var inserted = await repo.AddGameAsync(MakeGame(id: 5));
+        var inserted = await repo.AddGameAsync(MakeGame());
         Xunit.Assert.Equal(1, inserted);
 
-        var deleted = await repo.DeleteGameAsync(5);
+        var games = await repo.GetGamesAsync(TestSeasonId);
+        var gameId = games[0].Id;
+
+        var deleted = await repo.DeleteGameAsync(gameId);
         Xunit.Assert.Equal(1, deleted);
     }
 
@@ -480,10 +486,13 @@ public sealed class BasicTests
         var repo = new SqliteFootballRepository(dbPathProvider);
         await repo.InitializeAsync();
 
-        var inserted = await repo.AddPlayerAsync(MakePlayer(id:5));
+        var inserted = await repo.AddPlayerAsync(MakePlayer());
         Xunit.Assert.Equal(1, inserted);
 
-        var deleted = await repo.DeletePlayerAsync(5);
+        var players = await repo.GetPlayersAsync();
+        var playerId = players[0].Id;
+
+        var deleted = await repo.DeletePlayerAsync(playerId);
         Xunit.Assert.Equal(1, deleted);
     }
 
